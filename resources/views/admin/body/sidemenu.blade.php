@@ -127,12 +127,12 @@ $url = str_replace(['/','.php'], '', $url);
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
-            <?php  if (str_contains($url, 'index') || empty($url) || str_contains($url, 'administrativo')) { ?>
+            <?php  if (str_contains($url, 'index') || empty($url) || str_contains($url, 'dashboard')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="sistema-administrativo">
+                <a class="nav-item-hold" href="dashboard">
                     <i class="nav-icon i-Bar-Chart"></i>
                     <span class="nav-text">DASHBOARD</span>
                 </a>
