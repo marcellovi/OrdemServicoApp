@@ -21,22 +21,26 @@
                             <img src="assets/images/er_profile.png" alt="">
                         </div>
                         <h1 class="mb-3 text-18">Log In</h1>
-                        <form>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" class="form-control form-control-rounded" type="email">
+                                <label for="email" >Email</label>
+                                <input id="email" class="form-control form-control-rounded" type="email" name="email" required="required" autofocus="autofocus" autocomplete="username">
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             <div class="form-group">
                                 <label for="password">Senha</label>
-                                <input id="password" class="form-control form-control-rounded" type="password">
+                                <input id="password" class="form-control form-control-rounded" type="password" name="password" required="required">
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
-{{--                            <button class="btn btn-rounded btn-primary btn-block mt-2" >Sign In</button>--}}
-                            <a href="sistema-administrativo" class="btn btn-rounded btn-primary btn-block mt-2" >Sign In</a>
+                            <button type="submit" class="btn btn-rounded btn-primary btn-block mt-2" >Log In</button>
 
                         </form>
 
                         <div class="mt-3 text-center">
-                            <a href="#" class="text-muted"><u>Esqueceu Senha?</u></a>
+                            @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="text-muted"><u>Esqueceu Senha?</u></a>
+                            @endif
                         </div>
                     </div>
                 </div>
