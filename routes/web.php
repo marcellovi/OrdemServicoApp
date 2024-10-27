@@ -5,11 +5,11 @@ use App\Http\Controllers\RolesAndPermissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login2');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -43,7 +43,7 @@ Route::view('relatorios','reports.index');
 Route::view('ativos','assets.index');
 Route::view('equipe','teams.index');
 Route::view('compras','transactions.index');
-Route::view('sistema-administrativo','admin.dashboard');
+//Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
 
 //Route::view('test','frontend.index');

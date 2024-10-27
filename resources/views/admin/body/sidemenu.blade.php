@@ -113,7 +113,10 @@ $url = str_replace(['/','.php'], '', $url);
                     </div>
                     <a class="dropdown-item">Account settings</a>
                     <a class="dropdown-item">Billing history</a>
-                    <a class="dropdown-item" href="/">Sign out</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Log out</a>
+                    </form>
                 </div>
             </div>
         </div>
