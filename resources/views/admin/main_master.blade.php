@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/images/checkmark.svg') }}" rel="icon" />
+    <link href="{{ asset('assets/images/checkmark.svg') }}" rel="icon"/>
 
     <title>Sistema de O.S</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
@@ -31,19 +31,15 @@
     <!-- Top Menu and Left Side Menu -->
 
     <!--=============== Left side End ================-->
-    @include('frontend.body.sidemenu');
+    @include('admin.body.sidemenu');
 
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
-    @yield('main')
+        @yield('main')
     </div>
     <!-- ============ Body content End ============= -->
 </div>
 <!--=============== End app-admin-wrap ================-->
-
-
-
-
 
 
 </div>

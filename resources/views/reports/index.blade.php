@@ -29,7 +29,7 @@
 
     <!-- Top Menu and Left Side Menu -->
     <!--=============== Left side End ================-->
-    @include ('frontend.body.sidemenu');
+    @include ('admin.body.sidemenu');
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
 
@@ -48,17 +48,20 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs justify-content-end mb-4" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="invoice-tab" data-toggle="tab" href="#invoice" role="tab" aria-controls="invoice" aria-selected="true">Relatório</a>
+                        <a class="nav-link active" id="invoice-tab" data-toggle="tab" href="#invoice" role="tab"
+                           aria-controls="invoice" aria-selected="true">Relatório</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="false">Editar/Filtar Relatório</a>
+                        <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit"
+                           aria-selected="false">Editar/Filtar Relatório</a>
                     </li>
 
                 </ul>
                 <div class="card">
 
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+                        <div class="tab-pane fade show active" id="invoice" role="tabpanel"
+                             aria-labelledby="invoice-tab">
                             <div class="d-sm-flex mb-5" data-view="print">
                                 <span class="m-auto"></span>
                                 <button class="btn btn-primary mb-sm-0 mb-3 print-invoice">Gerar Relatório</button>
@@ -152,7 +155,8 @@
                                         <h4 class="font-weight-bold">Order Info</h4>
                                         <div class="col-sm-4 form-group mb-3 pl-0">
                                             <label for="orderNo">Order Number</label>
-                                            <input type="text" class="form-control" id="orderNo" placeholder="Enter order number">
+                                            <input type="text" class="form-control" id="orderNo"
+                                                   placeholder="Enter order number">
                                         </div>
                                     </div>
                                     <div class="col-md-3 text-right">
@@ -177,7 +181,384 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="order-datepicker">Order Date</label>
-                                            <input id="order-datepicker" class="form-control text-right picker__input" placeholder="yyyy-mm-dd" name="dp" readonly="" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="order-datepicker_root"><div class="picker" id="order-datepicker_root" aria-hidden="true"><div class="picker__holder" tabindex="-1"><div class="picker__frame"><div class="picker__wrap"><div class="picker__box"><div class="picker__header"><div class="picker__month">September</div><div class="picker__year">2024</div><div class="picker__nav--prev" data-nav="-1" role="button" aria-controls="order-datepicker_table" title="Previous month"> </div><div class="picker__nav--next" data-nav="1" role="button" aria-controls="order-datepicker_table" title="Next month"> </div></div><table class="picker__table" id="order-datepicker_table" role="grid" aria-controls="order-datepicker" aria-readonly="true"><thead><tr><th class="picker__weekday" scope="col" title="Sunday">Sun</th><th class="picker__weekday" scope="col" title="Monday">Mon</th><th class="picker__weekday" scope="col" title="Tuesday">Tue</th><th class="picker__weekday" scope="col" title="Wednesday">Wed</th><th class="picker__weekday" scope="col" title="Thursday">Thu</th><th class="picker__weekday" scope="col" title="Friday">Fri</th><th class="picker__weekday" scope="col" title="Saturday">Sat</th></tr></thead><tbody><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725166800000" role="gridcell" aria-label="1 September, 2024">1</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725253200000" role="gridcell" aria-label="2 September, 2024">2</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725339600000" role="gridcell" aria-label="3 September, 2024">3</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725426000000" role="gridcell" aria-label="4 September, 2024">4</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725512400000" role="gridcell" aria-label="5 September, 2024">5</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725598800000" role="gridcell" aria-label="6 September, 2024">6</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725685200000" role="gridcell" aria-label="7 September, 2024">7</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725771600000" role="gridcell" aria-label="8 September, 2024">8</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725858000000" role="gridcell" aria-label="9 September, 2024">9</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1725944400000" role="gridcell" aria-label="10 September, 2024">10</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726030800000" role="gridcell" aria-label="11 September, 2024">11</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726117200000" role="gridcell" aria-label="12 September, 2024">12</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726203600000" role="gridcell" aria-label="13 September, 2024">13</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726290000000" role="gridcell" aria-label="14 September, 2024">14</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726376400000" role="gridcell" aria-label="15 September, 2024">15</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726462800000" role="gridcell" aria-label="16 September, 2024">16</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726549200000" role="gridcell" aria-label="17 September, 2024">17</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726635600000" role="gridcell" aria-label="18 September, 2024">18</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726722000000" role="gridcell" aria-label="19 September, 2024">19</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726808400000" role="gridcell" aria-label="20 September, 2024">20</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726894800000" role="gridcell" aria-label="21 September, 2024">21</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1726981200000" role="gridcell" aria-label="22 September, 2024">22</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727067600000" role="gridcell" aria-label="23 September, 2024">23</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727154000000" role="gridcell" aria-label="24 September, 2024">24</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727240400000" role="gridcell" aria-label="25 September, 2024">25</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727326800000" role="gridcell" aria-label="26 September, 2024">26</div></td><td role="presentation"><div class="picker__day picker__day--infocus picker__day--today picker__day--highlighted" data-pick="1727413200000" role="gridcell" aria-label="27 September, 2024" aria-activedescendant="true">27</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727499600000" role="gridcell" aria-label="28 September, 2024">28</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727586000000" role="gridcell" aria-label="29 September, 2024">29</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1727672400000" role="gridcell" aria-label="30 September, 2024">30</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1727758800000" role="gridcell" aria-label="1 October, 2024">1</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1727845200000" role="gridcell" aria-label="2 October, 2024">2</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1727931600000" role="gridcell" aria-label="3 October, 2024">3</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728018000000" role="gridcell" aria-label="4 October, 2024">4</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728104400000" role="gridcell" aria-label="5 October, 2024">5</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728190800000" role="gridcell" aria-label="6 October, 2024">6</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728277200000" role="gridcell" aria-label="7 October, 2024">7</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728363600000" role="gridcell" aria-label="8 October, 2024">8</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728450000000" role="gridcell" aria-label="9 October, 2024">9</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728536400000" role="gridcell" aria-label="10 October, 2024">10</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728622800000" role="gridcell" aria-label="11 October, 2024">11</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1728709200000" role="gridcell" aria-label="12 October, 2024">12</div></td></tr></tbody></table><div class="picker__footer"><button class="picker__button--today" type="button" data-pick="1727413200000" disabled="" aria-controls="order-datepicker">Today</button><button class="picker__button--clear" type="button" data-clear="1" disabled="" aria-controls="order-datepicker">Clear</button><button class="picker__button--close" type="button" data-close="true" disabled="" aria-controls="order-datepicker">Close</button></div></div></div></div></div></div>
+                                            <input id="order-datepicker" class="form-control text-right picker__input"
+                                                   placeholder="yyyy-mm-dd" name="dp" readonly="" aria-haspopup="true"
+                                                   aria-expanded="false" aria-readonly="false"
+                                                   aria-owns="order-datepicker_root">
+                                            <div class="picker" id="order-datepicker_root" aria-hidden="true">
+                                                <div class="picker__holder" tabindex="-1">
+                                                    <div class="picker__frame">
+                                                        <div class="picker__wrap">
+                                                            <div class="picker__box">
+                                                                <div class="picker__header">
+                                                                    <div class="picker__month">September</div>
+                                                                    <div class="picker__year">2024</div>
+                                                                    <div class="picker__nav--prev" data-nav="-1"
+                                                                         role="button"
+                                                                         aria-controls="order-datepicker_table"
+                                                                         title="Previous month"></div>
+                                                                    <div class="picker__nav--next" data-nav="1"
+                                                                         role="button"
+                                                                         aria-controls="order-datepicker_table"
+                                                                         title="Next month"></div>
+                                                                </div>
+                                                                <table class="picker__table" id="order-datepicker_table"
+                                                                       role="grid" aria-controls="order-datepicker"
+                                                                       aria-readonly="true">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Sunday">Sun
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Monday">Mon
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Tuesday">Tue
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Wednesday">Wed
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Thursday">Thu
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Friday">Fri
+                                                                        </th>
+                                                                        <th class="picker__weekday" scope="col"
+                                                                            title="Saturday">Sat
+                                                                        </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725166800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="1 September, 2024">1
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725253200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="2 September, 2024">2
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725339600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="3 September, 2024">3
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725426000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="4 September, 2024">4
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725512400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="5 September, 2024">5
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725598800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="6 September, 2024">6
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725685200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="7 September, 2024">7
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725771600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="8 September, 2024">8
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725858000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="9 September, 2024">9
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1725944400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="10 September, 2024">10
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726030800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="11 September, 2024">11
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726117200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="12 September, 2024">12
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726203600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="13 September, 2024">13
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726290000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="14 September, 2024">14
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726376400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="15 September, 2024">15
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726462800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="16 September, 2024">16
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726549200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="17 September, 2024">17
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726635600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="18 September, 2024">18
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726722000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="19 September, 2024">19
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726808400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="20 September, 2024">20
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726894800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="21 September, 2024">21
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1726981200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="22 September, 2024">22
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727067600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="23 September, 2024">23
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727154000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="24 September, 2024">24
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727240400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="25 September, 2024">25
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727326800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="26 September, 2024">26
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus picker__day--today picker__day--highlighted"
+                                                                                 data-pick="1727413200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="27 September, 2024"
+                                                                                 aria-activedescendant="true">27
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727499600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="28 September, 2024">28
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727586000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="29 September, 2024">29
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--infocus"
+                                                                                 data-pick="1727672400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="30 September, 2024">30
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1727758800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="1 October, 2024">1
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1727845200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="2 October, 2024">2
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1727931600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="3 October, 2024">3
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728018000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="4 October, 2024">4
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728104400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="5 October, 2024">5
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728190800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="6 October, 2024">6
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728277200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="7 October, 2024">7
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728363600000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="8 October, 2024">8
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728450000000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="9 October, 2024">9
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728536400000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="10 October, 2024">10
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728622800000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="11 October, 2024">11
+                                                                            </div>
+                                                                        </td>
+                                                                        <td role="presentation">
+                                                                            <div class="picker__day picker__day--outfocus"
+                                                                                 data-pick="1728709200000"
+                                                                                 role="gridcell"
+                                                                                 aria-label="12 October, 2024">12
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="picker__footer">
+                                                                    <button class="picker__button--today" type="button"
+                                                                            data-pick="1727413200000" disabled=""
+                                                                            aria-controls="order-datepicker">Today
+                                                                    </button>
+                                                                    <button class="picker__button--clear" type="button"
+                                                                            data-clear="1" disabled=""
+                                                                            aria-controls="order-datepicker">Clear
+                                                                    </button>
+                                                                    <button class="picker__button--close" type="button"
+                                                                            data-close="true" disabled=""
+                                                                            aria-controls="order-datepicker">Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +568,8 @@
                                     <div class="col-md-6">
                                         <h5 class="font-weight-bold">Bill From</h5>
                                         <div class="col-md-10 form-group mb-3 pl-0">
-                                            <input type="text" class="form-control" id="billFrom3" placeholder="Bill From">
+                                            <input type="text" class="form-control" id="billFrom3"
+                                                   placeholder="Bill From">
                                         </div>
                                         <div class="col-md-10 form-group mb-3 pl-0">
                                             <textarea class="form-control" placeholder="Bill From Address"></textarea>
@@ -197,10 +579,12 @@
                                     <div class="col-md-6 text-right">
                                         <h5 class="font-weight-bold">Bill To</h5>
                                         <div class="col-md-10 offset-md-2 form-group mb-3 pr-0">
-                                            <input type="text" class="form-control text-right" id="billFrom2" placeholder="Bill From">
+                                            <input type="text" class="form-control text-right" id="billFrom2"
+                                                   placeholder="Bill From">
                                         </div>
                                         <div class="col-md-10 offset-md-2 form-group mb-3 pr-0">
-                                            <textarea class="form-control text-right" placeholder="Bill From Address"></textarea>
+                                            <textarea class="form-control text-right"
+                                                      placeholder="Bill From Address"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -221,33 +605,41 @@
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>
-                                                    <input value="Product 1" type="text" class="form-control" placeholder="Item Name">
+                                                    <input value="Product 1" type="text" class="form-control"
+                                                           placeholder="Item Name">
                                                 </td>
                                                 <td>
-                                                    <input value="300" type="number" class="form-control" placeholder="Unit Price">
+                                                    <input value="300" type="number" class="form-control"
+                                                           placeholder="Unit Price">
                                                 </td>
                                                 <td>
-                                                    <input value="2" type="number" class="form-control" placeholder="Unit">
+                                                    <input value="2" type="number" class="form-control"
+                                                           placeholder="Unit">
                                                 </td>
                                                 <td>600</td>
                                                 <td>
-                                                    <button class="btn btn-outline-secondary float-right">Delete</button>
+                                                    <button class="btn btn-outline-secondary float-right">Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>
-                                                    <input value="Product 1" type="text" class="form-control" placeholder="Item Name">
+                                                    <input value="Product 1" type="text" class="form-control"
+                                                           placeholder="Item Name">
                                                 </td>
                                                 <td>
-                                                    <input value="300" type="number" class="form-control" placeholder="Unit Price">
+                                                    <input value="300" type="number" class="form-control"
+                                                           placeholder="Unit Price">
                                                 </td>
                                                 <td>
-                                                    <input value="2" type="number" class="form-control" placeholder="Unit">
+                                                    <input value="2" type="number" class="form-control"
+                                                           placeholder="Unit">
                                                 </td>
                                                 <td>600</td>
                                                 <td>
-                                                    <button class="btn btn-outline-secondary float-right">Delete</button>
+                                                    <button class="btn btn-outline-secondary float-right">Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -443,9 +835,6 @@
 <script src="assets/js/vendor/apexcharts.min.js"></script>
 <script src="assets/js/vendor/echarts.min.js"></script>
 <script src="assets/js/es5/echart.options.min.js"></script>
-
-
-
 
 
 <!-- New Added -->

@@ -1,4 +1,4 @@
-@extends('frontend.main_master')
+@extends('admin.main_master')
 @section('main')
     <div class="breadcrumb">
         <h1 class="mr-2">Sistema de OS</h1>
@@ -11,7 +11,7 @@
 
     <br><br><br><br><br><br>
     <div class="text-center">
-        <img src="assets/images/er_profile.png" class="img-fluid" alt="" height="300px" width="300px" />
+        <img src="assets/images/er_profile.png" class="img-fluid" alt="" height="300px" width="300px"/>
         <br> <br>
         <span style="font-size: xxx-large;font-family: Serif;"><b>Serviço de Gestão</b></span>
     </div>

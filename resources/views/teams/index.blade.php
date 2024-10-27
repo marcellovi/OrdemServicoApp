@@ -24,7 +24,7 @@
 
     <!-- Top Menu and Left Side Menu -->
     <!--=============== Left side End ================-->
-    @include ('frontend.body.sidemenu');
+    @include ('admin.body.sidemenu');
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
 
@@ -103,7 +103,8 @@
 
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Nome</p><input type="text" placeholder="Nome" class="form-control">
+                                <p class="font-weight-400 mb-2">Nome</p><input type="text" placeholder="Nome"
+                                                                               class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Sexo</p>
@@ -114,13 +115,17 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <p class="font-weight-400 mb-2">CPF</p><input type="text" placeholder="999.999.999-99" class="form-control">
+                                <p class="font-weight-400 mb-2">CPF</p><input type="text" placeholder="999.999.999-99"
+                                                                              class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Endereço</p><input type="text" placeholder="Endereço" class="form-control">
+                                <p class="font-weight-400 mb-2">Endereço</p><input type="text" placeholder="Endereço"
+                                                                                   class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Celular</p><input type="text" placeholder="+9 (999) 999-9999" class="form-control">
+                                <p class="font-weight-400 mb-2">Celular</p><input type="text"
+                                                                                  placeholder="+9 (999) 999-9999"
+                                                                                  class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Tipo Prestador Serv.</p>
@@ -131,10 +136,13 @@
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Data Nasc.</p><input type="text" placeholder="mm/dd/yy" class="form-control">
+                                <p class="font-weight-400 mb-2">Data Nasc.</p><input type="text" placeholder="mm/dd/yy"
+                                                                                     class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text" placeholder="99.999.999/9999-99" class="form-control">
+                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text"
+                                                                                   placeholder="99.999.999/9999-99"
+                                                                                   class="form-control">
                             </div>
                         </div>
                         <button type="button" class="btn float-right btn-primary">Cadastrar</button>
@@ -386,7 +394,8 @@
                     <img src="./assets/images/products/headphone-1.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -411,7 +420,8 @@
                     <img src="./assets/images/products/headphone-2.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -436,7 +446,8 @@
                     <img src="./assets/images/products/headphone-3.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -461,7 +472,8 @@
                     <img src="./assets/images/products/headphone-4.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>

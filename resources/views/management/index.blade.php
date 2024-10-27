@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
 
     <!-- Quill Rich Text Editor -->
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
 
     <!-- Test Widget-->
     <link rel="stylesheet" href="https://maposdemo.sysgo.com.br/assets/css/matrix-style.css">
@@ -35,7 +35,7 @@
     <!-- Top Menu and Left Side Menu -->
 
     <!--=============== Left side End ================-->
-    @include ('frontend.body.sidemenu');
+    @include ('admin.body.sidemenu');
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
 
@@ -51,7 +51,7 @@
 
         <!--
         <div class="row">
-            <!-- ICON BG
+             ICON BG
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -198,7 +198,8 @@
 
                         <div class="row">
                             <div class="mb-2 col-md-2">
-                                <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" placeholder="ER001" class="form-control" disabled>
+                                <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" placeholder="ER001"
+                                                                                class="form-control" disabled>
                             </div>
                             <div class="mb-2 col-md-5">
                                 <p class="font-weight-400 mb-2">Tag.</p>
@@ -220,10 +221,14 @@
                             </div>
 
                             <div class="mb-3  col-md-4">
-                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" type="text" placeholder="__/__/__" class="form-control">
+                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" type="text"
+                                                                                       placeholder="__/__/__"
+                                                                                       class="form-control">
                             </div>
                             <div class="mb-3 col-md-4">
-                                <p class="font-weight-400 mb-2">Dt. Programada</p><input id="dtprogramada"  type="text" placeholder="__/__/__" class="form-control">
+                                <p class="font-weight-400 mb-2">Dt. Programada</p><input id="dtprogramada" type="text"
+                                                                                         placeholder="__/__/__"
+                                                                                         class="form-control">
                             </div>
                             <div class="mb-3 col-md-4">
                                 <p class="font-weight-400 mb-2">Tp. Manutenção</p>
@@ -270,16 +275,19 @@
 
 
                         <p class="font-weight-400 mb-2">Descritivo</p>
-                        <div  id="editor"></div>
+                        <div id="editor"></div>
                         <br>
 
                         <p class="font-weight-400 mb-2">Descritivo Executado</p>
-                        <div  id="desc_executado"></div>
+                        <div id="desc_executado"></div>
 
                         <br>
-                        <button type="button" class="btn float-right btn-primary ml-3"">EDITAR</button>
-                        <button type="button" class="btn float-right btn-primary ml-3"">FECHAR</button>&nbsp&nbsp&nbsp
-                        <button type="button" class="btn float-right btn-primary ml-3"">EXCLUIR</button>
+                        <button type="button" class="btn float-right btn-primary ml-3"
+                        ">EDITAR</button>
+                        <button type="button" class="btn float-right btn-primary ml-3"
+                        ">FECHAR</button>&nbsp&nbsp&nbsp
+                        <button type="button" class="btn float-right btn-primary ml-3"
+                        ">EXCLUIR</button>
                         <!-- <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
                             <div class="ul-widget-app__browser-list-1 mb-4">
@@ -435,9 +443,6 @@
             <!-- End Test -->
 
 
-
-
-
         </div>
         <!-- end of row-->
     </div>
@@ -468,7 +473,8 @@
                     <img src="./assets/images/products/headphone-1.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -493,7 +499,8 @@
                     <img src="./assets/images/products/headphone-2.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -518,7 +525,8 @@
                     <img src="./assets/images/products/headphone-3.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>
@@ -543,7 +551,8 @@
                     <img src="./assets/images/products/headphone-4.jpg" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
-                    <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                    <div
+                        class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
                         <!-- OTHER DATA -->
                         <a href="" class="w-40 w-sm-100">
                             <div class="item-title">Headphone 1</div>

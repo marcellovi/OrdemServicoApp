@@ -23,8 +23,8 @@
 <div class="app-admin-wrap layout-sidebar-large clearfix">
 
     <!-- Top Menu and Left Side Menu -->
-    @include ('frontend.body.sidemenu');
-        <!--=============== Left side End ================-->
+    @include ('admin.body.sidemenu');
+    <!--=============== Left side End ================-->
 
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
@@ -197,7 +197,8 @@
 
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Fornecedor</p><input type="text" placeholder="Nome" class="form-control">
+                                <p class="font-weight-400 mb-2">Fornecedor</p><input type="text" placeholder="Nome"
+                                                                                     class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Tipo</p>
@@ -208,13 +209,18 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text" placeholder="999.999.999-99" class="form-control">
+                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text"
+                                                                                   placeholder="999.999.999-99"
+                                                                                   class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Endereço</p><input type="text" placeholder="Endereço" class="form-control">
+                                <p class="font-weight-400 mb-2">Endereço</p><input type="text" placeholder="Endereço"
+                                                                                   class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Contato</p><input type="text" placeholder="+9 (999) 999-9999" class="form-control">
+                                <p class="font-weight-400 mb-2">Contato</p><input type="text"
+                                                                                  placeholder="+9 (999) 999-9999"
+                                                                                  class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Tipo Prestador Serv.</p>
@@ -225,10 +231,13 @@
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Data Nasc.</p><input type="text" placeholder="mm/dd/yy" class="form-control">
+                                <p class="font-weight-400 mb-2">Data Nasc.</p><input type="text" placeholder="mm/dd/yy"
+                                                                                     class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text" placeholder="99.999.999/9999-99" class="form-control">
+                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text"
+                                                                                   placeholder="99.999.999/9999-99"
+                                                                                   class="form-control">
                             </div>
                         </div>
                         <button type="button" class="btn float-right btn-primary">Registrar</button>
@@ -316,8 +325,6 @@
                 </div>
             </div>
             <!-- End Cadastro Profissionais -->
-
-
 
 
         </div>

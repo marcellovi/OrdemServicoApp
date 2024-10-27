@@ -29,7 +29,7 @@
 <div class="app-admin-wrap layout-sidebar-large clearfix">
 
     <!-- Top Menu and Left Side Menu -->
-    @include ('frontend.body.sidemenu');
+    @include ('admin.body.sidemenu');
     <!--=============== Left side End ================-->
 
     <!-- ============ Body content start ============= -->

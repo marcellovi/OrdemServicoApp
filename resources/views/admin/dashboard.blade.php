@@ -1,62 +1,62 @@
 <?php
 
 $dataPoints = array(
-    array("x"=> 10, "y"=> 41),
-    array("x"=> 20, "y"=> 35, "indexLabel"=> "Lowest"),
-    array("x"=> 30, "y"=> 50),
-    array("x"=> 40, "y"=> 45),
-    array("x"=> 50, "y"=> 52),
-    array("x"=> 60, "y"=> 68),
-    array("x"=> 70, "y"=> 38),
-    array("x"=> 80, "y"=> 71, "indexLabel"=> "Highest"),
-    array("x"=> 90, "y"=> 52),
-    array("x"=> 100, "y"=> 60),
-    array("x"=> 110, "y"=> 36),
-    array("x"=> 120, "y"=> 49),
-    array("x"=> 130, "y"=> 41)
+    array("x" => 10, "y" => 41),
+    array("x" => 20, "y" => 35, "indexLabel" => "Lowest"),
+    array("x" => 30, "y" => 50),
+    array("x" => 40, "y" => 45),
+    array("x" => 50, "y" => 52),
+    array("x" => 60, "y" => 68),
+    array("x" => 70, "y" => 38),
+    array("x" => 80, "y" => 71, "indexLabel" => "Highest"),
+    array("x" => 90, "y" => 52),
+    array("x" => 100, "y" => 60),
+    array("x" => 110, "y" => 36),
+    array("x" => 120, "y" => 49),
+    array("x" => 130, "y" => 41)
 );
 
 $dataPoints2 = array(
-    array("label"=> "Food + Drinks", "y"=> 590),
-    array("label"=> "Activities and Entertainments", "y"=> 261),
-    array("label"=> "Health and Fitness", "y"=> 158),
-    array("label"=> "Shopping & Misc", "y"=> 72),
-    array("label"=> "Transportation", "y"=> 191),
-    array("label"=> "Rent", "y"=> 573),
-    array("label"=> "Travel Insurance", "y"=> 126)
+    array("label" => "Food + Drinks", "y" => 590),
+    array("label" => "Activities and Entertainments", "y" => 261),
+    array("label" => "Health and Fitness", "y" => 158),
+    array("label" => "Shopping & Misc", "y" => 72),
+    array("label" => "Transportation", "y" => 191),
+    array("label" => "Rent", "y" => 573),
+    array("label" => "Travel Insurance", "y" => 126)
 );
 
 $dataPoints3 = array(
-    array("label"=> 1992, "y"=>105),
-    array("label"=> 1993, "y"=>130),
-    array("label"=> 1994, "y"=>158),
-    array("label"=> 1995, "y"=>192),
-    array("label"=> 1996, "y"=>309),
-    array("label"=> 1997, "y"=>422),
-    array("label"=> 1998, "y"=>566),
-    array("label"=> 1999, "y"=>807),
-    array("label"=> 2000, "y"=>1250),
-    array("label"=> 2001, "y"=>1615),
-    array("label"=> 2002, "y"=>2069),
-    array("label"=> 2003, "y"=>2635),
-    array("label"=> 2004, "y"=>3723),
-    array("label"=> 2005, "y"=>5112),
-    array("label"=> 2006, "y"=>6660),
-    array("label"=> 2007, "y"=>9183),
-    array("label"=> 2008, "y"=>15844),
-    array("label"=> 2009, "y"=>23185),
-    array("label"=> 2010, "y"=>40336),
-    array("label"=> 2011, "y"=>70469),
-    array("label"=> 2012, "y"=>100504),
-    array("label"=> 2013, "y"=>138856),
-    array("label"=> 2014, "y"=>178391),
-    array("label"=> 2015, "y"=>229300),
-    array("label"=> 2016, "y"=>302300),
-    array("label"=> 2017, "y"=>368000)
+    array("label" => 1992, "y" => 105),
+    array("label" => 1993, "y" => 130),
+    array("label" => 1994, "y" => 158),
+    array("label" => 1995, "y" => 192),
+    array("label" => 1996, "y" => 309),
+    array("label" => 1997, "y" => 422),
+    array("label" => 1998, "y" => 566),
+    array("label" => 1999, "y" => 807),
+    array("label" => 2000, "y" => 1250),
+    array("label" => 2001, "y" => 1615),
+    array("label" => 2002, "y" => 2069),
+    array("label" => 2003, "y" => 2635),
+    array("label" => 2004, "y" => 3723),
+    array("label" => 2005, "y" => 5112),
+    array("label" => 2006, "y" => 6660),
+    array("label" => 2007, "y" => 9183),
+    array("label" => 2008, "y" => 15844),
+    array("label" => 2009, "y" => 23185),
+    array("label" => 2010, "y" => 40336),
+    array("label" => 2011, "y" => 70469),
+    array("label" => 2012, "y" => 100504),
+    array("label" => 2013, "y" => 138856),
+    array("label" => 2014, "y" => 178391),
+    array("label" => 2015, "y" => 229300),
+    array("label" => 2016, "y" => 302300),
+    array("label" => 2017, "y" => 368000)
 );
 
 ?>
-    <!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en" dir="">
 
 <head>
@@ -82,10 +82,10 @@ $dataPoints3 = array(
                 animationEnabled: true,
                 exportEnabled: true,
                 theme: "light1", // "light1", "light2", "dark1", "dark2"
-                title:{
+                title: {
                     text: "Energia"
                 },
-                axisY:{
+                axisY: {
                     includeZero: true
                 },
                 data: [{
@@ -101,7 +101,7 @@ $dataPoints3 = array(
             var chart2 = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
                 exportEnabled: true,
-                title:{
+                title: {
                     text: "Agua"
                 },
                 subtitles: [{
@@ -122,10 +122,10 @@ $dataPoints3 = array(
             var chart3 = new CanvasJS.Chart("chartContainer3", {
                 animationEnabled: true,
                 theme: "light2",
-                title:{
+                title: {
                     text: "Preventiva "
                 },
-                axisY:{
+                axisY: {
                     title: "Energy (in megawatt)",
                     logarithmic: true,
                     titleFontColor: "#6D78AD",
@@ -133,7 +133,7 @@ $dataPoints3 = array(
                     includeZero: true,
                     labelFormatter: addSymbols
                 },
-                axisY2:{
+                axisY2: {
                     title: "Energy (in megawatt)",
                     titleFontColor: "#51CDA0",
                     tickLength: 0,
@@ -165,22 +165,21 @@ $dataPoints3 = array(
             });
             chart3.render();
 
-            function addSymbols(e){
+            function addSymbols(e) {
                 var suffixes = ["", "K", "M", "B"];
 
                 var order = Math.max(Math.floor(Math.log(Math.abs(e.value)) / Math.log(1000)), 0);
-                if(order > suffixes.length - 1)
+                if (order > suffixes.length - 1)
                     order = suffixes.length - 1;
 
                 var suffix = suffixes[order];
                 return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
             }
 
-            function toggleDataSeries(e){
-                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            function toggleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
                     e.dataSeries.visible = false;
-                }
-                else{
+                } else {
                     e.dataSeries.visible = true;
                 }
                 chart.render();
@@ -197,7 +196,7 @@ $dataPoints3 = array(
     <!-- Top Menu and Left Side Menu -->
 
     <!--=============== Left side End ================-->
-    @include ('frontend.body.sidemenu');
+    @include ('admin.body.sidemenu');
     <!-- ============ Body content start ============= -->
     <div class="main-content-wrap sidenav-open d-flex flex-column">
 
@@ -213,7 +212,7 @@ $dataPoints3 = array(
 
 
         <!--            <div class="row">-->
-        <!--                <!-- ICON BG -->
+        <!--                 ICON BG -->
         <!--                <div class="col-lg-3 col-md-6 col-sm-6">-->
         <!--                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">-->
         <!--                        <div class="card-body text-center">-->
@@ -444,7 +443,7 @@ $dataPoints3 = array(
             <div class="col-lg-4 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-title" >Preventiva</div>
+                        <div class="card-title">Preventiva</div>
                         <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
                             <div class="ul-widget-app__browser-list-1 mb-4">

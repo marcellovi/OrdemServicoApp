@@ -45,3 +45,5 @@ Route::view('equipe','teams.index');
 Route::view('compras','transactions.index');
 Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
+
+//Route::view('test','frontend.index');
