@@ -108,11 +108,11 @@ $url = str_replace(['/','.php'], '', $url);
                 <img src="./assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <div class="dropdown-header">
-                        <i class="i-Lock-User mr-1"></i> Ricardo A.
+                    <div class="dropdown-item">
+                        <i class="i-Lock-User mr-1"></i>{{ Str::ucfirst(Str::limit(Auth::user()->name,11)) }}
                     </div>
-                    <a class="dropdown-item">Account settings</a>
-                    <a class="dropdown-item">Billing history</a>
+                    <a class="dropdown-item">Dados da Conta</a>
+                    <a class="dropdown-item">Permissões/Acesso</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Log out</a>
@@ -127,6 +127,8 @@ $url = str_replace(['/','.php'], '', $url);
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
+
+        @can('dashboard')
             <?php  if (str_contains($url, 'index') || empty($url) || str_contains($url, 'dashboard')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
@@ -138,6 +140,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+        @endcan
+
+        @can('management')
             <?php  if (str_contains($url, 'gestao')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
@@ -149,6 +154,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
+
+            @can('preventive')
             <li class="nav-item" >
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Over-Time-2"></i>
@@ -156,6 +164,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
+
+            @can('reports')
             <?php  if (str_contains($url, 'relatorios')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
@@ -167,6 +178,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
+
+            @can('assets')
             <?php  if (str_contains($url, 'ativos')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
@@ -178,6 +192,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
+
+            @can('teams')
             <?php  if (str_contains($url, 'equipe')) { ?>
         <li class="nav-item active">
         <?php } else { ?>
@@ -189,7 +206,9 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
 
+            @can('transactions')
             <?php  if (str_contains($url, 'compras')) { ?>
             <li class="nav-item active">
                 <?php } else { ?>
@@ -201,6 +220,7 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
                 <div class="triangle"></div>
             </li>
+            @endcan
         </ul>
     </div>
 

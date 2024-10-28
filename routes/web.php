@@ -38,11 +38,11 @@ Route::view('push-notification','PushNotification.Index')->middleware('permissio
 require __DIR__.'/auth.php';
 
 // Routes for Working Templates - Only Views
-Route::view('gestao','management.index');
-Route::view('relatorios','reports.index');
-Route::view('ativos','assets.index');
-Route::view('equipe','teams.index');
-Route::view('compras','transactions.index');
+Route::view('gestao','management.index')->middleware('permission:management');
+Route::view('relatorios','reports.index')->middleware('permission:reports');
+Route::view('ativos','assets.index')->middleware('permission:assets');
+Route::view('equipe','teams.index')->middleware('permission:teams');;
+Route::view('compras','transactions.index')->middleware('permission:transactions');
 //Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
 
