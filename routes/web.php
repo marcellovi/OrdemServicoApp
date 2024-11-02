@@ -43,6 +43,7 @@ Route::view('gestao','management.index')->middleware('permission:management');
 Route::view('relatorios','reports.index')->middleware('permission:reports');
 //Route::view('ativos','assets.index')->middleware('permission:assets');
 Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
+Route::get('ativos/destroy/{id}',[AssetController::class, 'destroy'])->name('ativos_destroy');
 Route::post('ativos/store',[AssetController::class, 'store'])->name('ativos_store');
 Route::view('equipe','teams.index')->middleware('permission:teams');;
 Route::view('compras','transactions.index')->middleware('permission:transactions');

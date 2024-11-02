@@ -44,9 +44,19 @@
             </ul>
         </div>
         <div class="separator-breadcrumb border-top"></div>
-        @if (session('message'))
-            <div class="alert">{{ session('message') }}</div>
-        @endif
+
+            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                @if( session('type') == $msg)
+            <div id="msg_alert" class="alert alert-card alert-{{ $msg }}" role="alert">
+                <strong class="text-capitalize">{{ session('status') }}!</strong> {{ session('message') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+                @endif
+            @endforeach
+
+
         <div class="row">
 
             <!-- Cadastro de Ativos -->
@@ -67,9 +77,9 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Nome do Ativo *</p>
-                                <select id="nome_ativo" name="nome_ativo" class="form-control" required>
-                                    <option value="">---Selecione---</option>
-                                    <option value="AC01" selected>AC01</option>
+                                <select id="nome_ativo" name="nome_ativo" class="form-control" required="true">
+                                    <option value="" selected >---Selecione---</option>
+                                    <option value="AC01" >AC01</option>
                                     <option value="AB01">AB01</option>
                                     <option value="CD02">CD02</option>
                                     <option value="SP01">SP01</option>
@@ -78,7 +88,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Categoria *</p>
-                                <select id="categoria" name="categoria" class="form-control" required>
+                                <select id="categoria" name="categoria" class="form-control" required="true">
                                     <option value="">---Selecione---</option>
                                     @foreach($assets['categorias'] as $categoria)
                                         <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
@@ -96,8 +106,8 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Bloco *</p>
-                                <select id="theme_selector" class="form-control" id="bloco" name="bloco"  required>
-                                    <option value="Nenhum">---Nenhum---</option>
+                                <select class="form-control" id="bloco" name="bloco" required="true">
+                                    <option value="">---Nenhum---</option>
                                     @foreach($assets['blocos'] as $bloco)
                                         <option value="{{ $bloco->id }}">{{ $bloco->name }}</option>
                                     @endforeach
@@ -105,8 +115,8 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Andar *</p>
-                                <select id="theme_selector" class="form-control" id="andar" name="andar"  required>
-                                    <option value="Nenhum">---Nenhum---</option>
+                                <select class="form-control" id="andar" name="andar"  required="true">
+                                    <option value="">---Nenhum---</option>
                                     @foreach($assets['andares'] as $andar)
                                         <option value="{{ $andar->id }}">{{ $andar->name }}</option>
                                     @endforeach
@@ -114,8 +124,8 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Sala/Área *</p>
-                                <select id="theme_selector" class="form-control" id="sala_area" name="sala_area"  required>
-                                    <option value="Nenhum">---Nenhum---</option>
+                                <select class="form-control" id="sala_area" name="sala_area" required="true">
+                                    <option value="">---Nenhum---</option>
                                     @foreach($assets['sala_areas'] as $sala_area)
                                         <option value="{{ $sala_area->id }}">{{ $sala_area->name }}</option>
                                     @endforeach
@@ -123,8 +133,8 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Fase *</p>
-                                <select id="theme_selector" class="form-control" id="fase" name="fase"  required>
-                                    <option value="Nenhum">---Nenhum---</option>
+                                <select class="form-control" id="fase" name="fase"  required="true">
+                                    <option value="">---Nenhum---</option>
                                     @foreach($assets['fases'] as $fase)
                                         <option value="{{ $fase->id }}">{{ $fase->name }}</option>
                                     @endforeach
@@ -145,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-12">
-                                <p class="font-weight-400 mb-2" id="descritivo" name="descritivo" required>Descritivo:</p><textarea rows="3" class="form-control"></textarea>
+                                <p class="font-weight-400 mb-2" id="descritivo" name="descritivo">Descritivo:</p><textarea rows="3" class="form-control"></textarea>
                             </div>
 
                         </div>
@@ -186,7 +196,7 @@
                                         <a href="#" class="text-success mr-2">
                                             <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                         </a>
-                                        <a href="#" class="text-danger mr-2">
+                                        <a href="ativos/destroy/{{ $ativo->id }}" class="text-danger mr-2">
                                             <i class="nav-icon i-Close-Window font-weight-bold"></i>
                                         </a>
                                     </td>
@@ -406,6 +416,11 @@
 <!-- Taginput -->
 <script
     src="https://htmlstream.com/preview/front-v2.9.0/assets/vendor/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js"></script>
+
+<!-- Session fade after some time -->
+<script type="text/javascript">
+    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 3000);
+</script>
 
 </body>
 

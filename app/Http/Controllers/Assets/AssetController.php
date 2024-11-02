@@ -64,9 +64,21 @@ class AssetController extends Controller
         ]);
 
         return redirect()->route('ativos')
-            ->with('message', 'Ativo Cadastrado com Sucesso!');
+            ->with(['message' => 'O Ativo '.$tags.' foi Cadastrado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
 
+    public function destroy($id){
 
+        $ativo = Ativo::find($id);
+        $tags  = $ativo->tags;
+        $ativo->delete();
+
+        return redirect()->route('ativos')
+            ->with(['message' => 'O Ativo '.$tags .' foi Excluido do Sistema.',
+                'status' => 'Deletado',
+                'type' => 'info']);
     }
 
 }
