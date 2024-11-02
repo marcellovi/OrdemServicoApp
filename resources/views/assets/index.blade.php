@@ -23,6 +23,9 @@
     -->
     <link rel="stylesheet" href="assets/styles/vendor/taginputs/bootstrap-taginput.css">
 
+    <!-- Alpine JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="text-left">
@@ -68,11 +71,11 @@
                     <div class="card-body">
                         <form action="ativos/store" method="POST">
                             @csrf
-                        <div class="row">
+                        <div class="row" x-data="{ tags: '' }">
                             <div class="mb-3 col-md-12">
                                 <p class="font-weight-400 mb-2">Tags</p>
-                                <input type="text" id="tags" class="form-control" disabled
-                                       value="" name="tags">
+                                <input type="text" id="tags" class="form-control"
+                                       value="" name="tags" x-model.fill="tags">
                                 <!--                FS01-BL03-AND02-SL03-AC01                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
                             </div>
                             <div class="mb-3 col-md-6">
@@ -104,9 +107,19 @@
                                                                                    class="form-control"
                                                                                    value="">
                             </div>
+                            <!-- fase-bloco-andar-sala_area -->
+                            <div class="mb-3 col-md-3">
+                                <p class="font-weight-400 mb-2">Fase *</p>
+                                <select class="form-control" id="fase" name="fase" required="true" x-ref="fase" x-on:change="tags = $el.options[$el.selectedIndex].text">
+                                    <option value="">---Nenhum---</option>
+                                    @foreach($assets['fases'] as $fase)
+                                        <option value="{{ $fase->id }}">{{ $fase->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Bloco *</p>
-                                <select class="form-control" id="bloco" name="bloco" required="true">
+                                <select class="form-control" id="bloco" name="bloco" required="true" x-ref="bloco" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['blocos'] as $bloco)
                                         <option value="{{ $bloco->id }}">{{ $bloco->name }}</option>
@@ -115,7 +128,7 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Andar *</p>
-                                <select class="form-control" id="andar" name="andar"  required="true">
+                                <select class="form-control" id="andar" name="andar"  required="true" x-ref="andar" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['andares'] as $andar)
                                         <option value="{{ $andar->id }}">{{ $andar->name }}</option>
@@ -124,19 +137,10 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Sala/Área *</p>
-                                <select class="form-control" id="sala_area" name="sala_area" required="true">
+                                <select class="form-control" id="sala_area" name="sala_area" required="true" x-ref="sala_area" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $refs.andar.options[$refs.andar.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['sala_areas'] as $sala_area)
                                         <option value="{{ $sala_area->id }}">{{ $sala_area->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3 col-md-3">
-                                <p class="font-weight-400 mb-2">Fase *</p>
-                                <select class="form-control" id="fase" name="fase"  required="true">
-                                    <option value="">---Nenhum---</option>
-                                    @foreach($assets['fases'] as $fase)
-                                        <option value="{{ $fase->id }}">{{ $fase->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
