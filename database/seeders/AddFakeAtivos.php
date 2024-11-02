@@ -22,6 +22,7 @@ class AddFakeAtivos extends Seeder
             "sala_area_id" => 1,
             "fase_id" => 1,
             "category_id" => 1,
+            "status_id" => 4,
         ]);
 
         Ativo::create([
@@ -32,6 +33,7 @@ class AddFakeAtivos extends Seeder
             "sala_area_id" => 3,
             "fase_id" => 1,
             "category_id" => 3,
+            "status_id" => 2
         ]);
 
         Ativo::create([
@@ -45,6 +47,7 @@ class AddFakeAtivos extends Seeder
             "serie" => "serie test AC02",
             "descritivo" => "This is a Test AC02",
             "category_id" => 2,
+            "status_id" => 3
         ]);
     }
 }
