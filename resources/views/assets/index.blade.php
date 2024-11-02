@@ -44,60 +44,9 @@
             </ul>
         </div>
         <div class="separator-breadcrumb border-top"></div>
-
-
-        <!--            <div class="row">-->
-        <!--                <-- ICON BG -->
-        <!--                <div class="col-lg-3 col-md-6 col-sm-6">-->
-        <!--                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">-->
-        <!--                        <div class="card-body text-center">-->
-        <!--                            <i class="i-File-Clipboard-File--Text"></i>-->
-        <!--                            <div class="content">-->
-        <!--                                <p class="text-muted mt-2 mb-0">ATIVOS</p>-->
-        <!--                                <p class="text-primary text-24 line-height-1 mb-2">200</p>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!---->
-        <!--                <div class="col-lg-3 col-md-6 col-sm-6">-->
-        <!--                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">-->
-        <!--                        <div class="card-body text-center">-->
-        <!--                            <i class="i-Financial"></i>-->
-        <!--                            <div class="content">-->
-        <!--                                <p class="text-muted mt-2 mb-0">INATIVOS</p>-->
-        <!--                                <p class="text-primary text-24 line-height-1 mb-2">10</p>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!---->
-        <!--                <div class="col-lg-3 col-md-6 col-sm-6">-->
-        <!--                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">-->
-        <!--                        <div class="card-body text-center">-->
-        <!--                            <i class="i-Checkout-Basket"></i>-->
-        <!--                            <div class="content">-->
-        <!--                                <p class="text-muted mt-2 mb-0">FERIAS</p>-->
-        <!--                                <p class="text-primary text-24 line-height-1 mb-2">80</p>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!---->
-        <!--                <div class="col-lg-3 col-md-6 col-sm-6">-->
-        <!--                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">-->
-        <!--                        <div class="card-body text-center">-->
-        <!--                            <i class="i-Money-2"></i>-->
-        <!--                            <div class="content">-->
-        <!--                                <p class="text-muted mt-2 mb-0">TOTAL</p>-->
-        <!--                                <p class="text-primary text-24 line-height-1 mb-2">220</p>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!---->
-        <!--            </div>-->
-
+        @if (session('message'))
+            <div class="alert">{{ session('message') }}</div>
+        @endif
         <div class="row">
 
             <!-- Cadastro de Ativos -->
@@ -107,92 +56,80 @@
                         <h3 class="w-50 float-left card-title m-0">Cadastro de Ativos</h3>
                     </div>
                     <div class="card-body">
-
+                        <form action="ativos/store" method="POST">
+                            @csrf
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <p class="font-weight-400 mb-2">Tags</p>
                                 <input type="text" id="tags" class="form-control" disabled
-                                       value="FS01-BL03-AND02-SL03-AC01">
-                                <!--                                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
+                                       value="" name="tags">
+                                <!--                FS01-BL03-AND02-SL03-AC01                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
                             </div>
-
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Nome do Ativo *</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="nome_ativo" name="nome_ativo" class="form-control" required>
                                     <option value="">---Selecione---</option>
-                                    <option value="Mobiliario" selected>AC01</option>
-                                    <option value="Eq.Eletronico">AB01</option>
-                                    <option value="Eq.Eletronico">CD02</option>
-                                    <option value="Eq.Eletronico">SP01</option>
+                                    <option value="AC01" selected>AC01</option>
+                                    <option value="AB01">AB01</option>
+                                    <option value="CD02">CD02</option>
+                                    <option value="SP01">SP01</option>
                                 </select>
                                 <!--                                    <input type="text" placeholder="Nome" class="form-control">-->
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Categoria</p>
-                                <select id="theme_selector" class="form-control">
+                                <p class="font-weight-400 mb-2">Categoria *</p>
+                                <select id="categoria" name="categoria" class="form-control" required>
                                     <option value="">---Selecione---</option>
-                                    <option value="Mobiliario" selected>Refrigeração</option>
-                                    <option value="Eq.Eletronico">Eq. Eletronico</option>
-                                    <option value="Eq.Eletronico">Mobiliário</option>
+                                    @foreach($assets['categorias'] as $categoria)
+                                        <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
                             <div class="col-md-6">
-                                <p class="font-weight-400 mb-2">Modelo</p><input type="text" placeholder="Modelo"
-                                                                                 class="form-control" value="Consul">
+                                <p class="font-weight-400 mb-2">Modelo</p><input type="text" id="modelo" name="modelo"  placeholder="Modelo"
+                                                                                 class="form-control" value="">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">N. Série</p><input type="text" placeholder="N. Série"
+                                <p class="font-weight-400 mb-2">N. Série</p><input type="text" id="serie" name="serie"  placeholder="N. Série"
                                                                                    class="form-control"
-                                                                                   value="NS896543-88776">
+                                                                                   value="">
                             </div>
-
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <div data-no-duplicate="true" data-pre-tags-separator="\n" data-no-duplicate-text="Duplicate tags" data-type-zone-class="type-zone" data-tag-box-class="tagging" data-edit-on-delete="false" class="tagBox tagging editable"><div class="tag"><span>#</span> preexisting-tag<input type="hidden" name="tag[]" value="preexisting-tag"><a role="button" class="tag-i">×</a></div><div class="tag"><span>#</span> vbvbcvbcv<input type="hidden" name="tag[]" value="vbvbcvbcv"><a role="button" class="tag-i">×</a></div><div class="tag"><span>#</span> gfgdfgdf<input type="hidden" name="tag[]" value="gfgdfgdf"><a role="button" class="tag-i">×</a></div><input class="type-zone" contenteditable="true"></div>-->
-                            <!--                                    <p class="text-muted">Enter key add a new tag by default, set it-->
-                            <!--                                        <code>no-enter:true</code> to disable that.</p>-->
-                            <!--                                </div>-->
-
-
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Bloco *</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="theme_selector" class="form-control" id="bloco" name="bloco"  required>
                                     <option value="Nenhum">---Nenhum---</option>
-                                    <option value="Tipo 1">BL01</option>
-                                    <option value="Tipo 2">BL02</option>
-                                    <option value="Tipo 2" selected>BL03</option>
-                                    <option value="Tipo 2">BL04</option>
+                                    @foreach($assets['blocos'] as $bloco)
+                                        <option value="{{ $bloco->id }}">{{ $bloco->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Andar *</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="theme_selector" class="form-control" id="andar" name="andar"  required>
                                     <option value="Nenhum">---Nenhum---</option>
-                                    <option value="Tipo 1">AND01</option>
-                                    <option value="Tipo 2" selected>AND02</option>
-                                    <option value="Tipo 2">AND03</option>
+                                    @foreach($assets['andares'] as $andar)
+                                        <option value="{{ $andar->id }}">{{ $andar->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Loc. Sala/Área *</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="theme_selector" class="form-control" id="sala_area" name="sala_area"  required>
                                     <option value="Nenhum">---Nenhum---</option>
-                                    <option value="Tipo 1">SL01</option>
-                                    <option value="Tipo 2">SL02</option>
-                                    <option value="Tipo 2" selected>SL03</option>
+                                    @foreach($assets['sala_areas'] as $sala_area)
+                                        <option value="{{ $sala_area->id }}">{{ $sala_area->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Fase *</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="theme_selector" class="form-control" id="fase" name="fase"  required>
                                     <option value="Nenhum">---Nenhum---</option>
-                                    <option value="Tipo 1" selected>FS01</option>
-                                    <option value="Tipo 2">FS02</option>
-                                    <option value="Tipo 2">FS03</option>
+                                    @foreach($assets['fases'] as $fase)
+                                        <option value="{{ $fase->id }}">{{ $fase->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
                             <div class="mb-3 col-md-12">
                                 <p class="font-weight-400 mb-2">Foto do Ativo</p>
                                 <div class="input-group mb-3">
@@ -208,94 +145,16 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-12">
-                                <p class="font-weight-400 mb-2">Descritivo:</p><textarea rows="3" class="form-control">Ar Condicionado comprado para substituir Ar modelo XYZ</textarea>
+                                <p class="font-weight-400 mb-2" id="descritivo" name="descritivo" required>Descritivo:</p><textarea rows="3" class="form-control"></textarea>
                             </div>
 
                         </div>
-                        <button type="button" class="btn float-right btn-primary">Cadastrar</button>
-                        <!-- <div class="ul-widget-app__browser-list scroll" id="mydiv">
-
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white bg-warning rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Elétrica</span>
-                                <span class="badge badge-success">ABERTA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Refrigeração</span>
-                                <span class="badge badge-close">FECHADA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white cyan-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Jardinagem</span>
-                                <span class="badge badge-info">PROGRAMADA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white teal-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Limpeza</span>
-                                <span class="badge badge-danger">CANCELADA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white purple-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Civil</span>
-                                <span class="badge badge-warning">EM ESPERA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Eng. Clinica</span>
-                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Jardinagem</span>
-                                <span class="badge badge-success">ABERTA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Refrigeração</span>
-                                <span class="badge badge-close">FECHADA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Elétrica</span>
-                                <span class="badge badge-success">ABERTA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white cyan-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Jardinagem</span>
-                                <span class="badge badge-info">PROGRAMADA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Eng. Clinica</span>
-                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white bg-warning rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Elétrica</span>
-                                <span class="badge badge-success">ABERTA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Eng. Clinica</span>
-                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Jardinagem</span>
-                                <span class="badge badge-success">ABERTA</span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Gears  text-white teal-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">Limpeza</span>
-                                <span class="badge badge-danger">CANCELADA</span>
-                            </div>
-                        </div> -->
-
-
+                        <button type="submit" class="btn float-right btn-primary">Cadastrar</button>
+                    </form>
                     </div>
                 </div>
             </div>
+
             <!-- End Cadastro Profissionais -->
 
 
@@ -321,6 +180,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($ativos as $ativo)
                                 <tr>
                                     <td>
                                         <a href="#" class="text-success mr-2">
@@ -330,98 +190,41 @@
                                             <i class="nav-icon i-Close-Window font-weight-bold"></i>
                                         </a>
                                     </td>
-                                    <td>FS01-BL03-AND02-SL03-AC01</td>
+
+
+                                    <td>{{ $ativo->tags }}</td>
                                     <td>
-                                        Emerson
+                                        Nenhum
                                     </td>
 
-                                    <td>Eq. Eletronico</td>
+                                    <td>{{ $ativo->categorias }}</td>
                                     <td>
-                                        24/09/2024
+                                        {{ $ativo->created_at }}
                                     </td>
-                                    <td><span class="badge badge-success">Ativo</span></td>
+                                    <td>
+                                    @switch($ativo->status)
+
+                                        @case('Em Analise')
+                                                @php $status_color = 'warning'; @endphp
+                                                @break
+                                        @case('Aberta')
+                                            @php $status_color = 'success'; @endphp
+                                            @break
+                                        @case('Em Andamento')
+                                            @php $status_color = 'waiting'; @endphp
+                                            @break
+                                        @case('Em Espera')
+                                            @php $status_color = 'danger'; @endphp
+                                            @break
+                                        @case('Fechada')
+                                            @php $status_color = 'outline-dark'; @endphp
+                                            @break
+                                        @default
+                                            @php $status_color = 'outline-danger'; @endphp
+                                    @endswitch
+                                        <span class="badge badge-{{ $status_color }}">{{ $ativo->status }}</span></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>FS04-BL02-AND02-SL01-AC01</td>
-                                    <td>
-                                        João
-                                    </td>
-
-                                    <td>Mobiliario</td>
-                                    <td>
-                                        24/09/2024
-                                    </td>
-                                    <td><span class="badge badge-primary">Ferias</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>FS00-BL03-AND02-SL02-AC03</td>
-                                    <td>
-                                        Marcello
-                                    </td>
-
-                                    <td>Refrigeração</td>
-                                    <td>
-                                        01/07/2000
-                                    </td>
-                                    <td><span class="badge badge-success">Ativo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>FS05-BL07-AND01-SL01-AC01</td>
-                                    <td>
-                                        Ricardo
-                                    </td>
-
-                                    <td>Eq. Eletronico</td>
-                                    <td>
-                                        24/01/2014
-                                    </td>
-                                    <td><span class="badge badge-success">Ativo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>FS01-BL02-AND02-SL03-AC02</td>
-                                    <td>
-                                        Maria
-                                    </td>
-
-                                    <td>Refrigeração</td>
-                                    <td>
-                                        05/09/2024
-                                    </td>
-                                    <td><span class="badge badge-danger">Inativo</span></td>
-                                </tr>
-
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

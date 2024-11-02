@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Assets\AssetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
 use Illuminate\Support\Facades\Route;
@@ -40,10 +41,13 @@ require __DIR__.'/auth.php';
 // Routes for Working Templates - Only Views
 Route::view('gestao','management.index')->middleware('permission:management');
 Route::view('relatorios','reports.index')->middleware('permission:reports');
-Route::view('ativos','assets.index')->middleware('permission:assets');
+//Route::view('ativos','assets.index')->middleware('permission:assets');
+Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
+Route::post('ativos/store',[AssetController::class, 'store'])->name('ativos_store');
 Route::view('equipe','teams.index')->middleware('permission:teams');;
 Route::view('compras','transactions.index')->middleware('permission:transactions');
 //Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
 
 //Route::view('test','frontend.index');
+Route::get('student',[\App\Http\Controllers\StudentController::class, 'index'])->name('student');

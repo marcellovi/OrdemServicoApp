@@ -20,7 +20,11 @@ class DatabaseSeeder extends Seeder
             AddBlocos::class,
             AddAndares::class,
             AddSalaAreas::class,
-            AddFases::class
+            AddFases::class,
+            AddCategories::class,
+            AddFakeAtivos::class,
+            AddStatues::class,
+
             ]);
     }
 }
