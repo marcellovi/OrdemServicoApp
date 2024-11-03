@@ -49,6 +49,17 @@
         </div>
         <div class="separator-breadcrumb border-top"></div>
 
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if( session('type') == $msg)
+                <div id="msg_alert" class="alert alert-card alert-{{ $msg }}" role="alert">
+                    <strong class="text-capitalize">{{ session('status') }}!</strong> {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            @endif
+        @endforeach
+
         <!--
         <div class="row">
              ICON BG
@@ -110,76 +121,79 @@
                     <div class="card-body">
                         <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
+                            @foreach($list_os as $os)
                             <div class="ul-widget-app__browser-list-1 mb-4">
                                 <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO -
-                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>
+                                <span class="text-15">{{ $os->numero_os }} - {{ $os->tags }} - {{ $os->numero_os }} -
+                                    {{ $os->nome  }} - {{ $os->numero_os }} - PRIORIDADE {{ $os->prioridade }} </span>
                             </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR -
-                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO -
-                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO -
-                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO -
-                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR -
-                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO -
-                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA -
-                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>
-                            </div>
-                            <div class="ul-widget-app__browser-list-1 mb-4">
-                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR -
-                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>
-                            </div>
+                            @endforeach
+
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
+{{--                            </div>--}}
+{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
+{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
+{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
+{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
+{{--                            </div>--}}
 
 
                         </div>
@@ -195,99 +209,100 @@
                         <h3 class="w-50 float-left card-title m-0">Cadastro de OS</h3>
                     </div>
                     <div class="card-body">
-
+                        <form action="gestao/store" method="POST">
+                            @csrf
                         <div class="row">
                             <div class="mb-2 col-md-2">
-                                <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" placeholder="ER001"
-                                                                                class="form-control" disabled>
+                                <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" id="numero_os" name="numero_os" placeholder=""
+                                                                                class="form-control" value="{{ $order_servicos['numero_os'] }}">
                             </div>
                             <div class="mb-2 col-md-5">
                                 <p class="font-weight-400 mb-2">Tag.</p>
-                                <select id="theme_selector" class="form-control">
+                                <select id="tags" name="tags" class="form-control" required="true">
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="Masculino">Alta</option>
-                                    <option value="Feminino">Media</option>
-                                    <option value="Feminino">Baixa</option>
+                                    @foreach($order_servicos['ativos'] as $ativo)
+                                    <option value="{{ $ativo->id }}">{{ $ativo->tags }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-2 col-md-5">
                                 <p class="font-weight-400 mb-2">Prioridade</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Masculino">Alta</option>
-                                    <option value="Feminino">Media</option>
-                                    <option value="Feminino">Baixa</option>
+                                <select id="prioridade" name="prioridade" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['prioridades'] as $prioridade)
+                                        <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
+                                    @endforeach
                                 </select>
-
                             </div>
 
                             <div class="mb-3  col-md-4">
-                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" type="text"
+                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" name="dtabertura" type="text"
                                                                                        placeholder="__/__/__"
-                                                                                       class="form-control">
+                                                                                       class="form-control" required="true">
                             </div>
                             <div class="mb-3 col-md-4">
-                                <p class="font-weight-400 mb-2">Dt. Programada</p><input id="dtprogramada" type="text"
+                                <p class="font-weight-400 mb-2">Dt. Programada</p><input id="dtprogramada" name="dtprogramada" type="text"
                                                                                          placeholder="__/__/__"
-                                                                                         class="form-control">
+                                                                                         class="form-control" required="true">
                             </div>
                             <div class="mb-3 col-md-4">
                                 <p class="font-weight-400 mb-2">Tp. Manutenção</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['tipo_manutencao'] as $manutencao)
+                                        <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Naturea do Serviço</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
+                                        <option value="{{ $natureza_servico->id }}">{{ $natureza_servico->nome }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Eq. Responsável</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                <select id="eq_responsavel" name="eq_responsavel" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['equipes'] as $equipe)
+                                        <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Responsavel</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                <select id="responsavel" name="responsavel" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    <option value="1">Marcus V.</option>
+                                    <option value="2">Carlos A.</option>
+                                    <option value="3">Julia B.</option>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <p class="font-weight-400 mb-2">Executor</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                <select id="executor" name="executor" class="form-control" required="true">
+                                    <option value="" selected>---Nenhum---</option>
+                                    <option value="1">Jose R.</option>
+                                    <option value="2">Maria D.</option>
                                 </select>
                             </div>
                         </div>
 
-
                         <p class="font-weight-400 mb-2">Descritivo</p>
-                        <div id="editor"></div>
+                        <div id="editor" name="editor"></div>
                         <br>
 
                         <p class="font-weight-400 mb-2">Descritivo Executado</p>
-                        <div id="desc_executado"></div>
+                        <div id="desc_executado" name="desc_executado"></div>
 
                         <br>
-                        <button type="button" class="btn float-right btn-primary ml-3"
-                        ">EDITAR</button>
-                        <button type="button" class="btn float-right btn-primary ml-3"
-                        ">FECHAR</button>&nbsp&nbsp&nbsp
-                        <button type="button" class="btn float-right btn-primary ml-3"
-                        ">EXCLUIR</button>
+                        <button type="submit" class="btn float-right btn-primary ml-3"
+                        >CADASTRAR</button>
+
                         <!-- <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
                             <div class="ul-widget-app__browser-list-1 mb-4">
@@ -366,8 +381,7 @@
                                 <span class="badge badge-danger">CANCELADA</span>
                             </div>
                         </div> -->
-
-
+                        </form>
                     </div>
                 </div>
             </div>
@@ -440,7 +454,7 @@
                         </a></div>
                 </div>
             </div>
-            <!-- End Test -->
+            End Test -->
 
 
         </div>
@@ -632,6 +646,12 @@
         theme: 'snow'
     });
 </script>
+
+<!-- Session fade after some time -->
+<script type="text/javascript">
+    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 3000);
+</script>
+
 </body>
 
 </html>
