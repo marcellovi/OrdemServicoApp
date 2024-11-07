@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Assets;
 
 use App\Http\Controllers\Controller;
 use App\Models\Andar;
+use App\Models\Artefato;
 use App\Models\Ativo;
 use App\Models\Bloco;
 use App\Models\Categories;
@@ -25,7 +26,8 @@ class AssetController extends Controller
             'andares' => Andar::all()->where('deleted_at', '=', null),
             'blocos' => Bloco::all()->where('deleted_at', '=', null),
             'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null)
+            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
+            'artefatos' => Artefato::all()->where('deleted_at', '=', null),
         ];
 
         // put order by

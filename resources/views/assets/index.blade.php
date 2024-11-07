@@ -82,10 +82,14 @@
                                 <p class="font-weight-400 mb-2">Nome do Ativo *</p>
                                 <select id="nome_ativo" name="nome_ativo" class="form-control" required="true">
                                     <option value="" selected >---Selecione---</option>
-                                    <option value="AC01" >AC01</option>
-                                    <option value="AB01">AB01</option>
-                                    <option value="CD02">CD02</option>
-                                    <option value="SP01">SP01</option>
+                                    @foreach($assets['artefatos'] as $artefato)
+                                    <option value="{{ strtoupper($artefato->sigla) }}" >{{ strtoupper($artefato->sigla).'-'.strtoupper($artefato->nome) }}</option>
+
+{{--                                    <option value="AC01" >AC01</option>--}}
+{{--                                    <option value="AB01">AB01</option>--}}
+{{--                                    <option value="CD02">CD02</option>--}}
+{{--                                    <option value="SP01">SP01</option>--}}
+                                    @endforeach
                                 </select>
                                 <!--                                    <input type="text" placeholder="Nome" class="form-control">-->
                             </div>
