@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sistema de O.S</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/vendor/datatables.min.css">
-    <link rel="stylesheet" href="assets/styles/css/themes/lite-purple.css">
-    <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
 
     <!-- Quill Rich Text Editor -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
@@ -62,11 +62,11 @@
 
         <div class="row">
 
-            <!-- Cadastro de Artefatos de Ativos -->
+            <!-- Editar de Artefatos de Ativos -->
             <div class="col-lg-6 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Cadastro de Artefatos - Ativo</h3>
+                        <h3 class="w-50 float-left card-title m-0">Editar Artefato - Ativo</h3>
                     </div>
                     <div class="card-body">
                         <form action="artefatos/store" method="POST">
@@ -74,77 +74,37 @@
                             <div class="row">
                                 <div class="mb-2 col-md-2">
                                     <p class="font-weight-400 mb-2">Sigla</p>
-                                    <input type="text" id="sigla" name="sigla" placeholder="" class="form-control" value="" required="true">
+                                    <input type="text" id="sigla" name="sigla" placeholder="" class="form-control" value="{{ $artefato->sigla }}" required="true">
                                 </div>
                                 <div class="mb-2 col-md-5">
                                     <p class="font-weight-400 mb-2">Nome</p>
-                                    <input type="text" id="nome" name="nome" placeholder="" class="form-control" value="" required="true">
+                                    <input type="text" id="nome" name="nome" placeholder="" class="form-control" value="{{ $artefato->nome }}" required="true">
                                 </div>
                                 <div class="mb-2 col-md-5">
                                     <p class="font-weight-400 mb-2">Sub-Artefato</p>
                                     <select id="sub_artefato_id" name="sub_artefato_id" class="form-control" >
                                         <option value="" selected>--- Nenhum ---</option>
-                                        @foreach($artefatos as $artefato)
-                                            @if(empty($artefato->sub_artefato_id))
-                                            <option value="{{ $artefato->id }}">{{ $artefato->nome }}</option>
+                                        @foreach($artefatos as $arto)
+                                            @if(empty($arto->sub_artefato_id) && ($arto->id != $artefato->id))
+                                                @if($arto->id == $artefato->sub_artefato_id)
+                                                    <option value="{{ $arto->id }}" selected>{{ $arto->nome }}</option>
+                                                @else
+                                                    <option value="{{ $arto->id }}">{{ $arto->nome }}</option>
+                                                @endif
                                             @endif
                                         @endforeach
+
                                     </select>
                                 </div>
                             </div>
-                            <a href="{{ route('ativos') }}" class="btn float-right btn-primary ml-3" >Voltar</a>
-                            <button type="submit" class="btn float-right btn-primary ml-3">CADASTRAR</button>
+                            <a href="{{ route('artefatos') }}" class="btn float-right btn-primary ml-3" >Voltar</a>
+                            <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- End Cadastro -->
+            <!-- End Editor -->
 
-
-            <!-- Lista de Artefatos do Ativo -->
-            <div class="col-md-6">
-                <div class="card o-hidden mb-4">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Artefatos do Ativo</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-
-                            <table id="user_table" class="table dataTable-collapse text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col">AÇÕES</th>
-                                    <th scope="col">SIGLA</th>
-                                    <th scope="col">NOME</th>
-                                    <th scope="col">ARTEFATO PAI</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($artefatos as $artefato)
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('artefatos.edit',$artefato->id) }}" class="text-success mr-2">
-                                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                            </a>
-                                            <a href="artefatos/destroy/{{ $artefato->id }}" class="text-danger mr-2">
-                                                <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                            </a>
-                                        </td>
-                                        <td>{{ strtoupper($artefato->sigla) }}</td>
-                                        <td>{{ $artefato->nome }}</td>
-                                        <td>
-                                            {{ $artefato->sub_artefato_id ? $artefatos->where('id',$artefato->sub_artefato_id)->first()->sigla : 'Nenhum' }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end of col-->
         </div>
         <!-- end of row-->
     </div>
@@ -155,7 +115,7 @@
 <!-- ============ Search UI Start ============= -->
 <div class="search-ui">
     <div class="search-header">
-        <img src="./assets/images/er_profile.png" alt="" class="logo">
+        <img src="{{ asset('assets/images/er_profile.png') }}" alt="" class="logo">
         <button class="search-close btn btn-icon bg-transparent float-right mt-2">
             <i class="i-Close-Window text-22 text-muted"></i>
         </button>
@@ -172,7 +132,7 @@
             <div class="card o-hidden flex-row mb-4 d-flex">
                 <div class="list-thumb d-flex">
                     <!-- TUMBNAIL -->
-                    <img src="./assets/images/products/headphone-1.jpg" alt="">
+                    <img src="{{ asset('/assets/images/products/headphone-1.jpg') }}" alt="">
                 </div>
                 <div class="flex-grow-1 pl-2 d-flex">
                     <div
@@ -321,9 +281,23 @@
     var dtprogramada = new Datepicker('#dtprogramada');
 </script>
 
+
+<!-- Quill Editor -->
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script>
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
+    const quill2 = new Quill('#desc_executado', {
+        theme: 'snow'
+    });
+</script>
+
 <!-- Session fade after some time -->
 <script type="text/javascript">
-    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 4000);
+    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 3000);
 </script>
 
 </body>

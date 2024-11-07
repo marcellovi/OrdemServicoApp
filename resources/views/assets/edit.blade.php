@@ -78,7 +78,6 @@
                                        value="" name="tags" x-model.fill="tags">
                                 <!--                FS01-BL03-AND02-SL03-AC01                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
                             </div>
-
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Nome do Ativo *</p>
                                 <select id="nome_ativo" name="nome_ativo" class="form-control" required="true">
@@ -92,12 +91,9 @@
 {{--                                    <option value="SP01">SP01</option>--}}
                                     @endforeach
                                 </select>
+                                <!--                                    <input type="text" placeholder="Nome" class="form-control">-->
                             </div>
-                            <div class="md-1">
-                                <p class="font-weight-400 mb-2">&nbsp;</p>
-                                <a href="artefatos" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="Cadastrar Artefato do Ativo" data-original-title="Cadastrar Artefato do Ativo">+</a>
-                            </div>
-                            <div class="mb-3 col">
+                            <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Categoria *</p>
                                 <select id="categoria" name="categoria" class="form-control" required="true">
                                     <option value="">---Selecione---</option>
@@ -106,7 +102,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="col-md-6">
                                 <p class="font-weight-400 mb-2">Modelo</p><input type="text" id="modelo" name="modelo"  placeholder="Modelo"
                                                                                  class="form-control" value="">

@@ -6,7 +6,7 @@ $url = str_replace(['/','.php'], '', $url);
 
 <div class="main-header">
     <div class="logo">
-        <img src="./assets/images/er_profile.png" alt="">
+        <img src="{{ asset('assets/images/er_profile.png') }}" alt="">
     </div>
 
     <div class="menu-toggle">
@@ -105,7 +105,7 @@ $url = str_replace(['/','.php'], '', $url);
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div class="user colalign-self-end">
-                <img src="./assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-item">
@@ -134,7 +134,7 @@ $url = str_replace(['/','.php'], '', $url);
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="dashboard">
+                <a class="nav-item-hold" href="{{ asset('dashboard') }}">
                     <i class="nav-icon i-Bar-Chart"></i>
                     <span class="nav-text">DASHBOARD</span>
                 </a>
@@ -148,7 +148,7 @@ $url = str_replace(['/','.php'], '', $url);
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="gestao">
+                <a class="nav-item-hold" href="{{ route('gestao') }}">
                     <i class="nav-icon i-Conference"></i>
                     <span class="nav-text">GESTÃO OS</span>
                 </a>
@@ -172,7 +172,7 @@ $url = str_replace(['/','.php'], '', $url);
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="relatorios">
+                <a class="nav-item-hold" href="{{ route('relatorios') }}">
                     <i class="nav-icon i-Folder-With-Document"></i>
                     <span class="nav-text">RELATÓRIOS</span>
                 </a>
@@ -186,7 +186,7 @@ $url = str_replace(['/','.php'], '', $url);
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="ativos">
+                <a class="nav-item-hold" href="{{ route('ativos') }}">
                     <i class="nav-icon i-Financial"></i>
                     <span class="nav-text">ATIVOS</span>
                 </a>
@@ -200,7 +200,7 @@ $url = str_replace(['/','.php'], '', $url);
         <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="equipe">
+                <a class="nav-item-hold" href="{{ route('equipe') }}">
                     <i class="nav-icon i-Business-Mens"></i>
                     <span class="nav-text">EQUIPE</span>
                 </a>
@@ -214,7 +214,7 @@ $url = str_replace(['/','.php'], '', $url);
                 <?php } else { ?>
             <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="compras">
+                <a class="nav-item-hold" href="{{ route('compras') }}">
                     <i class="nav-icon i-Add-Cart"></i>
                     <span class="nav-text">COMPRAS</span>
                 </a>

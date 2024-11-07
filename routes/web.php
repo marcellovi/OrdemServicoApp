@@ -42,13 +42,17 @@ require __DIR__.'/auth.php';
 
 // Routes for Working Templates - Only Views
 //Route::view('gestao','management.index')->middleware('permission:management');
-Route::view('relatorios','reports.index')->middleware('permission:reports');
+Route::view('relatorios','reports.index')->middleware('permission:reports')->name('relatorios');
 //Route::view('ativos','assets.index')->middleware('permission:assets');
 
 // ARTEFATOS - supply the ativos
 Route::get('artefatos',[ArtefatoController::class, 'index'])->name('artefatos');
 Route::get('artefatos/destroy/{id}',[ArtefatoController::class, 'destroy'])->name('artefatos_destroy');
 Route::post('artefatos/store',[ArtefatoController::class, 'store'])->name('artefatos_store');
+Route::get('artefatos/{id}/edit', [ArtefatoController::class,'edit'])->name('artefatos.edit');
+Route::put('artefatos/{artefato}', [ArtefatoController::class ,'update'])->name('artefatos.update');
+
+
 
 // ATIVOS
 Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
@@ -62,10 +66,8 @@ Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gest
 
 
 
-Route::view('equipe','teams.index')->middleware('permission:teams');;
-Route::view('compras','transactions.index')->middleware('permission:transactions');
+Route::view('equipe','teams.index')->middleware('permission:teams')->name('equipe');
+Route::view('compras','transactions.index')->middleware('permission:transactions')->name('compras');
 //Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
 
-//Route::view('test','frontend.index');
-Route::get('student',[\App\Http\Controllers\StudentController::class, 'index'])->name('student');
