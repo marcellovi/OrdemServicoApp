@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtefatoController;
 use App\Http\Controllers\Assets\AssetController;
 use App\Http\Controllers\Management\OrderServicoController;
 use App\Http\Controllers\ProfileController;
@@ -44,6 +45,11 @@ require __DIR__.'/auth.php';
 Route::view('relatorios','reports.index')->middleware('permission:reports');
 //Route::view('ativos','assets.index')->middleware('permission:assets');
 
+// ARTEFATOS - supply the ativos
+Route::get('artefatos',[ArtefatoController::class, 'index'])->name('artefatos');
+Route::get('artefatos/destroy/{id}',[ArtefatoController::class, 'destroy'])->name('artefatos_destroy');
+Route::post('artefatos/store',[ArtefatoController::class, 'store'])->name('artefatos_store');
+
 // ATIVOS
 Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
 Route::get('ativos/destroy/{id}',[AssetController::class, 'destroy'])->name('ativos_destroy');
@@ -53,6 +59,7 @@ Route::post('ativos/store',[AssetController::class, 'store'])->name('ativos_stor
 Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');
 Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao_destroy');
 Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gestao_store');
+
 
 
 Route::view('equipe','teams.index')->middleware('permission:teams');;
