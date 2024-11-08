@@ -113,7 +113,7 @@
         <div class="row">
 
             <!-- OS Programadas -->
-            <div class="col-lg-6 col-md-4 mb-4">
+            <div class="col-lg-5 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         <h3 class="w-50 float-left card-title m-0">OS Programadas</h3>
@@ -122,10 +122,10 @@
                         <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
                             @foreach($list_os as $os)
-                            <div class="ul-widget-app__browser-list-1 mb-4">
+                            <div class="ul-widget-app__browser-list mb-4 mt-2">
                                 <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                <span class="text-15">{{ $os->numero_os }} - {{ $os->tags }} - {{ $os->numero_os }} -
-                                    {{ $os->nome  }} - {{ $os->numero_os }} - PRIORIDADE {{ $os->prioridade }} </span>
+                                <span class="text-15">{{ $os->numero_os }} - {{ $os->tags }} -
+                                    {{ $os->data_abertura }} - PRIORIDADE {{ $os->prioridade }} &nbsp; </span>
                             </div>
                             @endforeach
 
@@ -203,7 +203,7 @@
             <!-- end of col-->
 
             <!-- Cadastro de OS -->
-            <div class="col-lg-6 col-md-4 mb-4">
+            <div class="col-lg-7 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         <h3 class="w-50 float-left card-title m-0">Cadastro de OS</h3>
