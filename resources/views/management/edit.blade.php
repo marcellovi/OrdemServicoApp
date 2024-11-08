@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sistema de O.S</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/vendor/datatables.min.css">
-    <link rel="stylesheet" href="assets/styles/css/themes/lite-purple.css">
-    <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
 
     <!-- Quill Rich Text Editor -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maposdemo.sysgo.com.br/assets/css/matrix-style.css">
 
     <!-- Date Picker -->
-    <link rel="stylesheet" href="assets/styles/vendor/datepicker/datepicker.material.css">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datepicker/datepicker.material.css') }}">
 
     <style>
         div.scroll {
@@ -112,174 +112,194 @@
 
         <div class="row">
 
-            <!-- Cadastro de OS -->
+
+            <!-- Editor de OS -->
             <div class="col-lg-7 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Cadastro de OS</h3>
+                        <h3 class="w-50 float-left card-title m-0">Editar OS</h3>
                     </div>
                     <div class="card-body">
                         <form action="gestao/store" method="POST">
                             @csrf
-                            <div class="row">
-                                <div class="mb-2 col-md-2">
-                                    <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" id="numero_os" name="numero_os" placeholder=""
-                                                                                    class="form-control" value="{{ $order_servicos['numero_os'] }}">
-                                </div>
-                                <div class="mb-2 col-md-5">
-                                    <p class="font-weight-400 mb-2">Tag.</p>
-                                    <select id="tags" name="tags" class="form-control" required="true">
-                                        <option value="" selected>---Selecione---</option>
-                                        @foreach($order_servicos['ativos'] as $ativo)
-                                            <option value="{{ $ativo->id }}">{{ $ativo->tags }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-2 col-md-5">
-                                    <p class="font-weight-400 mb-2">Prioridade</p>
-                                    <select id="prioridade" name="prioridade" class="form-control" required="true">
-                                        <option value="" selected>---Selecione---</option>
-                                        @foreach($order_servicos['prioridades'] as $prioridade)
-                                            <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                {{--                            <div class="mb-3  col-md-4">--}}
-                                {{--                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" name="dtabertura" type="text"--}}
-                                {{--                                                                                       placeholder="__/__/__"--}}
-                                {{--                                                                                       class="form-control" required="true">--}}
-                                {{--                            </div>--}}
-                                <div class="mb-2 col-md-2">
-                                    <p class="font-weight-400 mb-2">Dt. Programada</p>
-                                    <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__" class="form-control" >
-                                </div>
-                                <div class="mb-2 col-md-5">
-                                    <p class="font-weight-400 mb-2">Tp. Manutenção</p>
-                                    <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
-                                        <option value="" selected>---Selecione---</option>
-                                        @foreach($order_servicos['tipo_manutencao'] as $manutencao)
-                                            <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-2 col-md-5">
-                                    <p class="font-weight-400 mb-2">Naturea do Serviço</p>
-                                    <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
-                                        <option value="" selected>---Selecione---</option>
-                                        @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
-                                            <option value="{{ $natureza_servico->id }}">{{ $natureza_servico->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="row">
+                            <div class="mb-2 col-md-2">
+                                <p class="font-weight-400 mb-2">Nr.OS</p>
+                                <input type="text" id="numero_os" name="numero_os" placeholder="" class="form-control" value="{{ $os->numero_os }}" readonly>
                             </div>
-                            <br>
-                            <button type="submit" class="btn float-right btn-primary ml-3">CADASTRAR</button>
+                            <div class="mb-2 col-md-5">
+                                <p class="font-weight-400 mb-2">Tag.</p>
+                                <input type="text" id="tag" name="tag" placeholder="" class="form-control" value="{{ $os->tags }}" readonly>
+
+                            </div>
+                            <div class="mb-2 col-md-5">
+                                <p class="font-weight-400 mb-2">Prioridade</p>
+                                <select id="prioridade" name="prioridade" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['prioridades'] as $prioridade)
+                                        <option value="{{ $prioridade->id }}" {{ ($prioridade->id == $os->prioridade_id) ? "selected" : ""}}>{{ $prioridade->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-2 col-md-2">
+                                <p class="font-weight-400 mb-2">Dt. Programada</p>
+                                <input id="dtprogramada" name="dtprogramada" type="text"
+                                       placeholder="__/__/__" class="form-control" required="true">
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <p class="font-weight-400 mb-2">Tp. Manutenção</p>
+                                <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['tipo_manutencao'] as $manutencao)
+                                        <option value="{{ $manutencao->id }}" {{ ($manutencao->id == $os->tipo_manutencao_id) ? "selected" : ""}}>{{ $manutencao->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-2 col-md-4">
+                                <p class="font-weight-400 mb-2">Naturea do Serviço</p>
+                                <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
+                                        <option value="{{ $natureza_servico->id }}" {{ ($natureza_servico->id == $os->natureza_servico_id) ? "selected" : ""}}>{{ $natureza_servico->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-2">
+                                <p class="font-weight-400 mb-2">Status da OS</p>
+                                <select id="responsavel" name="responsavel" class="form-control" required="true">
+                                    <option value="1" selected>Em Analise</option>
+                                    <option value="3">Aberta</option>
+                                    <option value="2">Pausada</option>
+                                    <option value="2">Em Execução</option>
+                                    <option value="2">Fechada</option>
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-3">
+                                <p class="font-weight-400 mb-2">Eq. Responsável</p>
+                                <select id="eq_responsavel" name="eq_responsavel" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['equipes'] as $equipe)
+                                        <option value="{{ $equipe->id }}" {{ ($equipe->id == $os->equipe_responsavel_id) ? "selected" : ""}}>{{ $equipe->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-3">
+                                <p class="font-weight-400 mb-2">Responsavel</p>
+                                <select id="responsavel" name="responsavel" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    <option value="1">Marcus V.</option>
+                                    <option value="2">Carlos A.</option>
+                                    <option value="3">Julia B.</option>
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-3">
+                                <p class="font-weight-400 mb-2">Executor</p>
+                                <select id="executor" name="executor" class="form-control" required="true">
+                                    <option value="" selected>---Nenhum---</option>
+                                    <option value="1">Jose R.</option>
+                                    <option value="2">Maria D.</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <p class="font-weight-400 mb-2">Descritivo</p>
+                        <div id="editor" name="editor"></div>
+                        <br>
+
+                        <p class="font-weight-400 mb-2">Descritivo Executado</p>
+                        <div id="desc_executado" name="desc_executado"></div>
+
+                        <br>
+                        <a href="{{ route('gestao') }}" class="btn float-right btn-primary ml-3"
+                            >Voltar</a>
+                        <button type="submit" class="btn float-right btn-primary ml-3"
+                        >EDITAR</button>
+
+                        <!-- <div class="ul-widget-app__browser-list scroll" id="mydiv">
+
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white bg-warning rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Elétrica</span>
+                                <span class="badge badge-success">ABERTA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Refrigeração</span>
+                                <span class="badge badge-close">FECHADA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white cyan-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Jardinagem</span>
+                                <span class="badge badge-info">PROGRAMADA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white teal-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Limpeza</span>
+                                <span class="badge badge-danger">CANCELADA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white purple-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Civil</span>
+                                <span class="badge badge-warning">EM ESPERA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Eng. Clinica</span>
+                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Jardinagem</span>
+                                <span class="badge badge-success">ABERTA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Refrigeração</span>
+                                <span class="badge badge-close">FECHADA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Elétrica</span>
+                                <span class="badge badge-success">ABERTA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white cyan-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Jardinagem</span>
+                                <span class="badge badge-info">PROGRAMADA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Eng. Clinica</span>
+                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white bg-warning rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Elétrica</span>
+                                <span class="badge badge-success">ABERTA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white bg-danger rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Eng. Clinica</span>
+                                <span class="badge badge-waiting">AGUARDANDO MATERIAL</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white green-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Jardinagem</span>
+                                <span class="badge badge-success">ABERTA</span>
+                            </div>
+                            <div class="ul-widget-app__browser-list-1 mb-4">
+                                <i class="i-Gears  text-white teal-500 rounded-circle p-2  mr-3"></i>
+                                <span class="text-15">Limpeza</span>
+                                <span class="badge badge-danger">CANCELADA</span>
+                            </div>
+                        </div> -->
                         </form>
                     </div>
                 </div>
             </div>
             <!-- End Cadastro Profissionais -->
-
-
-            <!-- OS Programadas -->
-            <div class="col-lg-5 col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">OS Programadas</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="ul-widget-app__browser-list scroll" id="mydiv">
-
-                            @foreach($list_os as $os)
-                                <a href="{{ route('gestao.edit',$os->os_id) }}">
-                            <div class="ul-widget-app__browser-list mb-4 mt-2">
-                                @if($os->prioridade == 'Alta')
-                                    <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>
-                                @elseif($os->prioridade == 'Media')
-                                    <i class="i-Arrow-Up-3  text-white yellow-500 rounded-circle p-2  mr-3"></i>
-                                @else
-                                        <i class="i-Arrow-Up-3  text-white gray-500 rounded-circle p-2  mr-3"></i>
-                                @endif
-                                <span class="text-15">{{ $os->numero_os }} - {{ $os->tags }} -
-                                    DT. Abertura : {{ $os->data_abertura }}  &nbsp; </span>
-                            </div>
-                                </a>
-                            @endforeach
-
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-3  text-white green-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0096 - TAG01AR01 - SEOR01 - PRDO2 - TROCA DE TERMOSTATO ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - PROGRAMADA - DT.ABERTURA 30/09/2024 - PRIORIDADE ALTA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up-2  text-white orange-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0032 - TAG01AR02 - SEOR01 - PRDO2 - TROCA DE BUBUNA ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - EMERGENCIAL - DT.ABERTURA 30/09/2024 - PRIORIDADE MEDIA </span>--}}
-{{--                            </div>--}}
-{{--                            <div class="ul-widget-app__browser-list-1 mb-4">--}}
-{{--                                <i class="i-Arrow-Up  text-white blue-500 rounded-circle p-2  mr-3"></i>--}}
-{{--                                <span class="text-15">OS0067 - TAG01AR03 - SEOR01 - PRDO3 - MANUTENÇÃO SELETOR ---}}
-{{--                                    EQUIPE REFRIGERAÇÃO - CORRETIVA - DT.ABERTURA 30/09/2024 - PRIORIDADE BAIXA </span>--}}
-{{--                            </div>--}}
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end of col-->
-
 
 
             <!-- Test Widget
@@ -504,24 +524,24 @@
 </div>
 <!-- ============ Search UI End ============= -->
 
-<script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/vendor/perfect-scrollbar.min.js"></script>
-<script src="assets/js/vendor/echarts.min.js"></script>
-<script src="assets/js/vendor/datatables.min.js"></script>
+<script src="{{ asset('assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 
-<script src="assets/js/es5/echart.options.min.js"></script>
-<script src="assets/js/es5/dashboard.v2.script.min.js"></script>
+<script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/dashboard.v2.script.min.js') }}"></script>
 
-<script src="assets/js/es5/script.min.js"></script>
-<script src="assets/js/es5/sidebar.large.script.min.js"></script>
+<script src="{{ asset('assets/js/es5/script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/sidebar.large.script.min.js') }}"></script>
 
-<script src="assets/js/vendor/apexcharts.min.js"></script>
-<script src="assets/js/vendor/echarts.min.js"></script>
-<script src="assets/js/es5/echart.options.min.js"></script>
+<script src="{{ asset('assets/js/vendor/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>
 
 <!-- Date Picker-->
-<script src="assets/js/datepicker/datepicker.js"></script>
+<script src="{{ asset('assets/js/datepicker/datepicker.js') }}"></script>
 <script>
     var dtabertura = new Datepicker('#dtabertura');
     var dtprogramada = new Datepicker('#dtprogramada');
@@ -543,7 +563,7 @@
 
 <!-- Session fade after some time -->
 <script type="text/javascript">
-    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 4000);
+    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 3000);
 </script>
 
 </body>

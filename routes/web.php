@@ -65,6 +65,7 @@ Route::put('ativos/{ativos}', [AssetController::class ,'update'])->name('ativos.
 Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');
 Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao_destroy');
 Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gestao_store');
+Route::get('gestao/{id}/edit', [OrderServicoController::class,'edit'])->name('gestao.edit');
 
 
 
