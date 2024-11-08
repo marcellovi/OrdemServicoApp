@@ -9,6 +9,7 @@ use App\Models\Ativo;
 use App\Models\Bloco;
 use App\Models\Categories;
 use App\Models\Fase;
+use App\Models\ItemAtivo;
 use App\Models\SalaArea;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class AssetController extends Controller
             'fases' => Fase::all()->where('deleted_at', '=', null),
             'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
             'artefatos' => Artefato::all()->where('deleted_at', '=', null),
+            'itens_ativos' => Artefato::all()->where('deleted_at', '=', null), //ItemAtivo::all()->where('deleted_at', '=', null),
         ];
 
         //$ativos = Ativo::all()->where('deleted_at', '=', null);

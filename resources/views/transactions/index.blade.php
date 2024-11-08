@@ -41,206 +41,53 @@
 
         <!-- Content with Tables and Registration -->
         <div class="row">
-            <!-- Gestao Cadastro -->
-            <div class="col-md-8">
-                <div class="card o-hidden mb-4">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Gestão de Compras</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-
-                            <table id="user_table" class="table dataTable-collapse text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col">AÇÕES</th>
-                                    <th scope="col">NOME</th>
-                                    <th scope="col">INFO.1</th>
-                                    <th scope="col">INFO.2</th>
-                                    <th scope="col">INFO.3</th>
-                                    <th scope="col">STATUS</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-primary mr-2">
-                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>Ricardo</td>
-                                    <td>
-                                        Masculino
-                                    </td>
-
-                                    <td>RJ/RJ</td>
-                                    <td>
-                                        24/09/2024
-                                    </td>
-                                    <td><span class="badge badge-success">Aberta</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-primary mr-2">
-                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>Joana</td>
-                                    <td>
-                                        Feminino
-                                    </td>
-
-                                    <td>RJ/RJ</td>
-                                    <td>
-                                        24/09/2024
-                                    </td>
-                                    <td><span class="badge badge-warning">Em Andamento</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-primary mr-2">
-                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>Marcello</td>
-                                    <td>
-                                        Masculino
-                                    </td>
-
-                                    <td>RJ/RJ</td>
-                                    <td>
-                                        01/07/2000
-                                    </td>
-                                    <td><span class="badge badge-success">Aberta</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-primary mr-2">
-                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>Emerson</td>
-                                    <td>
-                                        Masculino
-                                    </td>
-
-                                    <td>RJ/RJ</td>
-                                    <td>
-                                        24/01/2014
-                                    </td>
-                                    <td><span class="badge badge-success">Aberta</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-primary mr-2">
-                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="#" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-                                    <td>Maria</td>
-                                    <td>
-                                        Feminino
-                                    </td>
-
-                                    <td>SP/SP</td>
-                                    <td>
-                                        05/09/2024
-                                    </td>
-                                    <td><span class="badge badge-danger">Encerrada</span></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end of col-->
 
             <!-- Solicitaçao de Compras -->
-            <div class="col-lg-4 col-md-4 mb-4">
+            <div class="col-lg-5 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Solicitação de Compras</h3>
+                        <h3 class="w-50 float-left card-title m-0">Gestão de Compras/Produtos</h3>
                     </div>
                     <div class="card-body">
 
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Fornecedor</p><input type="text" placeholder="Nome"
-                                                                                     class="form-control">
+                                <p class="font-weight-400 mb-2">Nome</p>
+                                <input type="text" id="nome" name="nome" placeholder="Nome" class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Tipo</p>
-                                <select id="theme_selector" class="form-control">
+                                <p class="font-weight-400 mb-2">Fornecedor</p>
+                                <select id="fornecedor" name="fornecedor"  class="form-control">
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="tipo1">Tipo 1</option>
-                                    <option value="tipo2">Tipo 2</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text"
-                                                                                   placeholder="999.999.999-99"
-                                                                                   class="form-control">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Endereço</p><input type="text" placeholder="Endereço"
-                                                                                   class="form-control">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Contato</p><input type="text"
-                                                                                  placeholder="+9 (999) 999-9999"
-                                                                                  class="form-control">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Tipo Prestador Serv.</p>
-                                <select id="theme_selector" class="form-control">
-                                    <option value="Nenhum" selected>---Nenhum---</option>
-                                    <option value="Tipo 1">Tipo 1</option>
-                                    <option value="Tipo 2">Tipo 2</option>
+                                    <option value="fornecedor1">Fornecedor 1</option>
+                                    <option value="fornecedor2">Fornecedor 2</option>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">Data Nasc.</p><input type="text" placeholder="mm/dd/yy"
-                                                                                     class="form-control">
+                                <p class="font-weight-400 mb-2">Valor Unitario</p>
+                                <input type="text" placeholder="" name="valor_unitario" class="form-control">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <p class="font-weight-400 mb-2">CPF/CNPJ</p><input type="text"
-                                                                                   placeholder="99.999.999/9999-99"
-                                                                                   class="form-control">
+                                <p class="font-weight-400 mb-2">Unid. Medida</p>
+                                <input type="text" placeholder="" name="unidade_medida" class="form-control">
                             </div>
+                            <div class="mb-3 col-md-12">
+                                <p class="font-weight-400 mb-2">Desc. Produto</p>
+                                <input type="text" placeholder="" name="descritivo" class="form-control">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <p class="font-weight-400 mb-2">Quantidade</p>
+                                <input type="text" placeholder="Quantidade" name="quantidade" class="form-control">
+                            </div>
+
+
+                            <div class="mb-3 col-md-6">
+                                <p class="font-weight-400 mb-2">Setor</p>
+                                <input type="text" placeholder="" name="setor" class="form-control">
+                            </div>
+
                         </div>
-                        <button type="button" class="btn float-right btn-primary">Registrar</button>
+                        <button type="button" class="btn float-right btn-primary">Cadastrar</button>
                         <!-- <div class="ul-widget-app__browser-list scroll" id="mydiv">
 
                             <div class="ul-widget-app__browser-list-1 mb-4">
@@ -326,6 +173,79 @@
             </div>
             <!-- End Cadastro Profissionais -->
 
+            <!-- Tabela de Produtos -->
+            <div class="col-md-7">
+                <div class="card o-hidden mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="w-50 float-left card-title m-0">Tabela de Produtos</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            <table id="user_table" class="table dataTable-collapse text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col">AÇÕES</th>
+                                    <th scope="col">NOME</th>
+                                    <th scope="col">VAL. UNITARIO</th>
+                                    <th scope="col">FORNECEDOR</th>
+                                    <th scope="col">QUANTIDADE</th>
+{{--                                    <th scope="col">STATUS</th>--}}
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>
+{{--                                        <a href="#" class="text-primary mr-2">--}}
+{{--                                            <i class="nav-icon i-Receipt-3 font-weight-bold"></i>--}}
+{{--                                        </a>--}}
+                                        <a href="#" class="text-success mr-2">
+                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                        </a>
+                                        <a href="#" class="text-danger mr-2">
+                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                        </a>
+                                    </td>
+                                    <td>Capacitor</td>
+                                    <td>
+                                        $100
+                                    </td>
+
+                                    <td>Film Capacitor</td>
+                                    <td>
+                                        50
+                                    </td>
+{{--                                    <td><span class="badge badge-success">Aberta</span></td>--}}
+                                </tr>
+                                <tr>
+                                    <td>
+                                         <a href="#" class="text-success mr-2">
+                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                        </a>
+                                        <a href="#" class="text-danger mr-2">
+                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                        </a>
+                                    </td>
+                                    <td>Bomba</td>
+                                    <td>
+                                        $550
+                                    </td>
+
+                                    <td>L.F Comércio</td>
+                                    <td>
+                                        17
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of col-->
 
         </div>
         <!-- end of row-->
