@@ -58,6 +58,8 @@ Route::put('artefatos/{artefato}', [ArtefatoController::class ,'update'])->name(
 Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
 Route::get('ativos/destroy/{id}',[AssetController::class, 'destroy'])->name('ativos_destroy');
 Route::post('ativos/store',[AssetController::class, 'store'])->name('ativos_store');
+Route::get('ativos/{id}/edit', [AssetController::class,'edit'])->name('ativos.edit');
+Route::put('ativos/{ativos}', [AssetController::class ,'update'])->name('ativos.update');
 
 // ORDER SERVICO
 Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');

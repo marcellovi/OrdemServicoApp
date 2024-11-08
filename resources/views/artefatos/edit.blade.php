@@ -74,11 +74,11 @@
                             <div class="row">
                                 <div class="mb-2 col-md-2">
                                     <p class="font-weight-400 mb-2">Sigla</p>
-                                    <input type="text" id="sigla" name="sigla" placeholder="" class="form-control" value="{{ $artefato->sigla }}" required="true">
+                                    <input type="text" id="sigla" name="sigla" placeholder="" class="form-control" value="{{ $ativo->sigla }}" required="true">
                                 </div>
                                 <div class="mb-2 col-md-5">
                                     <p class="font-weight-400 mb-2">Nome</p>
-                                    <input type="text" id="nome" name="nome" placeholder="" class="form-control" value="{{ $artefato->nome }}" required="true">
+                                    <input type="text" id="nome" name="nome" placeholder="" class="form-control" value="{{ $ativo->nome }}" required="true">
                                 </div>
                                 <div class="mb-2 col-md-5">
                                     <p class="font-weight-400 mb-2">Sub-Artefato</p>

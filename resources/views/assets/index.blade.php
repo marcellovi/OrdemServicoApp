@@ -75,7 +75,7 @@
                             <div class="mb-3 col-md-12">
                                 <p class="font-weight-400 mb-2">Tags</p>
                                 <input type="text" id="tags" class="form-control"
-                                       value="" name="tags" x-model.fill="tags">
+                                       value="" name="tags" x-model.fill="tags" readonly="true">
                                 <!--                FS01-BL03-AND02-SL03-AC01                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
                             </div>
 
@@ -168,7 +168,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-12">
-                                <p class="font-weight-400 mb-2" id="descritivo" name="descritivo">Descritivo:</p><textarea rows="3" class="form-control"></textarea>
+                                <p class="font-weight-400 mb-2" >Descritivo:</p><textarea rows="3" class="form-control" id="descritivo" name="descritivo"></textarea>
                             </div>
 
                         </div>
@@ -199,14 +199,14 @@
                                     <th scope="col">RESPONSAVEL</th>
                                     <th scope="col">CATEGORIA</th>
                                     <th scope="col">DT. CRIAÇÃO</th>
-                                    <th scope="col">STATUS</th>
+{{--                                    <th scope="col">STATUS</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($ativos as $ativo)
                                 <tr>
                                     <td>
-                                        <a href="#" class="text-success mr-2">
+                                        <a href="{{ route('ativos.edit',$ativo->id) }}" class="text-success mr-2">
                                             <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                         </a>
                                         <a href="ativos/destroy/{{ $ativo->id }}" class="text-danger mr-2">
@@ -222,30 +222,30 @@
 
                                     <td>{{ $ativo->categorias }}</td>
                                     <td>
-                                        {{ $ativo->created_at }}
+                                        {{ date_format($ativo->created_at,"d/m/Y") }}
                                     </td>
-                                    <td>
-                                    @switch($ativo->status)
+{{--                                    <td>--}}
+{{--                                    @switch($ativo->status)--}}
 
-                                        @case('Em Analise')
-                                                @php $status_color = 'warning'; @endphp
-                                                @break
-                                        @case('Aberta')
-                                            @php $status_color = 'success'; @endphp
-                                            @break
-                                        @case('Em Andamento')
-                                            @php $status_color = 'waiting'; @endphp
-                                            @break
-                                        @case('Em Espera')
-                                            @php $status_color = 'danger'; @endphp
-                                            @break
-                                        @case('Fechada')
-                                            @php $status_color = 'outline-dark'; @endphp
-                                            @break
-                                        @default
-                                            @php $status_color = 'outline-danger'; @endphp
-                                    @endswitch
-                                        <span class="badge badge-{{ $status_color }}">{{ $ativo->status }}</span></td>
+{{--                                        @case('Em Analise')--}}
+{{--                                                @php $status_color = 'warning'; @endphp--}}
+{{--                                                @break--}}
+{{--                                        @case('Aberta')--}}
+{{--                                            @php $status_color = 'success'; @endphp--}}
+{{--                                            @break--}}
+{{--                                        @case('Em Andamento')--}}
+{{--                                            @php $status_color = 'waiting'; @endphp--}}
+{{--                                            @break--}}
+{{--                                        @case('Em Espera')--}}
+{{--                                            @php $status_color = 'danger'; @endphp--}}
+{{--                                            @break--}}
+{{--                                        @case('Fechada')--}}
+{{--                                            @php $status_color = 'outline-dark'; @endphp--}}
+{{--                                            @break--}}
+{{--                                        @default--}}
+{{--                                            @php $status_color = 'outline-danger'; @endphp--}}
+{{--                                    @endswitch--}}
+{{--                                        <span class="badge badge-{{ $status_color }}">{{ $ativo->status }}</span></td>--}}
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -432,7 +432,7 @@
 
 <!-- Session fade after some time -->
 <script type="text/javascript">
-    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 3000);
+    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 4000);
 </script>
 
 </body>

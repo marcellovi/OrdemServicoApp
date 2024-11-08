@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sistema de O.S</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/vendor/datatables.min.css">
-    <link rel="stylesheet" href="assets/styles/css/themes/lite-purple.css">
-    <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
     <style>
         div.scroll {
             max-height: 500px;
@@ -62,54 +62,47 @@
 
         <div class="row">
 
-            <!-- Cadastro de Ativos -->
+            <!-- Editar Ativo -->
             <div class="col-lg-6 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Cadastro de Ativos</h3>
+                        <h3 class="w-50 float-left card-title m-0">Editar Ativo</h3>
                     </div>
                     <div class="card-body">
-                        <form action="ativos/store" method="POST">
+                        <form action="{{ route('ativos.update',$ativo->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                         <div class="row" x-data="{ tags: '' }">
                             <div class="mb-3 col-md-12">
-                                <p class="font-weight-400 mb-2">Tags</p>
-                                <input type="text" id="tags" class="form-control"
-                                       value="" name="tags" x-model.fill="tags">
-                                <!--                FS01-BL03-AND02-SL03-AC01                    <input type="text" id="tags"  class="form-control" data-role="tagsinput"  value="TAG-0001">-->
+                                <p class="font-weight-400 mb-2">TAG: {{ $ativo->tags }}</p>
+                                <input type="text" id="tags" class="form-control" value="" name="tags" x-model.fill="tags" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Nome do Ativo *</p>
                                 <select id="nome_ativo" name="nome_ativo" class="form-control" required="true">
                                     <option value="" selected >---Selecione---</option>
                                     @foreach($assets['artefatos'] as $artefato)
-                                    <option value="{{ strtoupper($artefato->sigla) }}" >{{ strtoupper($artefato->sigla).'-'.strtoupper($artefato->nome) }}</option>
-
-{{--                                    <option value="AC01" >AC01</option>--}}
-{{--                                    <option value="AB01">AB01</option>--}}
-{{--                                    <option value="CD02">CD02</option>--}}
-{{--                                    <option value="SP01">SP01</option>--}}
+                                    <option value="{{ strtoupper($artefato->sigla) }}" {{ ($artefato->sigla == $ativo->nome) ? 'selected' : '' }} >{{ strtoupper($artefato->sigla).'-'.strtoupper($artefato->nome) }}</option>
                                     @endforeach
                                 </select>
-                                <!--                                    <input type="text" placeholder="Nome" class="form-control">-->
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">Categoria *</p>
                                 <select id="categoria" name="categoria" class="form-control" required="true">
                                     <option value="">---Selecione---</option>
                                     @foreach($assets['categorias'] as $categoria)
-                                        <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                                        <option value="{{ $categoria->id }}" {{ ($categoria->id == $ativo->categoria_id) ? 'selected' : '' }}>{{ $categoria->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <p class="font-weight-400 mb-2">Modelo</p><input type="text" id="modelo" name="modelo"  placeholder="Modelo"
-                                                                                 class="form-control" value="">
+                                                                                 class="form-control" value="{{ $ativo->modelo }}">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <p class="font-weight-400 mb-2">N. Série</p><input type="text" id="serie" name="serie"  placeholder="N. Série"
                                                                                    class="form-control"
-                                                                                   value="">
+                                                                                   value="{{ $ativo->serie }}">
                             </div>
                             <!-- fase-bloco-andar-sala_area -->
                             <div class="mb-3 col-md-3">
@@ -117,7 +110,7 @@
                                 <select class="form-control" id="fase" name="fase" required="true" x-ref="fase" x-on:change="tags = $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['fases'] as $fase)
-                                        <option value="{{ $fase->id }}">{{ $fase->name }}</option>
+                                        <option value="{{ $fase->id }}" {{ ($fase->id == $ativo->fase_id) ? 'selected' : '' }}>{{ $fase->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -126,7 +119,7 @@
                                 <select class="form-control" id="bloco" name="bloco" required="true" x-ref="bloco" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['blocos'] as $bloco)
-                                        <option value="{{ $bloco->id }}">{{ $bloco->name }}</option>
+                                        <option value="{{ $bloco->id }}" {{ ($bloco->id == $ativo->bloco_id) ? 'selected' : '' }}>{{ $bloco->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -135,7 +128,7 @@
                                 <select class="form-control" id="andar" name="andar"  required="true" x-ref="andar" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['andares'] as $andar)
-                                        <option value="{{ $andar->id }}">{{ $andar->name }}</option>
+                                        <option value="{{ $andar->id }}" {{ ($andar->id == $ativo->andar_id) ? 'selected' : '' }}>{{ $andar->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -144,7 +137,7 @@
                                 <select class="form-control" id="sala_area" name="sala_area" required="true" x-ref="sala_area" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $refs.andar.options[$refs.andar.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                     <option value="">---Nenhum---</option>
                                     @foreach($assets['sala_areas'] as $sala_area)
-                                        <option value="{{ $sala_area->id }}">{{ $sala_area->name }}</option>
+                                        <option value="{{ $sala_area->id }}" {{ ($sala_area->id == $ativo->sala_area_id) ? 'selected' : '' }}>{{ $sala_area->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -163,94 +156,17 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-12">
-                                <p class="font-weight-400 mb-2" id="descritivo" name="descritivo">Descritivo:</p><textarea rows="3" class="form-control"></textarea>
+                                <p class="font-weight-400 mb-2" >Descritivo:</p><textarea rows="3" class="form-control" id="descritivo" name="descritivo">{{ $ativo->descritivo }}</textarea>
                             </div>
 
                         </div>
-                        <button type="submit" class="btn float-right btn-primary">Cadastrar</button>
+                        <a href="{{ route('ativos') }}" class="btn float-right btn-primary ml-3" >Voltar</a>
+                        <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>
                     </form>
                     </div>
                 </div>
             </div>
-
-            <!-- End Cadastro Profissionais -->
-
-
-            <!-- Gestao Cadastro -->
-            <div class="col-md-6">
-                <div class="card o-hidden mb-4">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Gestão de Ativos</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-
-                            <table id="user_table" class="table dataTable-collapse text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col">AÇÕES</th>
-                                    <th scope="col">ATIVO</th>
-                                    <th scope="col">RESPONSAVEL</th>
-                                    <th scope="col">CATEGORIA</th>
-                                    <th scope="col">DT. CRIAÇÃO</th>
-                                    <th scope="col">STATUS</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($ativos as $ativo)
-                                <tr>
-                                    <td>
-                                        <a href="#" class="text-success mr-2">
-                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                        </a>
-                                        <a href="ativos/destroy/{{ $ativo->id }}" class="text-danger mr-2">
-                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                        </a>
-                                    </td>
-
-
-                                    <td>{{ $ativo->tags }}</td>
-                                    <td>
-                                        Nenhum
-                                    </td>
-
-                                    <td>{{ $ativo->categorias }}</td>
-                                    <td>
-                                        {{ $ativo->created_at }}
-                                    </td>
-                                    <td>
-                                    @switch($ativo->status)
-
-                                        @case('Em Analise')
-                                                @php $status_color = 'warning'; @endphp
-                                                @break
-                                        @case('Aberta')
-                                            @php $status_color = 'success'; @endphp
-                                            @break
-                                        @case('Em Andamento')
-                                            @php $status_color = 'waiting'; @endphp
-                                            @break
-                                        @case('Em Espera')
-                                            @php $status_color = 'danger'; @endphp
-                                            @break
-                                        @case('Fechada')
-                                            @php $status_color = 'outline-dark'; @endphp
-                                            @break
-                                        @default
-                                            @php $status_color = 'outline-danger'; @endphp
-                                    @endswitch
-                                        <span class="badge badge-{{ $status_color }}">{{ $ativo->status }}</span></td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end of col-->
-
+            <!-- End Editar  -->
 
         </div>
         <!-- end of row-->
@@ -262,7 +178,7 @@
 <!-- ============ Search UI Start ============= -->
 <div class="search-ui">
     <div class="search-header">
-        <img src="./assets/images/er_profile.png" alt="" class="logo">
+        <img src="{{ asset('assets/images/er_profile.png') }}" alt="" class="logo">
         <button class="search-close btn btn-icon bg-transparent float-right mt-2">
             <i class="i-Close-Window text-22 text-muted"></i>
         </button>
