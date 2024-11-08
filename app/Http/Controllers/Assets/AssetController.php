@@ -48,7 +48,6 @@ class AssetController extends Controller
             Bloco::find($request->get('bloco'))->name.'-'.
             Andar::find($request->get('andar'))->name.'-'.
             SalaArea::find($request->get('sala_area'))->name.'-'.
-            Fase::find($request->get('fase'))->name.'-'.
             $request->get('nome_ativo');
 
         Ativo::create([
@@ -82,7 +81,6 @@ class AssetController extends Controller
             Bloco::find($request->get('bloco'))->name.'-'.
             Andar::find($request->get('andar'))->name.'-'.
             SalaArea::find($request->get('sala_area'))->name.'-'.
-            Fase::find($request->get('fase'))->name.'-'.
             $request->get('nome_ativo');
 
 
