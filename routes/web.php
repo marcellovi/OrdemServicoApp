@@ -5,6 +5,7 @@ use App\Http\Controllers\Assets\AssetController;
 use App\Http\Controllers\Management\OrderServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -52,7 +53,12 @@ Route::post('artefatos/store',[ArtefatoController::class, 'store'])->name('artef
 Route::get('artefatos/{id}/edit', [ArtefatoController::class,'edit'])->name('artefatos.edit');
 Route::put('artefatos/{artefato}', [ArtefatoController::class ,'update'])->name('artefatos.update');
 
-
+// USUARIOS & EQUIPE & PERMISSAO
+Route::get('usuarios',[UserController::class, 'index'])->name('usuarios');
+Route::get('usuarios/destroy/{id}',[UserController::class, 'destroy'])->name('usuarios.destroy');
+Route::post('usuarios/store',[UserController::class, 'store'])->name('usuarios.store');
+Route::get('usuarios/{id}/edit', [UserController::class,'edit'])->name('usuarios.edit');
+Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.update');
 
 // ATIVOS
 Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
@@ -66,6 +72,7 @@ Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');
 Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao_destroy');
 Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gestao_store');
 Route::get('gestao/{id}/edit', [OrderServicoController::class,'edit'])->name('gestao.edit');
+Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gestao.update');
 
 
 
