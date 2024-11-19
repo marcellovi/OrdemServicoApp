@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use League\Csv\Reader;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ItemController extends Controller
 {
@@ -25,43 +27,31 @@ class ItemController extends Controller
     }
     public function importarItens(Request $request) // dont use
     {
-        $itens = Item::all();
-
-
         try{
 
-//            $check = getimagesize($_FILES["arquivo"]["tmp_name"]);
-//            if($check !== false) {
-//                echo "File is an image - " . $check["mime"] . ".";
-//                $uploadOk = 1;
-//            } else {
-//                echo "File is not an image.";
-//                $uploadOk = 0;
-//            } dd('stop');
+            $file = $request->file('arquivo');
+            $filePath = $file->getRealPath();
+            $reader = Reader::createFromPath($filePath);
 
-//dd($_FILES["arquivo"]['full_path']);
+            foreach ($reader as $key => $row) {
 
-            $itens = (new FastExcel)->import($_FILES["arquivo"]['full_path'], function ($line) {
-                return Item::create([
-                    'nome' => $line['nome'],
-                    'modelo' => $line['modelo'],
-                    'descritivo' => $line['descritivo'],
-                    'categoria_id' => $line['categoria']
-                ]);
-            });
-
+                if(!$key == 0){
+                    Item::create([
+                        'nome' => ucfirst($row[0]),
+                        'modelo' => ucfirst($row[1]),
+                        'categoria_id' => intval($row[2]),
+                        'descritivo' => $row[3],
+                    ]);
+                }
+            }
 
         }catch(\Exception $e){
-            dd($e->getMessage());
+            die($e->getMessage());
         }
-
-
-        dd($request->all());
-        $categorias = Categoria::all()->where('deleted_at', '=', null);
-        $items = Item::all();
-
-        return view('ativos.ativos_item.index', compact('items','categorias'));
+        return redirect()->route('ativos-itens')
+            ->with(['message' => 'Os Itens forão Importado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
     }
-
 
 }
