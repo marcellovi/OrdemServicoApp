@@ -13,10 +13,25 @@ class AddStatues extends Seeder
      */
     public function run(): void
     {
-        $statues = ['Em Analise','Aberta','Em Andamento', 'Em Espera','Fechada'];
+        $statues_os = [
+            [ 'id' => 1, 'nome' => 'Em Analise','tipo_status' => 'os' ],
+            [ 'id' => 2, 'nome' => 'Aberta','tipo_status' => 'os' ],
+            [ 'id' => 3, 'nome' => 'Em Andamento','tipo_status' => 'os' ],
+            [ 'id' => 4, 'nome' => 'Em Espera','tipo_status' => 'os' ],
+            [ 'id' => 5, 'nome' => 'Fechada','tipo_status' => 'os']
+        ];
+        $statues_rh = [
+            [ 'id' => 6, 'nome' => 'Ativo','tipo_status' => 'rh' ],
+            [ 'id' => 7, 'nome' => 'Em Férias','tipo_status' => 'rh' ],
+            [ 'id' => 8, 'nome' => 'Demitido','tipo_status' => 'rh' ],
+        ];
 
-        foreach ($statues as $status) {
-            DB::table('status')->insert(['name' => $status]);
+        foreach ($statues_os as $status) {
+            DB::table('status')->insert($status);
+        }
+
+        foreach ($statues_rh as $status_rs) {
+            DB::table('status')->insert($status_rs);
         }
     }
 }

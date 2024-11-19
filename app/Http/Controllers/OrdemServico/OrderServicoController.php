@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Management;
+namespace App\Http\Controllers\OrdemServico;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ativo;
@@ -19,19 +19,21 @@ class OrderServicoController extends Controller
             'tipo_manutencao' => DB::table('tipo_manutencao')->where('deleted_at', '=', null)->get(),
             'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
             'ativos' => Ativo::all()->where('deleted_at', '=', null),
+            'status' => DB::table('status')->where('deleted_at', '=', null)->where('tipo_status','os')->get(),
             'numero_os' => $nr_os
         ];
 
         $list_os = OrderServico::select('order_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
-        'prioridades.nome as prioridade','data_abertura')
+        'prioridades.nome as prioridade','data_abertura','status.nome as status')
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')
             ->join('ativos', 'ativos.id', '=', 'ativo_id')
+            ->join('status', 'status.id', '=', 'order_servicos.status_id')
             ->where('order_servicos.deleted_at', '=', null)
             ->orderby('order_servicos.prioridade_id','asc')
             ->orderby('order_servicos.created_at','desc')->get();
 
-        return view('management.index', compact('order_servicos','list_os'));
+        return view('ordemservico.index', compact('order_servicos','list_os'));
     }
 
 
@@ -41,20 +43,18 @@ class OrderServicoController extends Controller
 //            'categoria' => 'required',
 //        ]);
 
-        $ativo_id = $request->get('tags');
-
         OrderServico::create([
             'numero_os' => $request->get('numero_os'),
-            'tags' => $ativo_id,
-            'ativo_id' => $ativo_id,
+            //'tags' => $ativo_id,
+            'ativo_id' => $request->get('tags'),
             'prioridade_id' => $request->get('prioridade'),
             'tipo_manutencao_id' => $request->get('tipo_manutencao'),
             'natureza_servico_id' => $request->get('natureza_servico'),
-            'equipe_responsavel_id' => $request->get('eq_responsavel'),
-            'responsavel_id' => $request->get('responsavel'),
-            'executor_id' => $request->get('executor'),
+            //'equipe_responsavel_id' => $request->get('eq_responsavel'),
+            //'responsavel_id' => $request->get('responsavel'),
+            //'executor_id' => $request->get('executor'),
             'data_abertura' => date("Y/m/d"),
-            //'data_programada' => date("Y/m/d")
+            'data_programada' => (!empty($request->get('dtprogramada'))) ? date_format(date_create($request->get('dtprogramada')),"Y/m/d") : null,
         ]);
 
         return redirect()->route('gestao')
@@ -82,7 +82,7 @@ class OrderServicoController extends Controller
 
         $os = OrderServico::select('order_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
             'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id',
-            'prioridades.nome as prioridade','data_abertura')
+            'prioridades.nome as prioridade','data_abertura','data_programada','descritivo','descritivo_executado')
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')
             ->join('ativos', 'ativos.id', '=', 'ativo_id')
@@ -91,6 +91,44 @@ class OrderServicoController extends Controller
             ->orderby('order_servicos.prioridade_id','asc')
             ->orderby('order_servicos.created_at','desc')->first();// dd($os->numero_os);
 
-        return view('management.edit',compact('order_servicos','os'));
+        return view('ordemservico.edit',compact('order_servicos','os'));
+    }
+
+    public function update(Request $request, $id)
+    {
+//        $request->validate([
+//            'title' => 'required|max:255',
+//            'body' => 'required',
+//        ]);
+
+        $os = OrderServico::find($id);//dd(date_format(date_create($request->get('dtprogramada')),"Y/m/d"));
+        $os->update([
+            'data_programada' => date_format(date_create($request->get('dtprogramada')),"Y/m/d"), //$request->get('dtprogramada'),
+            'prioridade_id' => $request->get('prioridade'),
+            'tipo_manutencao_id' => $request->get('tipo_manutencao'),
+            'natureza_servico_id' => $request->get('natureza_servico'),
+            'equipe_responsavel_id' => $request->get('eq_responsavel'),
+            'responsavel_id' => $request->get('responsavel'),
+            'executor_id' => $request->get('executor'),
+            'status_id' => $request->get('os_status'),
+            'descritivo' => $request->get('editor'),
+            'descritivo_executado' => $request->get('desc_executado'),
+        ]);
+        return redirect()->route('gestao')
+            ->with(['message' => 'OS N. '.$request->get('numero_os').' foi Atualizado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+
+    public function destroy($id){
+
+        $os = OrderServico::find($id);
+        $n_os = $os->numero_os;
+        $os->delete();
+
+        return redirect()->route('gestao')
+            ->with(['message' => 'OS N. '.$n_os .' foi Excluido do Sistema.',
+                'status' => 'Deletado',
+                'type' => 'info']);
     }
 }

@@ -18,6 +18,159 @@
         }
     </style>
 
+<style>
+    .multi-select {
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        user-select: none;
+    }
+    .multi-select .multi-select-header {
+        border: 1px solid #dee2e6;
+        padding: 7px 30px 7px 12px;
+        overflow: hidden;
+        gap: 7px;
+        min-height: 45px;
+    }
+    .multi-select .multi-select-header::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23949ba3' viewBox='0 0 16 16'%3E%3Cpath d='M8 13.1l-8-8 2.1-2.2 5.9 5.9 5.9-5.9 2.1 2.2z'/%3E%3C/svg%3E");
+        height: 12px;
+        width: 12px;
+    }
+    .multi-select .multi-select-header.multi-select-header-active {
+        border-color: #c1c9d0;
+    }
+    .multi-select .multi-select-header.multi-select-header-active::after {
+        transform: translateY(-50%) rotate(180deg);
+    }
+    .multi-select .multi-select-header.multi-select-header-active + .multi-select-options {
+        display: flex;
+    }
+    .multi-select .multi-select-header .multi-select-header-placeholder {
+        color: #65727e;
+    }
+    .multi-select .multi-select-header .multi-select-header-option {
+        display: inline-flex;
+        align-items: center;
+        background-color: #f3f4f7;
+        font-size: 14px;
+        padding: 3px 8px;
+        border-radius: 5px;
+    }
+    .multi-select .multi-select-header .multi-select-header-max {
+        font-size: 14px;
+        color: #65727e;
+    }
+    .multi-select .multi-select-options {
+        display: none;
+        box-sizing: border-box;
+        flex-flow: wrap;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        margin-top: 5px;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .multi-select .multi-select-options::-webkit-scrollbar {
+        width: 5px;
+    }
+    .multi-select .multi-select-options::-webkit-scrollbar-track {
+        background: #f0f1f3;
+    }
+    .multi-select .multi-select-options::-webkit-scrollbar-thumb {
+        background: #cdcfd1;
+    }
+    .multi-select .multi-select-options::-webkit-scrollbar-thumb:hover {
+        background: #b2b6b9;
+    }
+    .multi-select .multi-select-options .multi-select-option, .multi-select .multi-select-options .multi-select-all {
+        padding: 4px 12px;
+        height: 42px;
+    }
+    .multi-select .multi-select-options .multi-select-option .multi-select-option-radio, .multi-select .multi-select-options .multi-select-all .multi-select-option-radio {
+        margin-right: 14px;
+        height: 16px;
+        width: 16px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+    .multi-select .multi-select-options .multi-select-option .multi-select-option-text, .multi-select .multi-select-options .multi-select-all .multi-select-option-text {
+        box-sizing: border-box;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: inherit;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .multi-select .multi-select-options .multi-select-option.multi-select-selected .multi-select-option-radio, .multi-select .multi-select-options .multi-select-all.multi-select-selected .multi-select-option-radio {
+        border-color: #40c979;
+        background-color: #40c979;
+    }
+    .multi-select .multi-select-options .multi-select-option.multi-select-selected .multi-select-option-radio::after, .multi-select .multi-select-options .multi-select-all.multi-select-selected .multi-select-option-radio::after {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 7px;
+        margin: 0.12em 0 0 0.27em;
+        border: solid #fff;
+        border-width: 0 0.15em 0.15em 0;
+        transform: rotate(45deg);
+    }
+    .multi-select .multi-select-options .multi-select-option.multi-select-selected .multi-select-option-text, .multi-select .multi-select-options .multi-select-all.multi-select-selected .multi-select-option-text {
+        color: #40c979;
+    }
+    .multi-select .multi-select-options .multi-select-option:hover, .multi-select .multi-select-options .multi-select-option:active, .multi-select .multi-select-options .multi-select-all:hover, .multi-select .multi-select-options .multi-select-all:active {
+        background-color: #f3f4f7;
+    }
+    .multi-select .multi-select-options .multi-select-all {
+        border-bottom: 1px solid #f1f3f5;
+        border-radius: 0;
+    }
+    .multi-select .multi-select-options .multi-select-search {
+        padding: 7px 10px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        margin: 10px 10px 5px 10px;
+        width: 100%;
+        outline: none;
+        font-size: 16px;
+    }
+    .multi-select .multi-select-options .multi-select-search::placeholder {
+        color: #b2b5b9;
+    }
+    .multi-select .multi-select-header, .multi-select .multi-select-option, .multi-select .multi-select-all {
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        font-size: 16px;
+        color: #212529;
+    }
+</style>
+
     <!-- Multi-Select ListBox CSS -->
     <style>
         .listbox-area {
@@ -260,10 +413,10 @@
                                     <p class="font-weight-400 mb-2">Nome do Ativo *</p>
                                     <select id="nome_ativo" name="nome_ativo" class="form-control" required="true">
                                         <option value="" selected>---Selecione---</option>
-                                        @foreach($assets['artefatos'] as $artefato)
-                                            <option
-                                                value="{{ strtoupper($artefato->sigla) }}">{{ strtoupper($artefato->sigla).'-'.strtoupper($artefato->nome) }}</option>
-                                        @endforeach
+{{--                                        @foreach($assets['artefatos'] as $artefato)--}}
+{{--                                            <option--}}
+{{--                                                value="{{ strtoupper($artefato->sigla) }}">{{ strtoupper($artefato->sigla).'-'.strtoupper($artefato->nome) }}</option>--}}
+{{--                                        @endforeach--}}
                                     </select>
                                 </div>
                                 <div class="md-1">
@@ -366,7 +519,7 @@
                         <p>Itens Selecionados:</p>
                         <div x-data="{ select_valor: '' }">
                             <span  x-text="select_valor"></span>
-                            <input type="hidden" name="select_hidden[]" id="select_hidden" x-text="select_valor" >
+                            <input type="text" name="select_hidden[]" id="select_hidden" onClick="getValueOnSubmit()" >
                         </div>
                         <div class="listbox-area">
 
@@ -387,7 +540,7 @@
                             </div>
                             <div class="right-area" >
                                 <span id="ms_ch_l" class="listbox-label">Itens do Ativo:</span>
-                                <ul id="ms_unimp_list" x-model="select_valor"  tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true">
+                                <ul id="ms_unimp_list" tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true">
                                 </ul>
                                 <button type="button" id="ex2-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">
                                     <span class="checkmark" aria-hidden="true"></span>
@@ -401,10 +554,25 @@
                         <!-- End Multi-Select ListBox -->
                     </div>
                     <div class="tab-pane fade" id="contactIcon" role="tabpanel" aria-labelledby="contact-icon-tab">
-
-{{--                        <form action="#" class="dropzone dz-clickable" id="multple-file-upload">--}}
-{{--                            <div class="dz-default dz-message"><span></span></div>--}}
-{{--                        </form>--}}
+                        <label for="fruits">Fruits</label>
+                        <select id="fruits" name="fruits" data-placeholder="Select fruits" multiple data-multi-select>
+                            <option value="Apple">Apple</option>
+                            <option value="Banana">Banana</option>
+                            <option value="Blackberry">Blackberry</option>
+                            <option value="Blueberry">Blueberry</option>
+                            <option value="Cherry">Cherry</option>
+                            <option value="Cranberry">Cranberry</option>
+                            <option value="Grapes">Grapes</option>
+                            <option value="Kiwi">Kiwi</option>
+                            <option value="Mango">Mango</option>
+                            <option value="Orange">Orange</option>
+                            <option value="Peach">Peach</option>
+                            <option value="Pear">Pear</option>
+                            <option value="Pineapple">Pineapple</option>
+                            <option value="Raspberry">Raspberry</option>
+                            <option value="Strawberry">Strawberry</option>
+                            <option value="Watermelon">Watermelon</option>
+                        </select>
                         <!-- uplodad files -->
                     </div>
                 </div>
@@ -685,7 +853,7 @@
      * without causing eslint errors for undefined classes
      */
     var aria = aria || {};
-
+    var allids = [];
     /**
      * @class
     * @description
@@ -714,6 +882,7 @@
             this.handleItemChange = function () {};
             this.registerEvents();
         }
+
 
         registerEvents() {
             this.listboxNode.addEventListener('focus', this.setupFocus.bind(this));
@@ -1208,10 +1377,26 @@
                     this.defocusItem(item);
                     this.toggleSelectItem(item);
                     this.listboxNode.append(item);
+
+                    // console.log('addItems activeDescendant')
+                    // console.log(this.listboxNode.innerText);
+                    // console.log('end addItems activeDescendant')
+                   // document.getElementById("select_hidden").value = this.listboxNode.innerText;
+                    //allids.push(item.innerText);
+                   // $("#select_hidden").val(allids);
+                   // $("#select_hidden").val(allids.join(", "));
+                   //  console.log("DATA: " + document.getElementById("select_hidden").value);
+                   //
+                   //  console.log('-------')
+
+
                 }.bind(this)
             );
 
+
+
             if (!this.activeDescendant) {
+
                 this.focusItem(items[0]);
             }
 
@@ -1243,9 +1428,22 @@
 
             itemsToDelete.forEach(
                 function (item) {
+                    //allids.pop(item.innerText);
+
                     item.remove();
 
+
+
                     if (item.id === this.activeDescendant) {
+                        // allids.splice( $.inArray(item.innerText, allids), 1 );
+                        // $("#select_hidden").val(allids);
+                        // console.log('deleteItems activeDescendant')
+                        // console.log(item);
+                        // console.log('end deleteItems activeDescendant')
+                        // //document.getElementById("select_hidden").value = this.listboxNode.innerText;
+                        // console.log("DATA: " + document.getElementById("select_hidden").value);
+                        // console.log('-------')
+
                         this.clearActiveDescendant();
                     }
                 }.bind(this)
@@ -1263,6 +1461,7 @@
             this.updateMoveButton();
             this.checkUpDownButtons();
         }
+
 
         /**
          * @description
@@ -1483,6 +1682,8 @@
             element.setAttribute('aria-selected', 'true');
             element.setAttribute('tabindex', '0');
             this.selectedItem = element;
+
+
         }
 
         /**
@@ -1563,6 +1764,7 @@
                 if (updateText) {
                     var ex1LiveRegion = document.getElementById('ss_live_region');
                     ex1LiveRegion.innerText = updateText;
+
                 }
             });
             ex1UnimportantListbox.setupMove(
@@ -1596,11 +1798,10 @@
                 switch (event) {
                     case 'added':
                         updateText = 'Added ' + itemText + ' to chosen features.';
-                                 //document.getElementById('select_hidden').value = JSON.stringify(itemText) ; //
+                                 // document.getElementById('select_hidden').value = JSON.stringify(itemText) ; //
                         break;
                     case 'removed':
                         updateText = 'Removed ' + itemText + ' from chosen features.';
-
                         break;
                 }
 
@@ -1616,16 +1817,327 @@
 <script>
     function getValueOnSubmit() {
         // Get the value from the element with the specified ID
-        const elementValue = document.getElementById("ms_unimp_list").value;
+        const elementValue = document.getElementById("ms_unimp_list");
         //document.getElementById('ms_unimp_list')
         // Do something with the value (e.g., display it in an alert)
-       // alert("The value is: " + elementValue);
+        //alert("The value is: " + elementValue);
 
+        // Get all li elements
+        const listItems = document.querySelectorAll('li');
+
+        // Access the data of each li element
+        listItems.forEach(item => {
+            // Get the text content
+            const text = item.textContent;
+
+            // Get any attributes
+            const id = item.id;
+            const className = item.className;
+
+
+            // Do something with the data
+           // console.log(text, id, className);
+        });
+
+        var column1RelArray = [];
+        var arr,allids = [];
+        var myArray = [1, 2, 3, 4, 5];
+        $('#ms_unimp_list li').each(function(){
+           // console.log("This : " + $(this).attr(''));
+           // const uls = $(this).attr('id');
+
+
+
+            $(this).each((id, elem) => {
+
+                    console.log('Elem : ' + elem.innerText);
+                    allids.push(elem.innerText);
+                    //arr[id] = elem.innerText;
+
+                   // $("#select_hidden").val(allids.join(", "));
+                //document.write("<input type=hidden name='testx[]' id='testx'/>");
+
+
+            });
+
+            //console.log($(this).val(arr.join(", ")));
+            //$("#select_hidden").val(arr.join(", "));
+            //$("#select_hidden").val(JSON.stringify(arr));
+            //arr = []
+            //var li = $(this).attr('id')
+           // column1RelArray.push($(this).attr('rel'));
+            //console.log(column1RelArray)
+        });
+        $("#select_hidden").val(allids);
+        console.log(allids);
+//  document.getElementById('ms_unimp_list')//
+   // alert($('#ms_unimp_list li').listboxNode.innerText);
         // Prevent the default form submission behavior
         return true;
     }
 </script>
+<script>
+    /*
+ * Created by David Adams
+ * https://codeshack.io/multi-select-dropdown-html-javascript/
+ *
+ * Released under the MIT license
+ */
+    class MultiSelect {
 
+        constructor(element, options = {}) {
+            let defaults = {
+                placeholder: 'Select item(s)',
+                max: null,
+                search: true,
+                selectAll: true,
+                listAll: true,
+                closeListOnItemSelect: false,
+                name: '',
+                width: '',
+                height: '',
+                dropdownWidth: '',
+                dropdownHeight: '',
+                data: [],
+                onChange: function() {},
+                onSelect: function() {},
+                onUnselect: function() {}
+            };
+            this.options = Object.assign(defaults, options);
+            this.selectElement = typeof element === 'string' ? document.querySelector(element) : element;
+            for(const prop in this.selectElement.dataset) {
+                if (this.options[prop] !== undefined) {
+                    this.options[prop] = this.selectElement.dataset[prop];
+                }
+            }
+            this.name = this.selectElement.getAttribute('name') ? this.selectElement.getAttribute('name') : 'multi-select-' + Math.floor(Math.random() * 1000000);
+            if (!this.options.data.length) {
+                let options = this.selectElement.querySelectorAll('option');
+                for (let i = 0; i < options.length; i++) {
+                    this.options.data.push({
+                        value: options[i].value,
+                        text: options[i].innerHTML,
+                        selected: options[i].selected,
+                        html: options[i].getAttribute('data-html')
+                    });
+                }
+            }
+            this.element = this._template();
+            this.selectElement.replaceWith(this.element);
+            this._updateSelected();
+            this._eventHandlers();
+        }
+
+        _template() {
+            let optionsHTML = '';
+            for (let i = 0; i < this.data.length; i++) {
+                optionsHTML += `
+                <div class="multi-select-option${this.selectedValues.includes(this.data[i].value) ? ' multi-select-selected' : ''}" data-value="${this.data[i].value}">
+                    <span class="multi-select-option-radio"></span>
+                    <span class="multi-select-option-text">${this.data[i].html ? this.data[i].html : this.data[i].text}</span>
+                </div>
+            `;
+            }
+            let selectAllHTML = '';
+            if (this.options.selectAll === true || this.options.selectAll === 'true') {
+                selectAllHTML = `<div class="multi-select-all">
+                <span class="multi-select-option-radio"></span>
+                <span class="multi-select-option-text">Select all</span>
+            </div>`;
+            }
+            let template = `
+            <div class="multi-select ${this.name}"${this.selectElement.id ? ' id="' + this.selectElement.id + '"' : ''} style="${this.width ? 'width:' + this.width + ';' : ''}${this.height ? 'height:' + this.height + ';' : ''}">
+                ${this.selectedValues.map(value => `<input type="hidden" name="${this.name}[]" value="${value}">`).join('')}
+                <div class="multi-select-header" style="${this.width ? 'width:' + this.width + ';' : ''}${this.height ? 'height:' + this.height + ';' : ''}">
+                    <span class="multi-select-header-max">${this.options.max ? this.selectedValues.length + '/' + this.options.max : ''}</span>
+                    <span class="multi-select-header-placeholder">${this.placeholder}</span>
+                </div>
+                <div class="multi-select-options" style="${this.options.dropdownWidth ? 'width:' + this.options.dropdownWidth + ';' : ''}${this.options.dropdownHeight ? 'height:' + this.options.dropdownHeight + ';' : ''}">
+                    ${this.options.search === true || this.options.search === 'true' ? '<input type="text" class="multi-select-search" placeholder="Search...">' : ''}
+                    ${selectAllHTML}
+                    ${optionsHTML}
+                </div>
+            </div>
+        `;
+            let element = document.createElement('div');
+            element.innerHTML = template;
+            return element;
+        }
+
+        _eventHandlers() {
+            let headerElement = this.element.querySelector('.multi-select-header');
+            this.element.querySelectorAll('.multi-select-option').forEach(option => {
+                option.onclick = () => {
+                    let selected = true;
+                    if (!option.classList.contains('multi-select-selected')) {
+                        if (this.options.max && this.selectedValues.length >= this.options.max) {
+                            return;
+                        }
+                        option.classList.add('multi-select-selected');
+                        if (this.options.listAll === true || this.options.listAll === 'true') {
+                            if (this.element.querySelector('.multi-select-header-option')) {
+                                let opt = Array.from(this.element.querySelectorAll('.multi-select-header-option')).pop();
+                                opt.insertAdjacentHTML('afterend', `<span class="multi-select-header-option" data-value="${option.dataset.value}">${option.querySelector('.multi-select-option-text').innerHTML}</span>`);
+                            } else {
+                                headerElement.insertAdjacentHTML('afterbegin', `<span class="multi-select-header-option" data-value="${option.dataset.value}">${option.querySelector('.multi-select-option-text').innerHTML}</span>`);
+                            }
+                        }
+                        this.element.querySelector('.multi-select').insertAdjacentHTML('afterbegin', `<input type="hidden" name="${this.name}[]" value="${option.dataset.value}">`);
+                        this.data.filter(data => data.value == option.dataset.value)[0].selected = true;
+                    } else {
+                        option.classList.remove('multi-select-selected');
+                        this.element.querySelectorAll('.multi-select-header-option').forEach(headerOption => headerOption.dataset.value == option.dataset.value ? headerOption.remove() : '');
+                        this.element.querySelector(`input[value="${option.dataset.value}"]`).remove();
+                        this.data.filter(data => data.value == option.dataset.value)[0].selected = false;
+                        selected = false;
+                    }
+                    if (this.options.listAll === false || this.options.listAll === 'false') {
+                        if (this.element.querySelector('.multi-select-header-option')) {
+                            this.element.querySelector('.multi-select-header-option').remove();
+                        }
+                        headerElement.insertAdjacentHTML('afterbegin', `<span class="multi-select-header-option">${this.selectedValues.length} selected</span>`);
+                    }
+                    if (!this.element.querySelector('.multi-select-header-option')) {
+                        headerElement.insertAdjacentHTML('afterbegin', `<span class="multi-select-header-placeholder">${this.placeholder}</span>`);
+                    } else if (this.element.querySelector('.multi-select-header-placeholder')) {
+                        this.element.querySelector('.multi-select-header-placeholder').remove();
+                    }
+                    if (this.options.max) {
+                        this.element.querySelector('.multi-select-header-max').innerHTML = this.selectedValues.length + '/' + this.options.max;
+                    }
+                    if (this.options.search === true || this.options.search === 'true') {
+                        this.element.querySelector('.multi-select-search').value = '';
+                    }
+                    this.element.querySelectorAll('.multi-select-option').forEach(option => option.style.display = 'flex');
+                    if (this.options.closeListOnItemSelect === true || this.options.closeListOnItemSelect === 'true') {
+                        headerElement.classList.remove('multi-select-header-active');
+                    }
+                    this.options.onChange(option.dataset.value, option.querySelector('.multi-select-option-text').innerHTML, option);
+                    if (selected) {
+                        this.options.onSelect(option.dataset.value, option.querySelector('.multi-select-option-text').innerHTML, option);
+                    } else {
+                        this.options.onUnselect(option.dataset.value, option.querySelector('.multi-select-option-text').innerHTML, option);
+                    }
+                };
+            });
+            headerElement.onclick = () => headerElement.classList.toggle('multi-select-header-active');
+            if (this.options.search === true || this.options.search === 'true') {
+                let search = this.element.querySelector('.multi-select-search');
+                search.oninput = () => {
+                    this.element.querySelectorAll('.multi-select-option').forEach(option => {
+                        option.style.display = option.querySelector('.multi-select-option-text').innerHTML.toLowerCase().indexOf(search.value.toLowerCase()) > -1 ? 'flex' : 'none';
+                    });
+                };
+            }
+            if (this.options.selectAll === true || this.options.selectAll === 'true') {
+                let selectAllButton = this.element.querySelector('.multi-select-all');
+                selectAllButton.onclick = () => {
+                    let allSelected = selectAllButton.classList.contains('multi-select-selected');
+                    this.element.querySelectorAll('.multi-select-option').forEach(option => {
+                        let dataItem = this.data.find(data => data.value == option.dataset.value);
+                        if (dataItem && ((allSelected && dataItem.selected) || (!allSelected && !dataItem.selected))) {
+                            option.click();
+                        }
+                    });
+                    selectAllButton.classList.toggle('multi-select-selected');
+                };
+            }
+            if (this.selectElement.id && document.querySelector('label[for="' + this.selectElement.id + '"]')) {
+                document.querySelector('label[for="' + this.selectElement.id + '"]').onclick = () => {
+                    headerElement.classList.toggle('multi-select-header-active');
+                };
+            }
+            document.addEventListener('click', event => {
+                if (!event.target.closest('.' + this.name) && !event.target.closest('label[for="' + this.selectElement.id + '"]')) {
+                    headerElement.classList.remove('multi-select-header-active');
+                }
+            });
+        }
+
+        _updateSelected() {
+            if (this.options.listAll === true || this.options.listAll === 'true') {
+                this.element.querySelectorAll('.multi-select-option').forEach(option => {
+                    if (option.classList.contains('multi-select-selected')) {
+                        this.element.querySelector('.multi-select-header').insertAdjacentHTML('afterbegin', `<span class="multi-select-header-option" data-value="${option.dataset.value}">${option.querySelector('.multi-select-option-text').innerHTML}</span>`);
+                    }
+                });
+            } else {
+                if (this.selectedValues.length > 0) {
+                    this.element.querySelector('.multi-select-header').insertAdjacentHTML('afterbegin', `<span class="multi-select-header-option">${this.selectedValues.length} selected</span>`);
+                }
+            }
+            if (this.element.querySelector('.multi-select-header-option')) {
+                this.element.querySelector('.multi-select-header-placeholder').remove();
+            }
+        }
+
+        get selectedValues() {
+            return this.data.filter(data => data.selected).map(data => data.value);
+        }
+
+        get selectedItems() {
+            return this.data.filter(data => data.selected);
+        }
+
+        set data(value) {
+            this.options.data = value;
+        }
+
+        get data() {
+            return this.options.data;
+        }
+
+        set selectElement(value) {
+            this.options.selectElement = value;
+        }
+
+        get selectElement() {
+            return this.options.selectElement;
+        }
+
+        set element(value) {
+            this.options.element = value;
+        }
+
+        get element() {
+            return this.options.element;
+        }
+
+        set placeholder(value) {
+            this.options.placeholder = value;
+        }
+
+        get placeholder() {
+            return this.options.placeholder;
+        }
+
+        set name(value) {
+            this.options.name = value;
+        }
+
+        get name() {
+            return this.options.name;
+        }
+
+        set width(value) {
+            this.options.width = value;
+        }
+
+        get width() {
+            return this.options.width;
+        }
+
+        set height(value) {
+            this.options.height = value;
+        }
+
+        get height() {
+            return this.options.height;
+        }
+
+    }
+    document.querySelectorAll('[data-multi-select]').forEach(select => new MultiSelect(select));
+</script>
 </body>
 
 </html>

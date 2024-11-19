@@ -17,14 +17,19 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AddUsers::class,
-            AddBlocos::class,
             AddAndares::class,
-            AddSalaAreas::class,
+            AddBlocos::class,
+            AddCargos::class,
+            AddCategorias::class,
+            AddEquipes::class,
             AddFases::class,
-            AddCategories::class,
-            AddFakeAtivos::class,
+            AddNaturezaServicos::class,
+            AddPrioridades::class,
+            AddSalaAreas::class,
             AddStatues::class,
-
+            AddTipoManutencao::class,
+            AddRole::class,
+            AddUserRolePermission::class,
             ]);
     }
 }

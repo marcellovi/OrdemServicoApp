@@ -15,9 +15,23 @@ class AddUsers extends Seeder
     {
         User::factory()->create([
             'id' => 1,
-            'name' => 'demo',
-            'email' => 'demo@erproserv.com.br',
-            'password' => bcrypt('demo@123')
+            'name' => 'Admin',
+            'email' => 'admin@demo.com.br',
+            'password' => bcrypt('123456789')
+        ]);
+
+        User::factory()->create([
+            'id' => 2,
+            'name' => 'Gerente',
+            'email' => 'gerente@demo.com.br',
+            'password' => bcrypt('123456789')
+        ]);
+
+        User::factory()->create([
+            'id' => 3,
+            'name' => 'Usuario',
+            'email' => 'usuario@demo.com.br',
+            'password' => bcrypt('123456789')
         ]);
     }
 }

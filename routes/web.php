@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArtefatoController;
-use App\Http\Controllers\Assets\AssetController;
-use App\Http\Controllers\Management\OrderServicoController;
+use App\Http\Controllers\Ativos\AtivoController;
+use App\Http\Controllers\Ativos\ItemController;
+use App\Http\Controllers\OrdemServico\OrderServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -43,7 +44,7 @@ require __DIR__.'/auth.php';
 
 // Routes for Working Templates - Only Views
 //Route::view('gestao','management.index')->middleware('permission:management');
-Route::view('relatorios','reports.index')->middleware('permission:reports')->name('relatorios');
+Route::view('relatorios','relatorios.index')->middleware('permission:reports')->name('relatorios');
 //Route::view('ativos','assets.index')->middleware('permission:assets');
 
 // ARTEFATOS - supply the ativos
@@ -61,23 +62,33 @@ Route::get('usuarios/{id}/edit', [UserController::class,'edit'])->name('usuarios
 Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.update');
 
 // ATIVOS
-Route::get('ativos',[AssetController::class, 'index'])->name('ativos');
-Route::get('ativos/destroy/{id}',[AssetController::class, 'destroy'])->name('ativos_destroy');
-Route::post('ativos/store',[AssetController::class, 'store'])->name('ativos_store');
-Route::get('ativos/{id}/edit', [AssetController::class,'edit'])->name('ativos.edit');
-Route::put('ativos/{ativos}', [AssetController::class ,'update'])->name('ativos.update');
+Route::get('painel-ativos',[AtivoController::class, 'painel'])->name('painel-ativos');
+Route::get('ativos',[AtivoController::class, 'index'])->name('ativos');
+Route::get('ativos/destroy/{id}',[AtivoController::class, 'destroy'])->name('ativos_destroy');
+Route::post('ativos/store',[AtivoController::class, 'store'])->name('ativos_store');
+Route::get('ativos/{id}/edit', [AtivoController::class,'edit'])->name('ativos.edit');
+Route::put('ativos/{ativos}', [AtivoController::class ,'update'])->name('ativos.update');
+
+// ATIVOS & ITENS
+Route::get('ativos-itens',[AtivoController::class, 'ativosItens'])->name('ativos-itens');
+Route::post('ativos-itens/store',[AtivoController::class, 'store'])->name('ativos_store');
+Route::post('ativos-itens/items-store',[AtivoController::class, 'storeItem'])->name('items.store');
+Route::post('link-ativos-itens/store',[AtivoController::class, 'linkStoreAtivoItems'])->name('link.ativos.itens.store');
+Route::get('link-ativos-itens',[AtivoController::class, 'linkAtivosItens'])->name('link-ativos-itens');
 
 // ORDER SERVICO
 Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');
-Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao_destroy');
+Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao.destroy');
 Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gestao_store');
 Route::get('gestao/{id}/edit', [OrderServicoController::class,'edit'])->name('gestao.edit');
 Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gestao.update');
 
 
 
-Route::view('equipe','teams.index')->middleware('permission:teams')->name('equipe');
-Route::view('compras','transactions.index')->middleware('permission:transactions')->name('compras');
+Route::view('equipe','equipes.index')->middleware('permission:teams')->name('equipe');
+Route::view('compras','transacoes.index')->middleware('permission:transactions')->name('compras');
 //Route::view('sistema-administrativo','admin.dashboard');
 //Route::view('dashboard','welcome');
 
+// IMPORTAR ARQUIVOS
+Route::post('importar/itens',[ItemController::class, 'importarItens'])->name('importar.itens');

@@ -3,136 +3,15 @@ $url = $_SERVER['REQUEST_URI'];
 $url = str_replace(['/','.php'], '', $url);
 ?>
 
-
-<div class="main-header">
-    <div class="logo">
-        <img src="{{ asset('assets/images/er_profile.png') }}" alt="">
-    </div>
-
-    <div class="menu-toggle">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <div style="margin: auto"></div>
-
-    <div class="header-part-right">
-        <!-- Full screen toggle -->
-        <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i>
-        <!-- Grid menu Dropdown -->
-        <div class="dropdown">
-            <i class="i-Safe-Box text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div class="menu-icon-grid">
-                    <a href="#"><i class="i-Shop-4"></i> Home</a>
-                    <a href="#"><i class="i-Library"></i> UI Kits</a>
-                    <a href="#"><i class="i-Drop"></i> Apps</a>
-                    <a href="#"><i class="i-File-Clipboard-File--Text"></i> Forms</a>
-                    <a href="#"><i class="i-Checked-User"></i> Sessions</a>
-                    <a href="#"><i class="i-Ambulance"></i> Support</a>
-                </div>
-            </div>
-        </div>
-        <!-- Notificaiton -->
-        <div class="dropdown">
-            <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="badge badge-primary">3</span>
-                <i class="i-Bell text-muted header-icon"></i>
-            </div>
-            <!-- Notification dropdown -->
-            <div class="dropdown-menu dropdown-menu-right rtl-ps-none notification-dropdown" aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Speach-Bubble-6 text-primary mr-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>New message</span>
-                            <span class="badge badge-pill badge-primary ml-1 mr-1">new</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ml-auto">10 sec ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">James: Hey! are you busy?</p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Receipt-3 text-success mr-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>New order received</span>
-                            <span class="badge badge-pill badge-success ml-1 mr-1">new</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ml-auto">2 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">1 Headphone, 3 iPhone x</p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Empty-Box text-danger mr-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>Product out of stock</span>
-                            <span class="badge badge-pill badge-danger ml-1 mr-1">3</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ml-auto">10 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">Headphone E67, R98, XL90, Q77</p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Data-Power text-success mr-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>Server Up!</span>
-                            <span class="badge badge-pill badge-success ml-1 mr-1">3</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ml-auto">14 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">Server rebooted successfully</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Notificaiton End -->
-
-        <!-- User avatar dropdown -->
-        <div class="dropdown">
-            <div class="user colalign-self-end">
-                <img src="{{ asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <div class="dropdown-item">
-                        <i class="i-Lock-User mr-1"></i>{{ Str::ucfirst(Str::limit(Auth::user()->name,11)) }}
-                    </div>
-                    <a class="dropdown-item">Dados da Conta</a>
-                    <a class="dropdown-item">Permissões/Acesso</a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Log out</a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
 
         @can('dashboard')
             <?php  if (str_contains($url, 'index') || empty($url) || str_contains($url, 'dashboard')) { ?>
-        <li class="nav-item active">
+        <li class="nav-item active" >
         <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" >
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ asset('dashboard') }}">
                     <i class="nav-icon i-Bar-Chart"></i>
@@ -144,9 +23,9 @@ $url = str_replace(['/','.php'], '', $url);
 
         @can('management')
             <?php  if (str_contains($url, 'gestao')) { ?>
-        <li class="nav-item active">
+        <li class="nav-item active" >
         <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" >
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('gestao') }}">
                     <i class="nav-icon i-Conference"></i>
@@ -168,9 +47,9 @@ $url = str_replace(['/','.php'], '', $url);
 
             @can('reports')
             <?php  if (str_contains($url, 'relatorios')) { ?>
-        <li class="nav-item active">
+        <li class="nav-item active" data-item="relatorios">
         <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" data-item="relatorios">
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('relatorios') }}">
                     <i class="nav-icon i-Folder-With-Document"></i>
@@ -182,9 +61,9 @@ $url = str_replace(['/','.php'], '', $url);
 
             @can('assets')
             <?php  if (str_contains($url, 'ativos')) { ?>
-        <li class="nav-item active">
+        <li class="nav-item active" data-item="ativos">
         <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" data-item="ativos">
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('ativos') }}">
                     <i class="nav-icon i-Financial"></i>
@@ -224,4 +103,45 @@ $url = str_replace(['/','.php'], '', $url);
         </ul>
     </div>
 
+    <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
+        <!-- Submenu Dashboards -->
+        <!-- ativos -->
+        <ul class="childNav" data-parent="ativos">
+            <li class="nav-item">
+                <a href="{{ route('ativos') }}">
+                    <i class="nav-icon i-Clock-3"></i>
+                    <span class="item-name">Registrar Ativos</span>
+                </a>
+                <a href="{{ route('ativos-itens') }}">
+                    <i class="nav-icon i-Clock-3"></i>
+                    <span class="item-name">Cadastrar Itens/Ativos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('link-ativos-itens') }}">
+                    <i class="nav-icon i-Clock-4"></i>
+                    <span class="item-name">Linkar Itens/Ativos</span>
+                </a>
+            </li>
+        </ul>
+        <!-- relatorios -->
+        <ul class="childNav" data-parent="relatorios">
+            <li class="nav-item">
+                <a href="{{ route('relatorios') }}">
+                    <i class="nav-icon i-Receipt"></i>
+                    <span class="item-name">Relatórios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('relatorios') }}">
+                    <i class="nav-icon i-Pie-Chart-3"></i>
+                    <span class="item-name">Gráficos</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
 </div>
+<!--=============== Left side End ================-->

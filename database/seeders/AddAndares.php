@@ -22,7 +22,7 @@ class AddAndares extends Seeder
         ];
 
         foreach($andares  as $andar){
-            Andar::create(["name" => $andar]);
+            Andar::create(["nome" => $andar]);
         }
     }
 }

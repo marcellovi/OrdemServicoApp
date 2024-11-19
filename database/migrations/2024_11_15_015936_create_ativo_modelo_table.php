@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_ativos', function (Blueprint $table) {
+        Schema::create('ativo_modelo', function (Blueprint $table) {
             $table->id();
-            $table->string('sigla')->nullable();
+            $table->string('sigla');
             $table->string('nome');
-            $table->integer('ativo_id')->nullable();
-            $table->string('modelo')->nullable();
-            $table->integer('serie')->nullable();
+            $table->string('modelo')->nullable(true);
+            $table->string('serie')->nullable(true);
+            $table->text('descritivo')->nullable(true);
+            $table->integer('categoria_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_ativos');
+        Schema::dropIfExists('ativo_modelo');
     }
 };

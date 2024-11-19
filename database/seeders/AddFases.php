@@ -22,7 +22,7 @@ class AddFases extends Seeder
         ];
 
         foreach($fases  as $fase){
-            Fase::create(["name" => $fase]);
+            Fase::create(["nome" => $fase]);
         }
     }
 }

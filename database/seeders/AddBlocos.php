@@ -22,7 +22,7 @@ class AddBlocos extends Seeder
         ];
 
         foreach($blocos  as $bloco){
-            Bloco::create(["name" => $bloco]);
+            Bloco::create(["nome" => $bloco]);
         }
     }
 }

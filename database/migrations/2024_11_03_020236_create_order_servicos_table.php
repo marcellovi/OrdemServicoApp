@@ -14,16 +14,19 @@ return new class extends Migration
         Schema::create('order_servicos', function (Blueprint $table) {
             $table->id();
             $table->string('numero_os')->nullable(true);
-            $table->string('tags');
+            //$table->string('tags');  // remove
             $table->date('data_abertura');
-            $table->date('data_programada');
+            $table->date('data_programada')->nullable();;
             $table->integer('ativo_id');
             $table->integer('prioridade_id');
             $table->integer('tipo_manutencao_id');
             $table->integer('natureza_servico_id');
-            $table->integer('equipe_responsavel_id');
-            $table->integer('responsavel_id');
-            $table->integer('executor_id');
+            $table->integer('equipe_responsavel_id')->nullable();;
+            $table->integer('responsavel_id')->nullable();;
+            $table->integer('executor_id')->nullable();;
+            $table->integer('status_id')->default(1);
+            $table->text('descritivo')->nullable();
+            $table->text('descritivo_executado')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

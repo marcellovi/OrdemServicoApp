@@ -22,7 +22,7 @@ class AddSalaAreas extends Seeder
         ];
 
         foreach($sala_areas  as $sala_area){
-            SalaArea::create(["name" => $sala_area]);
+            SalaArea::create(["nome" => $sala_area]);
         }
     }
 }

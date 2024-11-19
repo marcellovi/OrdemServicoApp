@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
 use App\Models\Categories;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AddCategories extends Seeder
+class AddCategorias extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,7 +24,7 @@ class AddCategories extends Seeder
         ];
 
         foreach($categories  as $category){
-            Categories::create(["name" => $category]);
+            Categoria::create(["nome" => $category]);
         }
 
     }

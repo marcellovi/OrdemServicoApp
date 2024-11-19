@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class PermissionSeeder extends Seeder
+class AddPermissao extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,7 +23,7 @@ class PermissionSeeder extends Seeder
             'transactions'   // Compras
         ];
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+          //  Permission::create(['name' => $permission]);
         }
     }
 }
