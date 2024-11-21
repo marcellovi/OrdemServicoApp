@@ -53,7 +53,7 @@
                             <p class="font-weight-400 mb-2">Fase *</p>
                             <select class="form-control" id="fase" name="fase" required="true" x-ref="fase" x-on:change="tags = $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
-                                @foreach($assets['fases'] as $fase)
+                                @foreach($assets['ativos_location']->where('tipo','fase') as $fase)
                                     <option value="{{ $fase->id }}" {{ ($fase->id == $ativo->fase_id) ? 'selected' : '' }}>{{ $fase->nome }}</option>
                                 @endforeach
                             </select>
@@ -62,7 +62,7 @@
                             <p class="font-weight-400 mb-2">Loc. Bloco *</p>
                             <select class="form-control" id="bloco" name="bloco" required="true" x-ref="bloco" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
-                                @foreach($assets['blocos'] as $bloco)
+                                @foreach($assets['ativos_location']->where('tipo','bloco') as $bloco)
                                     <option value="{{ $bloco->id }}" {{ ($bloco->id == $ativo->bloco_id) ? 'selected' : '' }}>{{ $bloco->nome }}</option>
                                 @endforeach
                             </select>
@@ -71,7 +71,7 @@
                             <p class="font-weight-400 mb-2">Loc. Andar *</p>
                             <select class="form-control" id="andar" name="andar"  required="true" x-ref="andar" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
-                                @foreach($assets['andares'] as $andar)
+                                @foreach($assets['ativos_location']->where('tipo','andar') as $andar)
                                     <option value="{{ $andar->id }}" {{ ($andar->id == $ativo->andar_id) ? 'selected' : '' }}>{{ $andar->nome }}</option>
                                 @endforeach
                             </select>
@@ -80,29 +80,14 @@
                             <p class="font-weight-400 mb-2">Loc. Sala/Área *</p>
                             <select class="form-control" id="sala_area" name="sala_area" required="true" x-ref="sala_area" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $refs.andar.options[$refs.andar.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
-                                @foreach($assets['sala_areas'] as $sala_area)
+                                @foreach($assets['ativos_location']->where('tipo','sala_area') as $sala_area)
                                     <option value="{{ $sala_area->id }}" {{ ($sala_area->id == $ativo->sala_area_id) ? 'selected' : '' }}>{{ $sala_area->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
-{{--                        <div class="mb-3 col-md-12">--}}
-{{--                            <p class="font-weight-400 mb-2">Foto do Ativo</p>--}}
-{{--                            <div class="input-group mb-3">--}}
-{{--                                <div class="input-group-prepend">--}}
-{{--                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="custom-file">--}}
-{{--                                    <input type="file" class="custom-file-input" id="inputGroupFile01"--}}
-{{--                                           aria-describedby="inputGroupFileAddon01" accept="image/*;capture=camera">--}}
-{{--                                    <label class="custom-file-label" for="inputGroupFile01">Selecione Imagem do--}}
-{{--                                        Ativo</label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="mb-3 col-md-12">
                             <p class="font-weight-400 mb-2" >Descritivo:</p><textarea rows="3" class="form-control" id="descritivo" name="descritivo">{{ $ativo->descritivo }}</textarea>
                         </div>
-
                     </div>
                     <a href="{{ route('ativos') }}" class="btn float-right btn-primary ml-3" >Voltar</a>
                     <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blocos', function (Blueprint $table) {
+        Schema::create('ativos_location', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->boolean('active')->default(true);
+            $table->string('nome')->unique();
+            $table->string('tipo');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blocos');
+        Schema::dropIfExists('ativos_location');
     }
 };

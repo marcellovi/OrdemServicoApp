@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('status', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome')->unique();
             $table->enum('tipo_status', ['os', 'rh'])->default('os');
             $table->softDeletes();
             $table->timestamps();

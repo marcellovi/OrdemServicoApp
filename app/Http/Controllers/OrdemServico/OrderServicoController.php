@@ -78,10 +78,11 @@ class OrderServicoController extends Controller
             'tipo_manutencao' => DB::table('tipo_manutencao')->where('deleted_at', '=', null)->get(),
             'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
             'ativos' => Ativo::all()->where('deleted_at', '=', null),
+            'status_os' => DB::table('status')->where('deleted_at', '=', null)->where('tipo_status','os')->get(),
         ];
 
         $os = OrderServico::select('order_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
-            'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id',
+            'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id','status_id',
             'prioridades.nome as prioridade','data_abertura','data_programada','descritivo','descritivo_executado')
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')

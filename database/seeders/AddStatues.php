@@ -18,12 +18,13 @@ class AddStatues extends Seeder
             [ 'id' => 2, 'nome' => 'Aberta','tipo_status' => 'os' ],
             [ 'id' => 3, 'nome' => 'Em Andamento','tipo_status' => 'os' ],
             [ 'id' => 4, 'nome' => 'Em Espera','tipo_status' => 'os' ],
-            [ 'id' => 5, 'nome' => 'Fechada','tipo_status' => 'os']
+            [ 'id' => 5, 'nome' => 'Fechada','tipo_status' => 'os'],
+            [ 'id' => 6, 'nome' => 'Emergêncial','tipo_status' => 'os'],
         ];
         $statues_rh = [
-            [ 'id' => 6, 'nome' => 'Ativo','tipo_status' => 'rh' ],
-            [ 'id' => 7, 'nome' => 'Em Férias','tipo_status' => 'rh' ],
-            [ 'id' => 8, 'nome' => 'Demitido','tipo_status' => 'rh' ],
+            [ 'id' => 7, 'nome' => 'Ativo','tipo_status' => 'rh' ],
+            [ 'id' => 8, 'nome' => 'Em Férias','tipo_status' => 'rh' ],
+            [ 'id' => 9, 'nome' => 'Demitido','tipo_status' => 'rh' ],
         ];
 
         foreach ($statues_os as $status) {

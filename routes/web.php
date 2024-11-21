@@ -91,4 +91,5 @@ Route::view('compras','transacoes.index')->middleware('permission:transactions')
 //Route::view('dashboard','welcome');
 
 // IMPORTAR ARQUIVOS
-Route::post('importar/itens',[ItemController::class, 'importarItens'])->name('importar.itens');
+Route::post('importar/csv/itens',[ItemController::class, 'importarItensCSV'])->name('importar.csv.itens');
+Route::post('importar/csv/ativosmodelo',[ItemController::class, 'importarAtivosModelCSV'])->name('importar.csv.ativosmodelo');

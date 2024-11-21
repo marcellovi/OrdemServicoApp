@@ -98,11 +98,9 @@
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">Status da OS</p>
                             <select id="os_status" name="os_status" class="form-control" required="true">
-                                <option value="1" selected>Em Analise</option>
-                                <option value="3">Aberta</option>
-                                <option value="2">Pausada</option>
-                                <option value="2">Em Execução</option>
-                                <option value="2">Fechada</option>
+                                @foreach($order_servicos['status_os'] as $status)
+                                    <option value="{{ $status->id }}" {{ ($status->id == $os->status_id) ? 'selected' : '' }}>{{ $status->nome }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-2 col-md-3">

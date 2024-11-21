@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
-            $table->string('matricula');
+            $table->string('matricula')->unique();
             $table->string('nome');
             $table->integer('status_id')->default(1);
             $table->integer('user_id')->nullable();

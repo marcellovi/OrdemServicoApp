@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Andar;
 use App\Models\Artefato;
 use App\Models\Ativo;
+use App\Models\AtivoLocation;
 use App\Models\AtivoModelo;
 use App\Models\Bloco;
 use App\Models\Categoria;
@@ -33,10 +34,7 @@ class AtivoController extends Controller
     {
         $assets = [
             'categorias' => Categoria::all()->where('deleted_at', '=', null),
-            'andares' => Andar::all()->where('deleted_at', '=', null),
-            'blocos' => Bloco::all()->where('deleted_at', '=', null),
-            'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
+            'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
             'ativos_modelo' => DB::table('ativo_modelo')->select('ativo_modelo.id','sigla','ativo_modelo.nome')->distinct()->where('ativo_modelo.deleted_at', '=', null)->join('ativos_itens','ativo_id','ativo_modelo.id')->get(),
         ];
 
@@ -51,11 +49,20 @@ class AtivoController extends Controller
 
         if(!empty($request->get('sigla'))){
 
-            //        $request->validate([
-//            'categoria' => 'required',
-//        ]);
+            // T0DO VALIDATION //
 
-            $a = AtivoModelo::create([
+            $is_found = DB::table('ativo_modelo')
+                ->where('sigla', '=', $request->get('sigla'))
+                ->first();
+
+            if($is_found){
+                return redirect()->route('ativos-itens')
+                    ->with(['message' => 'O Ativo '.$request->get('sigla').' já existe no Sistema.',
+                        'status' => 'Erro',
+                        'type' => 'danger']);
+            }
+
+            AtivoModelo::create([
                 'sigla' => strtoupper($request->get('sigla')),
                 'nome' => ucfirst($request->get('nome')),
                 'categoria_id' => $request->get('categoria'),
@@ -81,10 +88,10 @@ class AtivoController extends Controller
                 ->where('deleted_at', '=', null)
                 ->exists();
             if(!$is_found){
-                $tags = Fase::find($request->get('fase'))->nome.'-'.
-                    Bloco::find($request->get('bloco'))->nome.'-'.
-                    Andar::find($request->get('andar'))->nome.'-'.
-                    SalaArea::find($request->get('sala_area'))->nome.'-'.
+                $tags = AtivoLocation::find($request->get('fase'))->nome.'-'.
+                    AtivoLocation::find($request->get('bloco'))->nome.'-'.
+                    AtivoLocation::find($request->get('andar'))->nome.'-'.
+                    AtivoLocation::find($request->get('sala_area'))->nome.'-'.
                     AtivoModelo::find($request->get('ativo_modelo'))->sigla;
 
                 Ativo::create([
@@ -152,10 +159,10 @@ class AtivoController extends Controller
                         'type' => 'danger']);
             }
 
-            $tags = Fase::find($request->get('fase'))->nome.'-'.
-                Bloco::find($request->get('bloco'))->nome.'-'.
-                Andar::find($request->get('andar'))->nome.'-'.
-                SalaArea::find($request->get('sala_area'))->nome.'-'.
+            $tags = AtivoLocation::find($request->get('fase'))->nome.'-'.
+                AtivoLocation::find($request->get('bloco'))->nome.'-'.
+                AtivoLocation::find($request->get('andar'))->nome.'-'.
+                AtivoLocation::find($request->get('sala_area'))->nome.'-'.
                 $request->get('sigla_ativo');
 
             //$ativo = DB::table('ativos')->where('id',$id)->whereNull('deleted_at')->get();
@@ -198,10 +205,7 @@ class AtivoController extends Controller
     {
         $assets = [
             'categorias' => Categoria::all()->where('deleted_at', '=', null),
-            'andares' => Andar::all()->where('deleted_at', '=', null),
-            'blocos' => Bloco::all()->where('deleted_at', '=', null),
-            'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
+            'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
         ];
 
         $ativo = Ativo::select('ativos.id','ativos.tags', 'ativos.bloco_id','ativos.andar_id','ativos.sala_area_id','ativos.fase_id','ativo_modelo_id',
@@ -227,40 +231,10 @@ class AtivoController extends Controller
                 'type' => 'info']);
     }
 
-    public function painel()
-    {
-        $assets = [
-            'categorias' => Categoria::all()->where('deleted_at', '=', null),
-            'andares' => Andar::all()->where('deleted_at', '=', null),
-            'blocos' => Bloco::all()->where('deleted_at', '=', null),
-            'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
-            'artefatos' => [],
-            'itens_ativos' => [],
-        ];
-
-        $ativos = [];
-//        $ativos = Ativo::select('ativos.id','ativos.tags','ativos.nome as ativos','ativos.created_at','categories.name as categorias','status.name as status')
-//            ->join('categorias', 'categorias.id', '=', 'ativos.category_id')
-//            ->join('status', 'status.id', '=', 'ativos.status')
-//            ->where('ativos.deleted_at', '=', null)->orderby('ativos.created_at','desc')->get();
-        return view('assets.panel', compact('assets','ativos'));
-    }
-
 
     /********* LINK ATIVOS ITENS  *********/
     public function linkAtivosItens()
     {
-        $assets = [
-            'categorias' => Categoria::all()->where('deleted_at', '=', null),
-            'andares' => Andar::all()->where('deleted_at', '=', null),
-            'blocos' => Bloco::all()->where('deleted_at', '=', null),
-            'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
-            'ativos_modelo' => [],
-            'itens_ativos' => [],
-        ];
-
         $itens = DB::table('itens')
                     ->select('itens.nome as item_nome', 'itens.id as item_id',
                         'categorias.nome as categoria_nome','categorias.id as categoria_id')
@@ -279,30 +253,17 @@ class AtivoController extends Controller
             ->leftjoin('ativos_itens','ativo_id','ativo_modelo.id')
             ->orderby('ativo_modelo_id')
             ->get();
-        return view('ativos.ativos_item.link', compact('itens','ativosModeloItens','assets'));
+        return view('ativos.ativos_item.link', compact('itens','ativosModeloItens'));
     }
 
     public function ativosItens()
     {
-        $assets = [
-            'categorias' => Categoria::all()->where('deleted_at', '=', null),
-            'andares' => Andar::all()->where('deleted_at', '=', null),
-            'blocos' => Bloco::all()->where('deleted_at', '=', null),
-            'fases' => Fase::all()->where('deleted_at', '=', null),
-            'sala_areas' => SalaArea::all()->where('deleted_at', '=', null),
-            'itens_ativos' => [],
-        ];
-
-        $ativos = [];
-//        $ativos = Ativo::select('ativos.id','ativos.tags','ativos.nome as ativos','ativos.created_at','categories.name as categorias','status.name as status')
-//            ->join('categorias', 'categorias.id', '=', 'ativos.category_id')
-//            ->join('status', 'status.id', '=', 'ativos.status')
-//            ->where('ativos.deleted_at', '=', null)->orderby('ativos.created_at','desc')->get();
-        return view('ativos.ativos_item.index', compact('assets','ativos'));
+        $categorias = Categoria::all()->where('deleted_at', '=', null);
+        return view('ativos.ativos_item.index', compact('categorias'));
     }
 
     public function linkStoreAtivoItems(Request $request){
-
+        dd('a');
         $itens = $request->get('itens');
         $ativo = $request->get('ativo');
         foreach($itens as $item){

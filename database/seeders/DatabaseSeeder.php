@@ -17,15 +17,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AddUsers::class,
-            AddAndares::class,
-            AddBlocos::class,
             AddCargos::class,
             AddCategorias::class,
             AddEquipes::class,
-            AddFases::class,
             AddNaturezaServicos::class,
             AddPrioridades::class,
-            AddSalaAreas::class,
+            AddAtivosLocation::class,
             AddStatues::class,
             AddTipoManutencao::class,
             AddRole::class,

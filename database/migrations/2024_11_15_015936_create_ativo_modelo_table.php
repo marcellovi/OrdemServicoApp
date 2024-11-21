@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ativo_modelo', function (Blueprint $table) {
             $table->id();
-            $table->string('sigla');
+            $table->string('sigla')->unique();
             $table->string('nome');
             $table->string('modelo')->nullable(true);
             $table->string('serie')->nullable(true);

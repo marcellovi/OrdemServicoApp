@@ -56,6 +56,13 @@
             @if( session('type') == $msg)
                 <div id="msg_alert" class="alert alert-card alert-{{ $msg }}" role="alert">
                     <strong class="text-capitalize">{{ session('status') }}!</strong> {{ session('message') }}
+                    @if(!empty($errors))
+                        <i>
+                        @foreach($errors as $error)
+                            <br>{{ $error }}
+                        @endforeach
+                        </i>
+                    @endif
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
