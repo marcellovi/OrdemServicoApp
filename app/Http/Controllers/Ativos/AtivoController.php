@@ -263,7 +263,7 @@ class AtivoController extends Controller
     }
 
     public function linkStoreAtivoItems(Request $request){
-        dd('a');
+
         $itens = $request->get('itens');
         $ativo = $request->get('ativo');
         foreach($itens as $item){
