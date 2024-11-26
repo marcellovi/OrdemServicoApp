@@ -30,7 +30,7 @@
                     @csrf
                     <div class="row">
                         <div class="mb-2 col-md-2">
-                            <p class="font-weight-400 mb-2">Nr.OS</p><input type="text" id="numero_os" name="numero_os" placeholder=""
+                            <p class="font-weight-400 mb-2">OS</p><input type="text" id="numero_os" name="numero_os" placeholder=""
                                                                             class="form-control" value="{{ $order_servicos['numero_os'] }}">
                         </div>
                         <div class="mb-2 col-md-5">
@@ -62,7 +62,7 @@
                             <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__" class="form-control" >
                         </div>
                         <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Tp. Manutenção</p>
+                            <p class="font-weight-400 mb-2">Manutenção</p>
                             <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
                                 @foreach($order_servicos['tipo_manutencao'] as $manutencao)

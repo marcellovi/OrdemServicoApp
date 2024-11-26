@@ -75,9 +75,9 @@ $url = str_replace(['/','.php'], '', $url);
 
             @can('teams')
             <?php  if (str_contains($url, 'equipe')) { ?>
-        <li class="nav-item active">
+        <li class="nav-item active" data-item="equipe">
         <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" data-item="equipe">
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('equipe') }}">
                     <i class="nav-icon i-Business-Mens"></i>
@@ -89,13 +89,13 @@ $url = str_replace(['/','.php'], '', $url);
 
             @can('transactions')
             <?php  if (str_contains($url, 'compras')) { ?>
-            <li class="nav-item active">
+            <li class="nav-item active"  data-item="suprimentos">
                 <?php } else { ?>
-            <li class="nav-item">
+            <li class="nav-item" data-item="suprimentos">
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('compras') }}">
-                    <i class="nav-icon i-Add-Cart"></i>
-                    <span class="nav-text">COMPRAS</span>
+                    <i class="nav-icon i-Receipt"></i>
+                    <span class="nav-text">SUPRIMENTOS</span>
                 </a>
                 <div class="triangle"></div>
             </li>
@@ -136,6 +136,42 @@ $url = str_replace(['/','.php'], '', $url);
                 <a href="{{ route('relatorios') }}">
                     <i class="nav-icon i-Pie-Chart-3"></i>
                     <span class="item-name">Gráficos</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Equipe -->
+        <ul class="childNav" data-parent="equipe">
+            <li class="nav-item">
+                <a href="{{ route('usuarios') }}">
+                    <i class="nav-icon i-Add-User"></i>
+                    <span class="item-name">Funcionarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('equipe') }}">
+                    <i class="nav-icon i-Address-Book-2"></i>
+                    <span class="item-name">Cargos</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Suprimentos -->
+        <ul class="childNav" data-parent="suprimentos">
+            <li class="nav-item">
+                <a href="{{ route('relatorios') }}">
+                    <i class="nav-icon i-Scale"></i>
+                    <span class="item-name">Almoxarifado</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('relatorios') }}">
+                    <i class="nav-icon i-Car-Items"></i>
+                    <span class="item-name">Compras</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('relatorios') }}">
+                    <i class="nav-icon i-Bag-Items"></i>
+                    <span class="item-name">Produtos</span>
                 </a>
             </li>
         </ul>

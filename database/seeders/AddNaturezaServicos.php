@@ -13,12 +13,14 @@ class AddNaturezaServicos extends Seeder
      */
     public function run(): void
     {
-        $natureza_servicos = ['Elétrica','Refrigeração','Jardinagem','Civil',
-            'Eng. Clínica','Projetista','Automação','Meio Ambiente',
-            'Mecânica','Bombeiro Gasista','Telecomunicação','TI',
-            'Administrativo','Transporte','Chaveiro','Copeira',
-            'Eletromecânico','Arquitetura'
-        ];
+//        $natureza_servicos = ['Elétrica','Refrigeração','Jardinagem','Limpeza',
+//            'Civil','Eng. Clínica','Projetista','Automação','Meio Ambiente',
+//            'Hidráulica ','Alvenaria ','Mecânica','Bombeiro Gasista',
+//            'Telecomunicação','TI','Administrativo','Transporte','Chaveiro','Copeira',
+//            'Eletromecânico','Arquitetura'
+//        ];
+
+        $natureza_servicos = ['Elétrica','Refrigeração','Civil','Automação','Mecânica'];
 
         foreach($natureza_servicos as $natureza_servico){
             DB::table('natureza_servicos')->insert(['nome' => $natureza_servico]);

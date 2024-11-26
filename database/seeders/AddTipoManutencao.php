@@ -13,7 +13,7 @@ class AddTipoManutencao extends Seeder
      */
     public function run(): void
     {
-        $tipo_manutencao = ['Corretiva','Corretiva Programada','Preditiva',
+        $tipo_manutencao = ['Corretiva','Corretiva Programada','Preditiva','Emergencial',
             'Preventiva Manual','Melhoria','Remanejamento','Instalação','Eventual'
         ];
 

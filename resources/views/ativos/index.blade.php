@@ -34,31 +34,9 @@
                                 @endforeach
                         </select>
                     </div>
-{{--                    <div class="mb-3 col">--}}
-{{--                        <p class="font-weight-400 mb-2">Categoria *</p>--}}
-{{--                        <select id="categoria" name="categoria" class="form-control" required="true">--}}
-{{--                            <option value="">---Selecione---</option>--}}
-{{--                            @foreach($assets['categorias'] as $categoria)--}}
-{{--                                <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="col-md-6">--}}
-{{--                        <p class="font-weight-400 mb-2">Modelo</p><input type="text" id="modelo"--}}
-{{--                                                                         name="modelo" placeholder="Modelo"--}}
-{{--                                                                         class="form-control" value="">--}}
-{{--                    </div>--}}
-{{--                    <div class="mb-3 col-md-6">--}}
-{{--                        <p class="font-weight-400 mb-2">N. Série</p><input type="text" id="serie"--}}
-{{--                                                                           name="serie"--}}
-{{--                                                                           placeholder="N. Série"--}}
-{{--                                                                           class="form-control"--}}
-{{--                                                                           value="">--}}
-{{--                    </div>--}}
                     <!-- fase-bloco-andar-sala_area -->
                     <div class="mb-3 col-md-3">
-                        <p class="font-weight-400 mb-2"> Fase (Loc 1) *</p>
+                        <p class="font-weight-400 mb-2"> Local 01 *</p>
                         <select class="form-control" id="fase" name="fase" required="true" x-ref="fase"
                                 x-on:change="tags = $el.options[$el.selectedIndex].text">
                             <option value="">---Nenhum---</option>
@@ -68,7 +46,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-3">
-                        <p class="font-weight-400 mb-2">Bloco (Loc 2) *</p>
+                        <p class="font-weight-400 mb-2">Local 02 *</p>
                         <select class="form-control" id="bloco" name="bloco" required="true" x-ref="bloco"
                                 x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                             <option value="">---Nenhum---</option>
@@ -78,7 +56,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-3">
-                        <p class="font-weight-400 mb-2">Andar  (Loc 3) *</p>
+                        <p class="font-weight-400 mb-2">Local 03 *</p>
                         <select class="form-control" id="andar" name="andar" required="true" x-ref="andar"
                                 x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                             <option value="">---Nenhum---</option>
@@ -88,7 +66,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-3">
-                        <p class="font-weight-400 mb-2">Sala/Área  (Loc 4) *</p>
+                        <p class="font-weight-400 mb-2">Local 04 *</p>
                         <select class="form-control" id="sala_area" name="sala_area" required="true"
                                 x-ref="sala_area"
                                 x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $refs.andar.options[$refs.andar.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">

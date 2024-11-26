@@ -26,7 +26,7 @@ class UserController extends Controller
             //->where('users.deleted_at', '=', null)
             ->get();
 
-        return view('users.index', compact('usuarios','data'));
+        return view('usuarios.index', compact('usuarios','data'));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
             ->where('users.id', '=', $id)
             ->first();
 
-        return view('users.edit',compact('usuario','data'));
+        return view('usuarios.edit',compact('usuario','data'));
     }
 
     public function update(Request $request, $id)

@@ -17,13 +17,13 @@ $dataPoints = array(
 );
 
 $dataPoints2 = array(
-    array("label" => "Food + Drinks", "y" => 590),
-    array("label" => "Activities and Entertainments", "y" => 261),
-    array("label" => "Health and Fitness", "y" => 158),
-    array("label" => "Shopping & Misc", "y" => 72),
-    array("label" => "Transportation", "y" => 191),
-    array("label" => "Rent", "y" => 573),
-    array("label" => "Travel Insurance", "y" => 126)
+    array("label" => "Pausadas", "y" => 590),
+    array("label" => "Abertas", "y" => 261),
+    array("label" => "Canceladas", "y" => 158),
+    array("label" => "N/A", "y" => 72),
+    array("label" => "Em Analise", "y" => 191),
+    array("label" => "Finalizadas", "y" => 573),
+    array("label" => "Aguardando Autorização", "y" => 126)
 );
 
 $dataPoints3 = array(
@@ -83,7 +83,7 @@ $dataPoints3 = array(
                 exportEnabled: true,
                 theme: "light1", // "light1", "light2", "dark1", "dark2"
                 title: {
-                    text: "Energia"
+                    text: "Controle OS"
                 },
                 axisY: {
                     includeZero: true
@@ -102,7 +102,7 @@ $dataPoints3 = array(
                 animationEnabled: true,
                 exportEnabled: true,
                 title: {
-                    text: "Agua"
+                    text: "Controle OS"
                 },
                 subtitles: [{
                     text: "lorem sumpin depuil"
@@ -269,7 +269,7 @@ $dataPoints3 = array(
             <div class="col-lg-4 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Grafico de Energia</h3>
+                        <h3 class="w-50 float-left card-title m-0">Grafico OS</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -281,7 +281,7 @@ $dataPoints3 = array(
             <div class="col-lg-4 col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">Grafico de Agua</h3>
+                        <h3 class="w-50 float-left card-title m-0">Grafico OS</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">

@@ -14,6 +14,7 @@ use App\Models\Categories;
 use App\Models\Fase;
 use App\Models\Item;
 use App\Models\ItemAtivo;
+use App\Models\NaturezaServico;
 use App\Models\SalaArea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -237,10 +238,10 @@ class AtivoController extends Controller
     {
         $itens = DB::table('itens')
                     ->select('itens.nome as item_nome', 'itens.id as item_id',
-                        'categorias.nome as categoria_nome','categorias.id as categoria_id')
+                        'natureza_servicos.nome as categoria_nome','natureza_servicos.id as categoria_id')
                     ->where('itens.deleted_at', '=', null)
-                    ->join('categorias','categoria_id','categorias.id')
-                    ->orderby('categorias.nome','asc')
+                    ->join('natureza_servicos','categoria_id','natureza_servicos.id')
+                    ->orderby('natureza_servicos.nome','asc')
                     ->get()
                     ->groupby(function($item) {
                         return $item->categoria_nome;
@@ -258,7 +259,7 @@ class AtivoController extends Controller
 
     public function ativosItens()
     {
-        $categorias = Categoria::all()->where('deleted_at', '=', null);
+        $categorias = NaturezaServico::all()->where('deleted_at', '=', null);
         return view('ativos.ativos_item.index', compact('categorias'));
     }
 

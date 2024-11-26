@@ -49,7 +49,7 @@
                                     <input type="text" id="nome" class="form-control" value="" placeholder="Nome do Ativo" name="nome" required>
                                 </div>
                                 <div class="mb-3 col-md-3">
-                                    <p class="font-weight-400 mb-2">Categoria *</p>
+                                    <p class="font-weight-400 mb-2">Naturea do Serviço *</p>
                                     <select class="form-control" id="categoria" name="categoria" required="true">
                                         <option value="">---Nenhum---</option>
                                         @foreach($categorias as $categoria)
