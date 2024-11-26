@@ -54,12 +54,66 @@ class UserController extends Controller
         return view('usuarios.edit',compact('usuario','data'));
     }
 
+    public function store(Request $request)
+    {
+        try{
+
+            $is_found = User::where('email', $request['email'])->first();
+            if($is_found){
+
+                return redirect()->route('usuarios')
+                    ->with(['message' => 'Email '.$request['email'].' já existe no Sistema.',
+                        'status' => 'Erro',
+                        'type' => 'info']);
+            }
+
+            User::create([
+                'name' => $request['nome'],
+                'email' => $request['email'],
+                'password' => bcrypt($request['senha']),
+            ]);
+        }catch (\Exception $exception){
+
+            return redirect()->route('usuarios')
+                ->with(['message' => 'Algo errado aconteceu! Não foi possivel realizar o cadastro no Sistema.',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
+        }
+
+        return redirect()->route('usuarios')
+            ->with(['message' => 'Usuário Email. '.$request->get('email').' foi Cadastrado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+
     public function update(Request $request, $id)
     {
 //        $request->validate([
 //            'title' => 'required|max:255',
 //            'body' => 'required',
 //        ]);
+
+        if(!empty($request['role'])){
+            $user_permission = DB::table('model_has_roles')->where('model_id', $id)->first();
+            if(empty($user_permission)){
+                DB::table('model_has_roles')
+                    ->insert(
+                        [   'role_id' => $request->get('role'),
+                            'model_type' => 'App\Models\User',
+                            'model_id' => $id
+                        ]
+                    );
+            }else{
+                DB::table('model_has_roles')
+                    ->where('model_id', $id)
+                    ->update(
+                        [   'role_id' => $request->get('role'),
+                            'model_type' => 'App\Models\User',
+                            'model_id' => $id
+                        ]
+                    );
+            }
+        }
 
         $user_equipes = DB::table('user_equipes')->where('user_id', '=', $id)->first();
         if(empty($user_equipes)){ // Cadastrar
@@ -68,8 +122,10 @@ class UserController extends Controller
             DB::table('user_equipes')->where('user_id',$id)->update(['equipe_id' => $request->get('equipe'), 'cargo_id' => $request->get('cargo'), 'updated_at' => date('Y-m-d H:i:s')]);
         }
 
+
+
         return redirect()->route('usuarios')
-            ->with(['message' => 'Usuário Email. '.$request->get('email').' foi Atualizado no Sistema.',
+            ->with(['message' => 'Usuário/Email. '.$request->get('email').' foi Atualizado no Sistema.',
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }

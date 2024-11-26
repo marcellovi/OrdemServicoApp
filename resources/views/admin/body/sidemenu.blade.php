@@ -74,7 +74,8 @@ $url = str_replace(['/','.php'], '', $url);
             @endcan
 
             @can('teams')
-            <?php  if (str_contains($url, 'equipe')) { ?>
+            <!-- if (str_contains($url, 'equipe')) { -->
+            <?php  if(str_replace(['equipe','usuarios'], '', strtolower($url)) !== strtolower($url)) { ?>
         <li class="nav-item active" data-item="equipe">
         <?php } else { ?>
             <li class="nav-item" data-item="equipe">

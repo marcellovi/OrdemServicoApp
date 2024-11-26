@@ -1,57 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" dir="">
+@extends('admin.main_master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sistema de O.S</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/vendor/datatables.min.css">
-    <link rel="stylesheet" href="assets/styles/css/themes/lite-purple.css">
-    <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
+@section('main')
 
-    <!-- Alpine JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-</head>
-
-<body class="text-left">
-<div class="app-admin-wrap layout-sidebar-large clearfix">
-
-    <!-- Top Menu and Left Side Menu -->
-    @include ('admin.body.sidemenu');
-    <!--=============== Left side End ================-->
-
-    <!-- ============ Body content start ============= -->
-    <div class="main-content-wrap sidenav-open d-flex flex-column">
-
-        <!-- breadcrumb -->
-        <div class="breadcrumb">
-            <h1 class="mr-2">Sistema de OS</h1>
-            <ul>
-                <li><a href="">Dashboard</a></li>
-                <li></li>
-            </ul>
-        </div>
-        <div class="separator-breadcrumb border-top"></div>
-
-        <!-- msg alert -->
-        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-            @if( session('type') == $msg)
-                <div id="msg_alert" class="alert alert-card alert-{{ $msg }}" role="alert">
-                    <strong class="text-capitalize">{{ session('status') }}!</strong> {{ session('message') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-            @endif
-        @endforeach
-        <!-- end msg alert -->
-
-
-            <!-- body row -->
-            <div class="row">
+    <div  class="mb-4 col-md-12 mt-3" align="right">
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#verifyModalContentUsuario" data-whatever="@mdo">Cadastrar Usuário</button>
+    </div>
 
                 <!-- Gestao Cadastro -->
                 <div class="col-md">
@@ -108,34 +61,39 @@
                     </div>
                 </div>
                 <!-- end of col-->
-
-
-            </div>
-            <!-- end of row-->
-
-
-    </div>
-    <!-- ============ Body content End ============= -->
-</div>
-<!--=============== End app-admin-wrap ================-->
-
-<script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/vendor/perfect-scrollbar.min.js"></script>
-<script src="assets/js/vendor/datatables.min.js"></script>
-
-<script src="assets/js/es5/echart.options.min.js"></script>
-<script src="assets/js/es5/dashboard.v2.script.min.js"></script>
-
-<script src="assets/js/es5/script.min.js"></script>
-<script src="assets/js/es5/sidebar.large.script.min.js"></script>
-
-
-<!-- Session fade after some time -->
-<script type="text/javascript">
-    window.setTimeout("document.getElementById('msg_alert').style.display='none';", 4000);
-</script>
-</body>
-
-</html>
-
+                <!-- modal cadastro usuario -->
+                <div class="modal fade" id="verifyModalContentUsuario" tabindex="-1" role="dialog" aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="verifyModalContent_title">Cadastrar Usuário</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="recipient-name-2" class="col-form-label">Nome</label>
+                                        <input type="text" class="form-control" id="recipient-name-2" name="nome" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name-2" class="col-form-label">Email</label>
+                                        <input type="email" class="form-control" id="recipient-name-2" name="email" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name-2" class="col-form-label">Senha</label>
+                                        <input type="password" class="form-control" id="recipient-name-2" name="senha" >
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+@endsection
