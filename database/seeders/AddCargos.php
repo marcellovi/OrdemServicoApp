@@ -14,10 +14,9 @@ class AddCargos extends Seeder
     public function run(): void
     {
         $cargos = [
-            ['id' => 1, 'nome' => 'Nenhum'],
-            ['id' => 2, 'nome' => 'Cargo 1'],
-            ['id' => 3, 'nome' => 'Cargo 2'],
-            ['id' => 4, 'nome' => 'Cargo 3'],
+            ['id' => 1, 'nome' => 'Cargo 1'],
+            ['id' => 2, 'nome' => 'Cargo 2'],
+            ['id' => 3, 'nome' => 'Cargo 3'],
         ];
 
         foreach($cargos as $cargo){
