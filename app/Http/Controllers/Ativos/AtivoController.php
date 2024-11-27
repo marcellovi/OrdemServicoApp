@@ -254,7 +254,9 @@ class AtivoController extends Controller
             ->leftjoin('ativos_itens','ativo_id','ativo_modelo.id')
             ->orderby('ativo_modelo_id')
             ->get();
-        return view('ativos.ativos_item.link', compact('itens','ativosModeloItens'));
+
+        $listItens = Item::all()->where('deleted_at', '=', null);
+        return view('ativos.ativos_item.link', compact('itens','ativosModeloItens','listItens'));
     }
 
     public function ativosItens()
