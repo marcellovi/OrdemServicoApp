@@ -20,7 +20,8 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">AÇÕES</th>
-                                        <th scope="col">EMAIL</th>
+                                        <th scope="col">MATRICULA</th>
+                                        <th scope="col">NOME</th>
                                         <th scope="col">CARGO</th>
                                         <th scope="col">EQUIPE</th>
                                         <th scope="col">PERMISSÃO</th>
@@ -37,7 +38,8 @@
                                                 <i class="nav-icon i-Close-Window font-weight-bold"></i>
                                             </a>
                                         </td>
-                                        <td><b>{{ $usuario->email }}</b></td>
+                                        <td data-toggle="tooltip" data-placement="top" title="{{ $usuario->email }}" data-original-title="{{ $usuario->email }}" style="cursor: pointer;"><b>{{ $usuario->matricula }}</b></td>
+                                        <td><b>{{ $usuario->name }}</b></td>
                                         <td>
                                             {{ (isset($data['cargos']->where('id',$usuario->cargo_id)->first()->nome)) ? $data['cargos']->where('id',$usuario->cargo_id)->first()->nome : 'Nenhum' }}
                                         </td>
@@ -76,17 +78,37 @@
                                 @method('POST')
                                 <div class="modal-body">
                                     <div class="form-group">
+                                        <label for="recipient-name-2" class="col-form-label">Equipe</label>
+                                        <select name="equipe" id="equipe" class="form-control" required>
+                                            <option value="" selected>---Selecione---</option>
+                                            @foreach($data['equipes'] as $equipe)
+                                                <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name-2" class="col-form-label">Cargo</label>
+                                        <select name="cargo" id="cargo" class="form-control" required>
+                                            <option value="" selected>---Selecione---</option>
+                                            @foreach($data['cargos'] as $cargo)
+                                                <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="recipient-name-2" class="col-form-label">Nome</label>
-                                        <input type="text" class="form-control" id="recipient-name-2" name="nome" >
+                                        <input type="text" class="form-control" id="nome" name="nome" >
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name-2" class="col-form-label">Email</label>
-                                        <input type="email" class="form-control" id="recipient-name-2" name="email" >
+                                        <input type="email" class="form-control" id="email" name="email" >
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name-2" class="col-form-label">Senha</label>
                                         <input type="password" class="form-control" id="recipient-name-2" name="senha" >
                                     </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

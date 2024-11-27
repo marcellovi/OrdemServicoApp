@@ -14,13 +14,14 @@ class AddCargos extends Seeder
     public function run(): void
     {
         $cargos = [
-            'Cargo 1',
-            'Cargo 2',
-            'Cargo 3',
+            ['id' => 1, 'nome' => 'Nenhum'],
+            ['id' => 2, 'nome' => 'Cargo 1'],
+            ['id' => 3, 'nome' => 'Cargo 2'],
+            ['id' => 4, 'nome' => 'Cargo 3'],
         ];
 
         foreach($cargos as $cargo){
-            DB::table('cargos')->insert(['nome' => $cargo]);
+            DB::table('cargos')->insert($cargo);
         }
     }
 }

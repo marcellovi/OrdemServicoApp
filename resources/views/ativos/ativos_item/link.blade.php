@@ -12,7 +12,7 @@
                     <h4 class="card-title mb-3"></h4>
                     <div class="row">
 
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <p class="font-weight-400 mb-2">ATIVO</p>
                             <select id="ativo" name="ativo" class="form-control" required="true" size="20">
                                 @php  $inicio=0; $old_ativo_modelo_itens = ''; @endphp
@@ -31,7 +31,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <p class="font-weight-400 mb-2">ITENS</p>
                             <select id="itens" name="itens[]" class="form-control" required="true" size="20" multiple>
                                 @foreach($itens as $categoria => $item)
@@ -45,7 +45,25 @@
                                 @endforeach
                             </select>
                         </div>
-
+                        <div class="mb-3 col-md-4">
+                            <p class="font-weight-400 mb-2">ITENS DO ATIVO</p>
+                            <select id="ativo" name="ativo" class="form-control" required="true" size="20">
+                                @php  $inicio=0; $old_ativo_modelo_itens = ''; @endphp
+                                @foreach($ativosModeloItens as  $at_modelo)
+                                    @if(!$inicio)
+                                        @php  $inicio=1; $old_ativo_modelo_itens = $at_modelo->ativo_modelo_id; @endphp
+                                        <option value="{{ strtoupper($at_modelo->ativo_modelo_id) }}" >
+                                            Sigla: {{ strtoupper($at_modelo->sigla).' - Nome : '.strtoupper($at_modelo->nome) }}</option>
+                                    @else
+                                        @if( $old_ativo_modelo_itens != $at_modelo->ativo_modelo_id)
+                                            <option
+                                                value="{{ strtoupper($at_modelo->ativo_modelo_id) }}" >Sigla: {{ strtoupper($at_modelo->sigla).' - Nome : '.strtoupper($at_modelo->nome) }}</option>
+                                            @php   $old_ativo_modelo_itens = $at_modelo->ativo_modelo_id; @endphp
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
 
                     </div>
                     <button type="submit" class="btn float-right btn-primary">Salvar</button>

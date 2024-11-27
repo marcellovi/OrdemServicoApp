@@ -6,7 +6,7 @@
     <div class="col-md">
         <div class="card">
             <div class="card-header d-flex align-items-center">
-                <h3 class="w-50 float-left card-title m-0">Cadastro de Profissionais</h3>
+                <h3 class="w-50 float-left card-title m-0">Cadastro de Profissionais - Matricula : {{ $usuario->matricula }}</h3>
             </div>
             <div class="card-body">
                 <form action="{{ route('usuarios.update',$usuario->user_id) }}" method="POST">
@@ -22,7 +22,6 @@
                         <div class="mb-3 col-md-6">
                             <p class="font-weight-400 mb-2">Cargo</p>
                             <select id="cargo" name="cargo" class="form-control" required>
-                                <option value="" selected>---Selecione---</option>
                                 @foreach($data['cargos'] as $cargo)
                                     <option
                                         value="{{ $cargo->id }}" {{ ($usuario->cargo_id == $cargo->id) ? 'selected' : '' }}>{{$cargo->nome}}</option>
@@ -37,7 +36,6 @@
                         <div class="mb-3 col-md-4">
                             <p class="font-weight-400 mb-2">Equipe</p>
                             <select id="equipe" name="equipe" class="form-control" required>
-                                <option value="">---Selecione---</option>
                                 @foreach($data['equipes'] as $equipe)
                                     <option
                                         value="{{ $equipe->id }}" {{ ($usuario->equipe_id == $equipe->id) ? 'selected' : '' }}>{{$equipe->nome}}</option>
@@ -46,8 +44,8 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <p class="font-weight-400 mb-2">Permissão</p>
-                            <select id="role" name="role" class="form-control" required>
-                                <option value="" selected>---Selecione---</option>
+                            <select id="role" name="role" class="form-control">
+                                <option value="" selected>---Nenhum---</option>
                                 @foreach($data['roles'] as $role)
                                     <option
                                         value="{{ $role->id }}" {{ ($usuario->role_id == $role->id) ? 'selected' : '' }}>{{$role->name}}</option>

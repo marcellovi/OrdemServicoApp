@@ -19,7 +19,7 @@ class UserController extends Controller
         ];
 
         $usuarios = DB::table('users')
-            ->select('email','users.id as user_id','model_has_roles.role_id as role_id',
+            ->select('name','email','matricula','users.id as user_id','model_has_roles.role_id as role_id',
                 'user_equipes.cargo_id','user_equipes.equipe_id')
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->leftjoin('user_equipes', 'user_equipes.user_id', '=', 'users.id')
@@ -45,7 +45,7 @@ class UserController extends Controller
 
         $usuario = DB::table('users')
             ->select('email','users.name as nome_usuario','users.id as user_id','model_has_roles.role_id as role_id',
-                'user_equipes.cargo_id','user_equipes.equipe_id')
+                'user_equipes.cargo_id','user_equipes.equipe_id','matricula')
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->leftjoin('user_equipes', 'user_equipes.user_id', '=', 'users.id')
             ->where('users.id', '=', $id)
@@ -67,13 +67,17 @@ class UserController extends Controller
                         'type' => 'info']);
             }
 
-            User::create([
+            $new_user = User::create([
+                'matricula' => intval(date("YmdhHis")),
                 'name' => $request['nome'],
                 'email' => $request['email'],
                 'password' => bcrypt($request['senha']),
             ]);
-        }catch (\Exception $exception){
 
+            DB::table('user_equipes')->insert([ 'user_id' => $new_user->id,'equipe_id' => $request['equipe'],'cargo_id' => $request['cargo']]);
+
+        }catch (\Exception $exception){
+dd($exception);
             return redirect()->route('usuarios')
                 ->with(['message' => 'Algo errado aconteceu! Não foi possivel realizar o cadastro no Sistema.',
                     'status' => 'Erro',
@@ -113,6 +117,8 @@ class UserController extends Controller
                         ]
                     );
             }
+        }else{
+            DB::table('model_has_roles')->where('model_id', $id)->delete();
         }
 
         $user_equipes = DB::table('user_equipes')->where('user_id', '=', $id)->first();
@@ -133,17 +139,19 @@ class UserController extends Controller
 
     public function destroy($id){
 
-        return redirect()->route('usuarios')
-            ->with(['message' => 'O Usuário foi Excluido do Sistema.',
-                'status' => 'Deletado',
-                'type' => 'info']);
-
         $usuario = User::find($id);
-        $email  = $usuario->email;
+
+        if(empty($usuario)){
+            return redirect()->route('usuarios')
+                ->with(['message' => 'Ocorreu algum erro! Usuario não existe no sistema.',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
+        }
+        $matricula  = $usuario->matricula;
         $usuario->delete();
 
         return redirect()->route('usuarios')
-            ->with(['message' => 'O Usuário do Email '.$email .' foi Excluido do Sistema.',
+            ->with(['message' => 'O Usuário matricula '.$matricula .' foi Excluido do Sistema.',
                 'status' => 'Deletado',
                 'type' => 'info']);
     }

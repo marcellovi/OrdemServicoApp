@@ -29,8 +29,6 @@ class AddUserRolePermission extends Seeder
             Permission::create($permission);
         }
 
-
-
         DB::table('role_has_permissions')->insert(['permission_id' => 1,'role_id' => 1]);
         DB::table('role_has_permissions')->insert(['permission_id' => 2,'role_id' => 1]);
         DB::table('role_has_permissions')->insert(['permission_id' => 3,'role_id' => 1]);
@@ -47,7 +45,6 @@ class AddUserRolePermission extends Seeder
         DB::table('role_has_permissions')->insert(['permission_id' => 1,'role_id' => 3]);
         DB::table('role_has_permissions')->insert(['permission_id' => 2,'role_id' => 3]);
         DB::table('role_has_permissions')->insert(['permission_id' => 3,'role_id' => 3]);
-
 
 // Model Has Roles
         $roles = [1,2,3]; // Role Has Permission
