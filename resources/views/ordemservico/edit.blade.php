@@ -42,7 +42,7 @@
 @section('main')
 
         <!-- Editor de OS -->
-        <div class="col-lg-12 col-md-4 mb-4">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex align-items-center">
                     <h3 class="w-50 float-left card-title m-0">Editar OS</h3>
@@ -104,7 +104,7 @@
                             </select>
                         </div>
                         <div class="mb-2 col-md-3">
-                            <p class="font-weight-400 mb-2">Eq. Responsável</p>
+                            <p class="font-weight-400 mb-2">Equipe</p>
                             <select id="eq_responsavel" name="eq_responsavel" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
                                 @foreach($order_servicos['equipes'] as $equipe)
@@ -113,22 +113,30 @@
                             </select>
                         </div>
                         <div class="mb-2 col-md-3">
-                            <p class="font-weight-400 mb-2">Responsavel</p>
+                            <p class="font-weight-400 mb-2">Responsável</p>
                             <select id="responsavel" name="responsavel" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
-                                <option value="1">Marcus V.</option>
-                                <option value="2">Carlos A.</option>
-                                <option value="3">Julia B.</option>
+                                @foreach($order_servicos['funcionarios'] as $funcionario)
+                                    <option value="{{ $funcionario->id }}" {{ ($funcionario->id == $os->equipe_responsavel_id) ? "selected" : ""}}>{{ $equipe->nome }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-2 col-md-3">
-                            <p class="font-weight-400 mb-2">Executor</p>
+                            <p class="font-weight-400 mb-2">Mantenedor</p>
                             <select id="executor" name="executor" class="form-control" required="true">
                                 <option value="" selected>---Nenhum---</option>
                                 <option value="1">Jose R.</option>
                                 <option value="2">Maria D.</option>
                             </select>
                         </div>
+                            <div class="mb-2 col-md-3">
+                                <p class="font-weight-400 mb-2">Auxiliar</p>
+                                <select id="executor" name="auxiliar" class="form-control" required="true">
+                                    <option value="" selected>---Nenhum---</option>
+                                    <option value="1">Jose R.</option>
+                                    <option value="2">Maria D.</option>
+                                </select>
+                            </div>
                     </div>
 
                         <p class="font-weight-400 mb-2">Descritivo</p>

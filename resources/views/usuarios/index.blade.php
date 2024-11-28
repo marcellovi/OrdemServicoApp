@@ -1,9 +1,13 @@
 @extends('admin.main_master')
 
+@section('scripts')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endsection
 @section('main')
 
     <div  class="mb-4 col-md-12 mt-3" align="right">
         <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#verifyModalContentUsuario" data-whatever="@mdo">Cadastrar Usuário</button>
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#verifyModalContentCargo" data-whatever="@mdo">Criar Novo Cargo</button>
     </div>
 
                 <!-- Gestao Cadastro -->
@@ -66,7 +70,7 @@
                 <!-- modal cadastro usuario -->
                 <div class="modal fade" id="verifyModalContentUsuario" tabindex="-1" role="dialog" aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" x-data="{ open: false }">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="verifyModalContent_title">Cadastrar Usuário</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,25 +80,26 @@
                             <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="recipient-name-2" class="col-form-label">Equipe</label>
-                                        <select name="equipe" id="equipe" class="form-control" required>
-                                            <option value="" selected>---Selecione---</option>
-                                            @foreach($data['equipes'] as $equipe)
-                                                <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="recipient-name-2" class="col-form-label">Cargo</label>
-                                        <select name="cargo" id="cargo" class="form-control" required>
-                                            <option value="" selected>---Selecione---</option>
-                                            @foreach($data['cargos'] as $cargo)
-                                                <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>
-                                            @endforeach
-                                        </select>
+                                <div class="modal-body"  >
+                                    <div class="row" x-show="open">
+                                        <div class="col-md-6">
+                                            <label for="recipient-name-2" class="col-form-label">Equipe</label>
+                                            <select name="equipe" id="equipe" class="form-control" required>
+                                                <option value="" selected>---Selecione---</option>
+                                                @foreach($data['equipes'] as $equipe)
+                                                    <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="recipient-name-2" class="col-form-label">Cargo</label>
+                                            <select name="cargo" id="cargo" class="form-control" required>
+                                                <option value="" selected>---Selecione---</option>
+                                                @foreach($data['cargos'] as $cargo)
+                                                    <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name-2" class="col-form-label">Nome</label>
@@ -108,9 +113,16 @@
                                         <label for="recipient-name-2" class="col-form-label">Senha</label>
                                         <input type="password" class="form-control" id="recipient-name-2" name="senha" >
                                     </div>
-
+                                    <div class="form-group mt-4">
+                                        <label class="checkbox checkbox-outline-primary">
+                                            <input type="checkbox" x-on:click="open = ! open">
+                                            <span>Cadastro de Funcionário</span>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
+
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                                 </div>

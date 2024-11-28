@@ -23,9 +23,9 @@ $url = str_replace(['/','.php'], '', $url);
 
         @can('management')
             <?php  if (str_contains($url, 'gestao')) { ?>
-        <li class="nav-item active" >
+        <li class="nav-item active" data-item="gestao">
         <?php } else { ?>
-            <li class="nav-item" >
+            <li class="nav-item" data-item="gestao">
                 <?php } ?>
                 <a class="nav-item-hold" href="{{ route('gestao') }}">
                     <i class="nav-icon i-Conference"></i>
@@ -122,6 +122,21 @@ $url = str_replace(['/','.php'], '', $url);
                 <a href="{{ route('link-ativos-itens') }}">
                     <i class="nav-icon i-Clock-4"></i>
                     <span class="item-name">Linkar Itens/Ativos</span>
+                </a>
+            </li>
+        </ul>
+        <!-- relatorios -->
+        <ul class="childNav" data-parent="gestao">
+            <li class="nav-item">
+                <a href="{{ route('chamado.index') }}">
+                    <i class="nav-icon i-Hub"></i>
+                    <span class="item-name">Chamados</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('gestao') }}">
+                    <i class="nav-icon i-Pie-Chart-3"></i>
+                    <span class="item-name">OS</span>
                 </a>
             </li>
         </ul>

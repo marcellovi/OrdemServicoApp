@@ -83,6 +83,10 @@ Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gest
 Route::get('gestao/{id}/edit', [OrderServicoController::class,'edit'])->name('gestao.edit');
 Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gestao.update');
 
+// CHAMADOS
+Route::get('gestao/chamado',[OrderServicoController::class, 'chamado'])->name('chamado.index');
+Route::post('gestao/chamado/store',[OrderServicoController::class, 'chamadoStore'])->name('chamado.store');
+
 
 
 Route::view('equipe','equipes.index')->middleware('permission:teams')->name('equipe');

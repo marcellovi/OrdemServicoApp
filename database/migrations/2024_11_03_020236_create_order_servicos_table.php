@@ -23,10 +23,12 @@ return new class extends Migration
             $table->integer('natureza_servico_id');
             $table->integer('equipe_responsavel_id')->nullable();;
             $table->integer('responsavel_id')->nullable();;
-            $table->integer('executor_id')->nullable();;
+            $table->integer('mantenedor_id')->nullable();;
+            $table->integer('auxiliar_id')->nullable();;
             $table->integer('status_id')->default(1);
-            $table->text('descritivo')->nullable();
-            $table->text('descritivo_executado')->nullable();
+            $table->text('diagnostico')->nullable();
+            $table->text('solucao')->nullable();
+            $table->text('pecas_trocadas')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
