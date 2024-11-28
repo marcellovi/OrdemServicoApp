@@ -76,11 +76,11 @@ $url = str_replace(['/','.php'], '', $url);
             @can('teams')
             <!-- if (str_contains($url, 'equipe')) { -->
             <?php  if(str_replace(['equipe','usuarios'], '', strtolower($url)) !== strtolower($url)) { ?>
-        <li class="nav-item active" data-item="equipe">
+        <li class="nav-item active" >
         <?php } else { ?>
-            <li class="nav-item" data-item="equipe">
+            <li class="nav-item">
                 <?php } ?>
-                <a class="nav-item-hold" href="{{ route('equipe') }}">
+                <a class="nav-item-hold" href="{{ route('usuarios') }}">
                     <i class="nav-icon i-Business-Mens"></i>
                     <span class="nav-text">EQUIPE</span>
                 </a>
@@ -156,20 +156,20 @@ $url = str_replace(['/','.php'], '', $url);
             </li>
         </ul>
         <!-- Equipe -->
-        <ul class="childNav" data-parent="equipe">
-            <li class="nav-item">
-                <a href="{{ route('usuarios') }}">
-                    <i class="nav-icon i-Add-User"></i>
-                    <span class="item-name">Funcionarios</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('equipe') }}">
-                    <i class="nav-icon i-Address-Book-2"></i>
-                    <span class="item-name">Cargos</span>
-                </a>
-            </li>
-        </ul>
+{{--        <ul class="childNav" data-parent="equipe">--}}
+{{--            <li class="nav-item">--}}
+{{--                <a href="{{ route('usuarios') }}">--}}
+{{--                    <i class="nav-icon i-Add-User"></i>--}}
+{{--                    <span class="item-name">Funcionarios</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a href="{{ route('equipe') }}">--}}
+{{--                    <i class="nav-icon i-Address-Book-2"></i>--}}
+{{--                    <span class="item-name">Cargos</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--        </ul>--}}
         <!-- Suprimentos -->
         <ul class="childNav" data-parent="suprimentos">
             <li class="nav-item">
