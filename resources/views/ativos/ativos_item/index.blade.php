@@ -142,12 +142,12 @@
 
                                                 <div class="table-responsive">
 
-                                                    <table id="user_table" class="table dataTable-collapse text-center">
+                                                    <table id="sales_table" class="table dataTable-collapse text-center">
                                                         <thead>
                                                         <tr>
                                                             <th scope="col" style="width: 10%">AÇÕES</th>
                                                             <th scope="col" style="width: 50%">NOME</th>
-                                                            <th scope="col" style="width: 40%">ITENS</th>
+{{--                                                            <th scope="col" style="width: 40%">ITENS</th>--}}
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -162,9 +162,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td><b>{{ $ativo_modelo->nome }}</b></td>
-                                                                <td>
-                                                                    N/A
-                                                                </td>
+{{--                                                                <td>--}}
+{{--                                                                    N/A--}}
+{{--                                                                </td>--}}
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -194,7 +194,7 @@
                                                     <tr>
                                                         <th scope="col" style="width: 10%">AÇÕES</th>
                                                         <th scope="col" style="width: 50%">NOME</th>
-                                                        <th scope="col" style="width: 40%">ATIVO(S)</th>
+{{--                                                        <th scope="col" style="width: 40%">ATIVO(S)</th>--}}
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -209,9 +209,9 @@
                                                                 </a>
                                                             </td>
                                                             <td><b>{{ $item->nome }}</b></td>
-                                                            <td>
-                                                                N/A
-                                                            </td>
+{{--                                                            <td>--}}
+{{--                                                                N/A--}}
+{{--                                                            </td>--}}
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

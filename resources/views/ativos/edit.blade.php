@@ -50,7 +50,7 @@
                         </div>
                         <!-- fase-bloco-andar-sala_area -->
                         <div class="mb-3 col-md-3">
-                            <p class="font-weight-400 mb-2">Fase *</p>
+                            <p class="font-weight-400 mb-2">Local 01 *</p>
                             <select class="form-control" id="fase" name="fase" required="true" x-ref="fase" x-on:change="tags = $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
                                 @foreach($assets['ativos_location']->where('tipo','fase') as $fase)
@@ -59,7 +59,7 @@
                             </select>
                         </div>
                         <div class="mb-3 col-md-3">
-                            <p class="font-weight-400 mb-2">Loc. Bloco *</p>
+                            <p class="font-weight-400 mb-2">Local 02 *</p>
                             <select class="form-control" id="bloco" name="bloco" required="true" x-ref="bloco" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
                                 @foreach($assets['ativos_location']->where('tipo','bloco') as $bloco)
@@ -68,7 +68,7 @@
                             </select>
                         </div>
                         <div class="mb-3 col-md-3">
-                            <p class="font-weight-400 mb-2">Loc. Andar *</p>
+                            <p class="font-weight-400 mb-2">Local 03 *</p>
                             <select class="form-control" id="andar" name="andar"  required="true" x-ref="andar" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
                                 @foreach($assets['ativos_location']->where('tipo','andar') as $andar)
@@ -77,7 +77,7 @@
                             </select>
                         </div>
                         <div class="mb-3 col-md-3">
-                            <p class="font-weight-400 mb-2">Loc. Sala/Área *</p>
+                            <p class="font-weight-400 mb-2">Local 04 *</p>
                             <select class="form-control" id="sala_area" name="sala_area" required="true" x-ref="sala_area" x-on:change="tags = $refs.fase.options[$refs.fase.options.selectedIndex].text  + '-' + $refs.bloco.options[$refs.bloco.options.selectedIndex].text  + '-' + $refs.andar.options[$refs.andar.options.selectedIndex].text  + '-' + $el.options[$el.selectedIndex].text">
                                 <option value="">---Nenhum---</option>
                                 @foreach($assets['ativos_location']->where('tipo','sala_area') as $sala_area)

@@ -130,10 +130,20 @@
 
                                     <td>{{ $ativo->tags }}</td>
                                     <td>
-                                        {{ $ativo->bloco_id }}
+                                        @foreach($assets['ativos_location'] as $ativo_location)
+                                            @if($ativo->bloco_id == $ativo_location->id)
+                                                {{  $ativo_location->nome }}
+                                            @endif
+                                        @endforeach
                                     </td>
 
-                                    <td>{{ $ativo->fase_id }}</td>
+                                    <td>
+                                        @foreach($assets['ativos_location'] as $ativo_location)
+                                            @if($ativo->fase_id == $ativo_location->id)
+                                                {{  $ativo_location->nome }}
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td>
                                         {{ date_format($ativo->created_at,"d/m/Y") }}
                                     </td>

@@ -37,6 +37,7 @@ class AtivoController extends Controller
             'categorias' => Categoria::all()->where('deleted_at', '=', null),
             'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
             'ativos_modelo' => DB::table('ativo_modelo')->select('ativo_modelo.id','sigla','ativo_modelo.nome')->distinct()->where('ativo_modelo.deleted_at', '=', null)->join('ativos_itens','ativo_id','ativo_modelo.id')->get(),
+            'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
         ];
 
         $ativos = Ativo::all()->where('deleted_at', '=', null);
@@ -271,16 +272,39 @@ class AtivoController extends Controller
 
         $categorias = NaturezaServico::all()->where('deleted_at', '=', null);
         $itens = Item::all()->where('deleted_at', '=', null);
+//        $ativos_modelos = DB::table('ativo_modelo')
+//                            ->select('ativo_modelo.id as ativo_modelo_id','ativo_modelo.nome as ativo_modelo_nome',
+//                            'ativo_modelo.id as ativo_modelo_id','ativo_modelo.*','ativo_id','item_id')
+//                            ->where('ativo_modelo.deleted_at', '=', null)
+//                            ->leftjoin('ativos_itens','ativo_id','ativo_modelo.id')
+//                            ->orderby('ativo_modelo_id')
+//                            ->get();
+
         $ativos_modelos = AtivoModelo::all()->where('deleted_at', '=', null);
+
         return view('ativos.ativos_item.index', compact('categorias','ativos_modelos','itens'));
     }
 
     public function linkStoreAtivoItems(Request $request){
 
+
         $itens = $request->get('itens');
         $ativo = $request->get('ativo');
+        $action = '';
         foreach($itens as $item){
-            DB::table('ativos_itens')->insert(['ativo_id' => $ativo, 'item_id' => $item,'created_at' => date('Y-m-d H:i:s')]);
+
+            if($request->get('btnsubmit') == 'remover'){
+
+
+                DB::table('ativos_itens')->where('ativo_id', $ativo)->where('item_id', $item)->delete();
+            }else{
+                $action = 'Linkado';
+                $is_found = DB::table('ativos_itens')->where('ativo_id', $ativo)->where('item_id', $item)->first();
+
+                if(!$is_found){
+                    DB::table('ativos_itens')->insert(['ativo_id' => $ativo, 'item_id' => $item,'created_at' => date('Y-m-d H:i:s')]);
+                }
+            }
         }
 
 
@@ -289,8 +313,9 @@ class AtivoController extends Controller
 //
 //            return Redirect::to(URL::previous() . "#ativos-itens");
 
+
         return redirect()->route('link-ativos-itens')
-            ->with(['message' => 'Linkado com Successo no Sistema.',
+            ->with(['message' => $action.' com Successo no Sistema.',
                 'status' => 'Sucesso',
                 'type' => 'success']);
             //->withFragment('#profileIcon'); // adds anchor to the URL

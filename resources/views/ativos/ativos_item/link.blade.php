@@ -127,9 +127,9 @@
                                 </template>
                             </select>
                         </div>
-
                     </div>
-                    <button type="submit" class="btn float-right btn-primary">Salvar</button>
+                        <button  id='btnadd' name='btnsubmit' value='remover' class="btn btn-primary m-1 float-right btn-primary">Remover</button>
+                        <button id='btnsave' name='btnsubmit' value='adicionar'  class="btn btn-primary m-1 float-right btn-primary">Adicionar</button>
                 </div>
 
             </div>
