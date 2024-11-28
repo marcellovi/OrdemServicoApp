@@ -131,7 +131,7 @@
                         </div>
 
                         <!-- Tabs Content Lista de Ativos -->
-                        <div class="tab-pane fade active show" id="listaAtivos" role="tabpanel"
+                        <div class="tab-pane fade" id="listaAtivos" role="tabpanel"
                              aria-labelledby="home-icon-tab">
                             <!-- lista de ativos -->
                                 <div class="row">
@@ -178,7 +178,7 @@
                         <!-- End lista ativos -->
 
                         <!-- Tabs Content Lista de Itens -->
-                        <div class="tab-pane fade active show" id="listaItens" role="tabpanel"
+                        <div class="tab-pane fade" id="listaItens" role="tabpanel"
                              aria-labelledby="home-icon-tab">
                             <!-- lista de ativos -->
                             <div class="row">
