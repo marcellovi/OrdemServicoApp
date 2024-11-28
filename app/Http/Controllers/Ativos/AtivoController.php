@@ -261,8 +261,18 @@ class AtivoController extends Controller
 
     public function ativosItens()
     {
+//        $a = DB::table('ativo_modelo')
+//            ->select('ativo_modelo.id as ativo_modelo_id','ativo_modelo.*',
+//                'ativos_itens.*')
+//            ->where('ativo_modelo.deleted_at', '=', null)
+//            ->leftjoin('ativos_itens','ativo_id','ativo_modelo.id')
+//            ->orderby('ativo_modelo_id')
+//            ->get();
+
         $categorias = NaturezaServico::all()->where('deleted_at', '=', null);
-        return view('ativos.ativos_item.index', compact('categorias'));
+        $itens = Item::all()->where('deleted_at', '=', null);
+        $ativos_modelos = AtivoModelo::all()->where('deleted_at', '=', null);
+        return view('ativos.ativos_item.index', compact('categorias','ativos_modelos','itens'));
     }
 
     public function linkStoreAtivoItems(Request $request){

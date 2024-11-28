@@ -24,10 +24,12 @@
                         <li class="nav-item">
                             <a class="nav-link" id="profile-icon-tab" data-toggle="tab" href="#profileIcon" role="tab" aria-controls="profileIcon" aria-selected="false"><i class="nav-icon i-Arrow-Refresh mr-1"></i>Itens do Ativo</a>
                         </li>
-
-{{--                        <li class="nav-item">--}}
-{{--                            <a class="nav-link" id="contact-icon-tab" data-toggle="tab" href="#contactIcon" role="tab" aria-controls="contactIcon" aria-selected="false"><i class="nav-icon i-Add-File mr-1"></i> Documentos</a>--}}
-{{--                        </li>--}}
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-icon-tab" data-toggle="tab" href="#listaAtivos" role="tab" aria-controls="contactIcon" aria-selected="false"><i class="nav-icon i-Add-File mr-1"></i>Lista Ativos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-icon-tab" data-toggle="tab" href="#listaItens" role="tab" aria-controls="contactIcon" aria-selected="false"><i class="nav-icon i-Address-Book-2 mr-1"></i>Lista Itens</a>
+                        </li>
                     </ul>
                     <!-- Tabs Content -->
                     <div class="tab-content" id="myIconTabContent">
@@ -127,6 +129,100 @@
                                 <!-- End Cadastro Profissionais -->
                             </form>
                         </div>
+
+                        <!-- Tabs Content Lista de Ativos -->
+                        <div class="tab-pane fade active show" id="listaAtivos" role="tabpanel"
+                             aria-labelledby="home-icon-tab">
+                            <!-- lista de ativos -->
+                                <div class="row">
+                                    <div class="col-md-12 mt-4">
+                                        <div class="card o-hidden mb-4">
+
+                                            <div class="card-body">
+
+                                                <div class="table-responsive">
+
+                                                    <table id="user_table" class="table dataTable-collapse text-center">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col" style="width: 10%">AÇÕES</th>
+                                                            <th scope="col" style="width: 50%">NOME</th>
+                                                            <th scope="col" style="width: 40%">ITENS</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($ativos_modelos as $ativo_modelo)
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="{{ route('gestao.edit',$ativo_modelo->id) }}" class="text-success mr-2">
+                                                                        <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('gestao.destroy',$ativo_modelo->id) }}" class="text-danger mr-2">
+                                                                        <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td><b>{{ $ativo_modelo->nome }}</b></td>
+                                                                <td>
+                                                                    N/A
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- End lista ativos -->
+
+                        <!-- Tabs Content Lista de Itens -->
+                        <div class="tab-pane fade active show" id="listaItens" role="tabpanel"
+                             aria-labelledby="home-icon-tab">
+                            <!-- lista de ativos -->
+                            <div class="row">
+                                <div class="col-md-12 mt-4">
+                                    <div class="card o-hidden mb-4">
+
+                                        <div class="card-body">
+
+                                            <div class="table-responsive">
+
+                                                <table id="user_table" class="table dataTable-collapse text-center">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" style="width: 10%">AÇÕES</th>
+                                                        <th scope="col" style="width: 50%">NOME</th>
+                                                        <th scope="col" style="width: 40%">ATIVO(S)</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($itens as $item)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{ route('gestao.edit',$item->id) }}" class="text-success mr-2">
+                                                                    <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                                                </a>
+                                                                <a href="{{ route('gestao.destroy',$item->id) }}" class="text-danger mr-2">
+                                                                    <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td><b>{{ $item->nome }}</b></td>
+                                                            <td>
+                                                                N/A
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End lista itens -->
 
                         <!-- modal ativo -->
                         <div class="modal fade" id="verifyModalContentAtivo" tabindex="-1" role="dialog" aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
