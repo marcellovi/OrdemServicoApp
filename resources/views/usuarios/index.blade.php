@@ -1,8 +1,5 @@
 @extends('admin.main_master')
 
-@section('scripts')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-@endsection
 @section('main')
 
     <div  class="mb-4 col-md-12 mt-3" align="right">
@@ -23,12 +20,13 @@
                                 <table id="user_table" class="table dataTable-collapse text-center">
                                     <thead>
                                     <tr>
-                                        <th scope="col">AÇÕES</th>
-                                        <th scope="col">MATRICULA</th>
-                                        <th scope="col">NOME</th>
-                                        <th scope="col">CARGO</th>
-                                        <th scope="col">EQUIPE</th>
-                                        <th scope="col">PERMISSÃO</th>
+                                        <th scope="col" style="width: 8%">AÇÕES</th>
+                                        <th scope="col" style="width: 15%">MATRICULA</th>
+                                        <th scope="col" style="width: 25%">NOME</th>
+                                        <th scope="col" style="width: 20%">CARGO</th>
+                                        <th scope="col" style="width: 20%">EQUIPE</th>
+                                        <th scope="col" style="width: 12%">STATUS</th>
+                                        <th scope="col" style="width: 12%">PERMISSÃO</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,6 +48,12 @@
                                         <td>
                                             {{ (isset($data['equipes']->where('id',$usuario->equipe_id)->first()->nome)) ? $data['equipes']->where('id',$usuario->equipe_id)->first()->nome : 'Nenhum' }}
                                         </td>
+                                            <td>
+                                                {{ (isset($data['status']->where('id',$usuario->status_id)->first()->nome)) ?
+                                                    $data['status']->where('id',$usuario->status_id)->first()->nome
+                                                    : 'Nenhum'
+                                                }}
+                                            </td>
                                         <td>
                                             @isset($data['roles']->where('id',$usuario->role_id)->first()->name)
                                             <span class="badge badge-success">{{ $data['roles']->where('id',$usuario->role_id)->first()->name }}</span>
@@ -70,7 +74,7 @@
                 <!-- modal cadastro usuario -->
                 <div class="modal fade" id="verifyModalContentUsuario" tabindex="-1" role="dialog" aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content" x-data="{ open: false }">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="verifyModalContent_title">Cadastrar Usuário</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -81,8 +85,8 @@
                                 @csrf
                                 @method('POST')
                                 <div class="modal-body"  >
-                                    <div class="row" x-show="open">
-                                        <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4">
                                             <label for="recipient-name-2" class="col-form-label">Equipe</label>
                                             <select name="equipe" id="equipe" class="form-control" required>
                                                 <option value="" selected>---Selecione---</option>
@@ -91,7 +95,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <label for="recipient-name-2" class="col-form-label">Cargo</label>
                                             <select name="cargo" id="cargo" class="form-control" required>
                                                 <option value="" selected>---Selecione---</option>
@@ -100,10 +104,23 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="recipient-name-2" class="col-form-label">Nome</label>
-                                        <input type="text" class="form-control" id="nome" name="nome" >
+                                        <div class="col-md-3">
+                                            <label for="recipient-name-2" class="col-form-label">Status</label>
+                                            <select name="status" id="status" class="form-control" required>
+                                                @foreach($data['status'] as $status)
+                                                    <option value="{{ $status->id }}" {{ ($status->nome == 'ativo') ? 'selected' : '' }}>{{ $status->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mt-1">
+                                            <label for="recipient-name-2" class="col-form-label">Matricula</label>
+                                            <input type="text" class="form-control" id="matricula" name="matricula" >
+                                        </div>
+                                        <div class="col-md-8 mt-1">
+                                            <label for="recipient-name-2" class="col-form-label">Nome</label>
+                                            <input type="text" class="form-control" id="nome" name="nome" >
+                                        </div>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name-2" class="col-form-label">Email</label>
@@ -113,18 +130,45 @@
                                         <label for="recipient-name-2" class="col-form-label">Senha</label>
                                         <input type="password" class="form-control" id="recipient-name-2" name="senha" >
                                     </div>
-                                    <div class="form-group mt-4">
-                                        <label class="checkbox checkbox-outline-primary">
-                                            <input type="checkbox" x-on:click="open = ! open">
-                                            <span>Cadastro de Funcionário</span>
-                                            <span class="checkmark"></span>
-                                        </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal cadastro cargo -->
+                <div class="modal fade" id="verifyModalContentCargo" tabindex="-1" role="dialog" aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="verifyModalContent_title">Cadastrar Cargo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('cargo.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
+                                <div class="modal-body"  >
+                                    <div class="form-group">
+                                            <label for="recipient-name-2" class="col-form-label">Nome</label>
+                                            <input type="text" class="form-control" id="nome_cargo" name="nome" required>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="recipient-name-2" class="col-form-label">Cargos Cadastrados</label>
+                                            <select name="cargo" id="cargo" class="form-control" multiple readonly rows="5"">
+                                                @foreach($data['cargos'] as $cargo)
+                                                    <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>
+                                                @endforeach
+                                            </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <button type="submit" class="btn btn-primary">Criar Cargo</button>
                                 </div>
                             </form>
                         </div>

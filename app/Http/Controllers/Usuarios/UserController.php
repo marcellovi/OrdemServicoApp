@@ -16,13 +16,13 @@ class UserController extends Controller
             'cargos' => DB::table('cargos')->where('deleted_at', '=', null)->get(),
             'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
             'roles' => DB::table('roles')->get(), //->where('deleted_at', '=', null)->get(),
+            'status' => DB::table('status')->where('tipo_status','rh')->get(),
         ];
 
         $usuarios = DB::table('users')
             ->select('name','email','matricula','users.id as user_id','model_has_roles.role_id as role_id',
-                'user_equipes.cargo_id','user_equipes.equipe_id')
+                'cargo_id','equipe_id','status_id')
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-            ->leftjoin('user_equipes', 'user_equipes.user_id', '=', 'users.id')
             //->where('users.deleted_at', '=', null)
             ->get();
 
@@ -41,13 +41,13 @@ class UserController extends Controller
             'cargos' => DB::table('cargos')->where('deleted_at', '=', null)->get(),
             'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
             'roles' => DB::table('roles')->get(), //->where('deleted_at', '=', null)->get(),
+            'status' => DB::table('status')->where('tipo_status','rh')->get(),
         ];
 
         $usuario = DB::table('users')
             ->select('email','users.name as nome_usuario','users.id as user_id','model_has_roles.role_id as role_id',
-                'user_equipes.cargo_id','user_equipes.equipe_id','matricula')
+                'cargo_id','equipe_id','matricula','status_id')
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-            ->leftjoin('user_equipes', 'user_equipes.user_id', '=', 'users.id')
             ->where('users.id', '=', $id)
             ->first();
 
@@ -58,9 +58,9 @@ class UserController extends Controller
     {
         try{
 
-            $is_found = User::where('email', $request['email'])->first();
-            if($is_found){
+            $is_found = User::where('email', $request['email'])->orwhere('matricula',$request['matricula'])->first();
 
+            if($is_found){
                 return redirect()->route('usuarios')
                     ->with(['message' => 'Email '.$request['email'].' já existe no Sistema.',
                         'status' => 'Erro',
@@ -68,13 +68,14 @@ class UserController extends Controller
             }
 
             $new_user = User::create([
-                'matricula' => intval(date("YmdhHis")),
+                'matricula' => $request['matricula'],
                 'name' => $request['nome'],
                 'email' => $request['email'],
+                'status_id' => $request['status'],
+                'cargo_id' => $request['cargo'],
+                'equipe_id' => $request['equipe'],
                 'password' => bcrypt($request['senha']),
             ]);
-
-            DB::table('user_equipes')->insert([ 'user_id' => $new_user->id,'equipe_id' => $request['equipe'],'cargo_id' => $request['cargo']]);
 
         }catch (\Exception $exception){
 dd($exception);
@@ -121,14 +122,11 @@ dd($exception);
             DB::table('model_has_roles')->where('model_id', $id)->delete();
         }
 
-        $user_equipes = DB::table('user_equipes')->where('user_id', '=', $id)->first();
-        if(empty($user_equipes)){ // Cadastrar
-            DB::table('user_equipes')->insert(['user_id' => $id,'equipe_id' => $request->get('equipe'), 'cargo_id' => $request->get('cargo'), 'created_at' => date('Y-m-d H:i:s')]);
-        }else{ // Update
-            DB::table('user_equipes')->where('user_id',$id)->update(['equipe_id' => $request->get('equipe'), 'cargo_id' => $request->get('cargo'), 'updated_at' => date('Y-m-d H:i:s')]);
-        }
-
-
+        DB::table('users')->where('id',$id)->update(['equipe_id' => $request->get('equipe'),
+            'cargo_id' => $request->get('cargo'),
+            'status_id' => $request->get('status'),
+            'cargo_id' => $request->get('cargo'),
+            'updated_at' => date('Y-m-d H:i:s')]);
 
         return redirect()->route('usuarios')
             ->with(['message' => 'Usuário/Email. '.$request->get('email').' foi Atualizado no Sistema.',
@@ -148,7 +146,7 @@ dd($exception);
                     'type' => 'danger']);
         }
         $matricula  = $usuario->matricula;
-        $usuario->delete();
+        $usuario->softdele();
 
         return redirect()->route('usuarios')
             ->with(['message' => 'O Usuário matricula '.$matricula .' foi Excluido do Sistema.',

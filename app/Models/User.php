@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'matricula',
+        'cargo_id',
+        'status_id',
+        'equipe_id',
         'password',
     ];
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Ativos\ItemController;
 use App\Http\Controllers\OrdemServico\OrderServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\Usuarios\CargoController;
 use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -87,6 +88,8 @@ Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gest
 Route::get('gestao/chamado',[OrderServicoController::class, 'chamado'])->name('chamado.index');
 Route::post('gestao/chamado/store',[OrderServicoController::class, 'chamadoStore'])->name('chamado.store');
 
+// CARGO
+Route::post('cargo/store',[CargoController::class, 'store'])->name('cargo.store');
 
 
 Route::view('equipe','equipes.index')->middleware('permission:teams')->name('equipe');

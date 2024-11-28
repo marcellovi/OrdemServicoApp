@@ -3,7 +3,7 @@
 @section('main')
 
     <!-- Editar Profissionais -->
-    <div class="col-md">
+    <div class="col-md mt-3">
         <div class="card">
             <div class="card-header d-flex align-items-center">
                 <h3 class="w-50 float-left card-title m-0">Cadastro de Profissionais - Matricula : {{ $usuario->matricula }}</h3>
@@ -14,17 +14,26 @@
                     @method('PUT')
                     <div class="row">
 
-                        <div class="mb-3 col-md-6">
-                            <p class="font-weight-400 mb-2">Usuário</p>
+                        <div class="mb-3 col-md-4">
+                            <p class="font-weight-400 mb-2">Nome</p>
                             <input type="text" placeholder="Usuario" value="{{ $usuario->nome_usuario }}"
                                    class="form-control" readonly>
                         </div>
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <p class="font-weight-400 mb-2">Cargo</p>
                             <select id="cargo" name="cargo" class="form-control" required>
                                 @foreach($data['cargos'] as $cargo)
                                     <option
                                         value="{{ $cargo->id }}" {{ ($usuario->cargo_id == $cargo->id) ? 'selected' : '' }}>{{$cargo->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <p class="font-weight-400 mb-2">Status</p>
+                            <select id="status" name="status" class="form-control" required>
+                                @foreach($data['status'] as $status)
+                                    <option
+                                        value="{{ $status->id }}" {{ ($usuario->status_id == $status->id) ? 'selected' : '' }}>{{$status->nome}}</option>
                                 @endforeach
                             </select>
                         </div>
