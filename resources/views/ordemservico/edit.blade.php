@@ -141,11 +141,11 @@
                             </div>
                     </div>
 
-                        <p class="font-weight-400 mb-2">Descritivo</p>
+                        <p class="font-weight-400 mb-2">Diagnostico</p>
                         <div id="editor" name="editor">{{ $os->descritivo }}</div>
                         <br>
 
-                        <p class="font-weight-400 mb-2">Descritivo Executado</p>
+                        <p class="font-weight-400 mb-2">Solução</p>
 {{--                        <textarea id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</textarea>--}}
                         <div id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</div>
 
