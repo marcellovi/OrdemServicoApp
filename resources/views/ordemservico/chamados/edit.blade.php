@@ -164,7 +164,7 @@
                         <div id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</div>
 
                         <br>
-                        <a href="{{ route('gestao') }}" class="btn float-right btn-primary ml-3">Voltar</a>
+                        <a href="{{ route('chamado.index') }}" class="btn float-right btn-primary ml-3">Voltar</a>
                         <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>
                     </form>
                 </div>
