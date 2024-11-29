@@ -108,6 +108,7 @@
                             <th scope="col">TAGS</th>
                             <th scope="col">PRIORIDADE</th>
                             <th scope="col">DT. CRIAÇÃO</th>
+                            <th scope="col">DT. LIMITE</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -133,16 +134,21 @@
                                 </td>
                                 <td>{{ $os->tags }}</td>
                                 <td>
-                                        @if($os->prioridade == 'Alta')
-                                            <span class="badge badge-success">ALTA</span>
+                                        @if($os->prioridade == 'Emergencial')
+                                            <span class="badge badge-danger">EMERGENCIAL</span>
+                                        @elseif($os->prioridade == 'Alta')
+                                            <span class="badge badge-waiting">ALTA</span>
                                         @elseif($os->prioridade == 'Media')
-                                            <span class="badge badge-danger">MEDIA</span>
+                                            <span class="badge badge-warning">MEDIA</span>
                                         @else
-                                            <span class="badge badge-warning">BAIXA</span>
+                                            <span class="badge badge-info">BAIXA</span>
                                         @endif
                                 </td>
                                 <td>
                                     {{ date_format($ativo->created_at,"d/m/Y") }}
+                                </td>
+                                <td>
+                                    {{ $os->tempo_limite }}
                                 </td>
                             </tr>
                         @endforeach

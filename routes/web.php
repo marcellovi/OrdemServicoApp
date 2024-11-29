@@ -87,6 +87,10 @@ Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gest
 // CHAMADOS
 Route::get('gestao/chamado',[OrderServicoController::class, 'chamado'])->name('chamado.index');
 Route::post('gestao/chamado/store',[OrderServicoController::class, 'chamadoStore'])->name('chamado.store');
+Route::get('gestao/chamado/{id}/edit', [OrderServicoController::class,'chamadoEdit'])->name('chamado.edit');
+Route::get('gestao/chamado/destroy/{id}',[OrderServicoController::class, 'chamadoDestroy'])->name('chamado.destroy');
+Route::put('gestao/chamado/{id}', [OrderServicoController::class ,'chamadoUpdate'])->name('chamado.update');
+
 
 // CARGO
 Route::post('cargo/store',[CargoController::class, 'store'])->name('cargo.store');

@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('numero_os')->nullable(true);
             //$table->string('tags');  // remove
-            $table->date('data_abertura');
+            //$table->date('data_analise')->nullable();
+            $table->date('data_abertura')->nullable();
             $table->date('data_programada')->nullable();;
             $table->integer('ativo_id');
             $table->integer('prioridade_id');
-            $table->integer('tipo_manutencao_id');
+            $table->integer('tipo_manutencao_id')->nullable();
             $table->integer('natureza_servico_id');
             $table->integer('equipe_responsavel_id')->nullable();;
             $table->integer('responsavel_id')->nullable();;

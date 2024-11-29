@@ -19,7 +19,6 @@ class AddStatues extends Seeder
             [ 'id' => 3, 'nome' => 'Em Andamento','tipo_status' => 'os' ],
             [ 'id' => 4, 'nome' => 'Em Espera','tipo_status' => 'os' ],
             [ 'id' => 5, 'nome' => 'Fechada','tipo_status' => 'os'],
-            [ 'id' => 6, 'nome' => 'Emergêncial','tipo_status' => 'os'],
         ];
         $statues_rh = [
             [ 'id' => 7, 'nome' => 'Ativo','tipo_status' => 'rh' ],

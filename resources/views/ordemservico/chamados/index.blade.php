@@ -20,10 +20,11 @@
 @section('main')
 
     <!-- Cadastro de OS -->
-    <div class="col-lg-5 mt-4">
+    <div class="col-lg-4 mt-4">
         <div class="card">
             <div class="card-header d-flex align-items-center">
-                <h3 class="w-50 float-left card-title m-0">Abrir Chamados - <span class="text-success">{{ $order_servicos['numero_os'] }}</span></h3>
+                <h3 class="w-50 float-left card-title m-0">CHAMADO  </h3>
+                <h5>N. <span class="text-success">{{ $order_servicos['numero_os'] }}</span></h5>
             </div>
             <div class="card-body">
                 <form action="{{ route('chamado.store') }}" method="POST">
@@ -34,7 +35,7 @@
 {{--                        <div class="mb-2 col-md-2">--}}
 {{--                            <p class="font-weight-400 mb-2">N. Chamado</p>                            --}}
 {{--                        </div>--}}
-                        <div class="mb-2 col-md-5">
+                        <div class="mb-2 col-md-12">
                             <p class="font-weight-400 mb-2">Tag.</p>
                             <select id="tags" name="tags" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
@@ -43,7 +44,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-2 col-md-5">
+                        <div class="mb-2 col-md-6">
                             <p class="font-weight-400 mb-2">Prioridade</p>
                             <select id="prioridade" name="prioridade" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
@@ -52,16 +53,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Manutenção</p>
-                            <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
-                                <option value="" selected>---Selecione---</option>
-                                @foreach($order_servicos['tipo_manutencao'] as $manutencao)
-                                    <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-2 col-md-5">
+{{--                        <div class="mb-2 col-md-5">--}}
+{{--                            <p class="font-weight-400 mb-2">Manutenção</p>--}}
+{{--                            <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">--}}
+{{--                                <option value="" selected>---Selecione---</option>--}}
+{{--                                @foreach($order_servicos['tipo_manutencao'] as $manutencao)--}}
+{{--                                    <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+                        <div class="mb-2 col-md-6">
                             <p class="font-weight-400 mb-2">Naturea do Serviço</p>
                             <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
                                 <option value="" selected>---Selecione---</option>
@@ -72,7 +73,7 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn float-right btn-primary ml-3">ABRIR</button>
+                    <button type="submit" class="btn float-right btn-primary ml-3">ABRIR CHAMADO</button>
                 </form>
             </div>
         </div>
@@ -99,16 +100,17 @@
                             <th scope="col">TAGS</th>
                             <th scope="col">PRIORIDADE</th>
                             <th scope="col">DT. CRIAÇÃO</th>
+                            <th scope="col">DT. LIMITE</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($list_os as $os)
                             <tr>
                                 <td>
-                                    <a href="{{ route('gestao.edit',$os->os_id) }}" class="text-success mr-2">
+                                    <a href="{{ route('chamado.edit',$os->os_id) }}" class="text-success mr-2">
                                         <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                     </a>
-                                    <a href="{{ route('gestao.destroy',$os->os_id) }}" class="text-danger mr-2">
+                                    <a href="{{ route('chamado.destroy',$os->os_id) }}" class="text-danger mr-2">
                                         <i class="nav-icon i-Close-Window font-weight-bold"></i>
                                     </a>
                                 </td>
@@ -124,16 +126,22 @@
                                 </td>
                                 <td>{{ $os->tags }}</td>
                                 <td>
-                                        @if($os->prioridade == 'Alta')
-                                            <span class="badge badge-success">ALTA</span>
+                                        @if($os->prioridade == 'Emergencial')
+                                            <span class="badge badge-danger">EMERGENCIAL</span>
+                                        @elseif($os->prioridade == 'Alta')
+                                            <span class="badge badge-waiting">ALTA</span>
                                         @elseif($os->prioridade == 'Media')
-                                            <span class="badge badge-danger">MEDIA</span>
+                                            <span class="badge badge-warning">MEDIA</span>
                                         @else
-                                            <span class="badge badge-warning">BAIXA</span>
+                                            <span class="badge badge-info">BAIXA</span>
                                         @endif
                                 </td>
                                 <td>
                                     {{ date_format($ativo->created_at,"d/m/Y") }}
+                                </td>
+                                <td>
+                                    {{ $os->tempo_limite }}
+{{--                                    {{  date('d/m/Y', strtotime(date_create($ativo->created_at), ' + '.$os->tempo_limite)) }}--}}
                                 </td>
                             </tr>
                         @endforeach

@@ -48,27 +48,41 @@
                     <h3 class="w-50 float-left card-title m-0">Editar OS</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('gestao.update',$os->os_id) }}" method="POST">
+                    <form action="{{ route('chamado.update',$os->os_id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
+
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">OS</p>
                             <input type="text" id="numero_os" name="numero_os" placeholder="" class="form-control" value="{{ $os->numero_os }}" readonly>
                         </div>
-                        <div class="mb-2 col-md-5">
+                        <div class="mb-2 col-md-4">
                             <p class="font-weight-400 mb-2">Tag.</p>
                             <input type="text" id="tag" name="tag" placeholder="" class="form-control" value="{{ $os->tags }}" readonly>
 
                         </div>
-                        <div class="mb-2 col-md-5">
+                        <div class="mb-2 col-md-4">
                             <p class="font-weight-400 mb-2">Prioridade</p>
-                            <select id="prioridade" name="prioridade" class="form-control" required="true">
+                            @foreach($ordem_servicos['prioridades'] as $prioridade)
+                                @if($prioridade->id == $os->prioridade_id)
+                                    <input type="text" value="{{ $prioridade->nome }}" class="form-control" readonly>
+                               @endif
+                            @endforeach
+
+                 <!--
+                            <select id="prioridade" name="prioridade" class="form-control" readonly="true">
                                 <option value="" selected>---Selecione---</option>
-                                @foreach($ordem_servicos['prioridades'] as $prioridade)
-                                    <option value="{{ $prioridade->id }}" {{ ($prioridade->id == $os->prioridade_id) ? "selected" : ""}}>{{ $prioridade->nome }}</option>
-                                @endforeach
-                            </select>
+{{--                                @foreach($ordem_servicos['prioridades'] as $prioridade)--}}
+{{--                                    <option value="{{ $prioridade->id }}" {{ ($prioridade->id == $os->prioridade_id) ? "selected" : ""}}>{{ $prioridade->nome }}</option>--}}
+{{--                                @endforeach--}}
+                            </select> -->
+                        </div>
+
+                        <div class="mb-2 col-md-2">
+                            <p class="font-weight-400 mb-2">Dt. Analise</p>
+                            <input id="dtanalise" name="dtanalise" type="text"
+                                   placeholder="__/__/__" class="form-control" readonly value="{{ date_format(date_create($os->created_at),'m/d/Y') }}">
                         </div>
 
                         <div class="mb-2 col-md-2">
@@ -132,7 +146,7 @@
                         </div>
                             <div class="mb-2 col-md-3">
                                 <p class="font-weight-400 mb-2">Auxiliar</p>
-                                <select id="auxiliar" name="auxiliar" class="form-control" required="true">
+                                <select id="executor" name="auxiliar" class="form-control" required="true">
                                     <option value="" selected>---Nenhum---</option>
                                     @foreach($ordem_servicos['funcionarios'] as $funcionario)
                                         <option value="{{ $funcionario['id']}}" {{ ($funcionario['id'] == $os->auxiliar_id) ? "selected" : ""}}>{{ $funcionario['name'] }}</option>
@@ -141,11 +155,11 @@
                             </div>
                     </div>
 
-                        <p class="font-weight-400 mb-2">Descritivo</p>
+                        <p class="font-weight-400 mb-2">Diagnóstico</p>
                         <div id="editor" name="editor">{{ $os->descritivo }}</div>
                         <br>
 
-                        <p class="font-weight-400 mb-2">Descritivo Executado</p>
+                        <p class="font-weight-400 mb-2">Solução</p>
 {{--                        <textarea id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</textarea>--}}
                         <div id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</div>
 

@@ -14,11 +14,14 @@ class AddPrioridades extends Seeder
     public function run(): void
     {
         $prioridades = [
-          'Alta','Media','Baixa'
+          ['id' => 1, 'nome' => 'Emergencial', 'tempo_limite' => 1],
+          ['id' => 2, 'nome' => 'Alta', 'tempo_limite' => 2],
+          ['id' => 3, 'nome' => 'Media', 'tempo_limite' => 2],
+          ['id' => 4, 'nome' => 'Baixa', 'tempo_limite' => 3],
         ];
 
         foreach ($prioridades as $prioridade) {
-            DB::table('prioridades')->insert(['nome' => $prioridade]);
+            DB::table('prioridades')->insert($prioridade);
         }
     }
 }

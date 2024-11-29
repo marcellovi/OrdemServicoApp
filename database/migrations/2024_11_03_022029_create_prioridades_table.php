@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('prioridades', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
+            $table->integer('tempo_limite')->default(2); // Em dias
             $table->softDeletes();
             $table->timestamps();
         });
