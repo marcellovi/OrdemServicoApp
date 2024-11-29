@@ -146,7 +146,7 @@ dd($exception);
                     'type' => 'danger']);
         }
         $matricula  = $usuario->matricula;
-        $usuario->softdele();
+        $usuario->delete();
 
         return redirect()->route('usuarios')
             ->with(['message' => 'O Usuário matricula '.$matricula .' foi Excluido do Sistema.',
