@@ -28,6 +28,17 @@
         const quill2 = new Quill('#desc_executado', {
             theme: 'snow'
         });
+
+        // setting to hidden input the quill innerHTML
+        $("#edtfrm").on("submit",function() {
+            $("#diagnostico").val(quill.root.innerHTML);
+            $("#solucao").val(quill2.root.innerHTML);
+        })
+
+        // set database values to quill
+        quill.root.innerHTML = '{!! $os->diagnostico !!}';
+        quill2.root.innerHTML = '{!! $os->solucao !!}';
+
     </script>
 
     <!-- Date Picker-->
@@ -48,7 +59,7 @@
                     <h3 class="w-50 float-left card-title m-0">Editar OS</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('chamado.update',$os->os_id) }}" method="POST">
+                    <form id="edtfrm"  action="{{ route('chamado.update',$os->os_id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -157,14 +168,17 @@
 
                         <p class="font-weight-400 mb-2">Diagnóstico</p>
                         <div id="editor" name="editor">{{ $os->descritivo }}</div>
+                        <textarea name="diagnostico" style="display:none" id="diagnostico"></textarea>
+
                         <br>
 
                         <p class="font-weight-400 mb-2">Solução</p>
 {{--                        <textarea id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</textarea>--}}
                         <div id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</div>
+                        <textarea name="solucao" style="display:none" id="solucao"></textarea>
 
                         <br>
-                        <a href="{{ route('chamado.index') }}" class="btn float-right btn-primary ml-3">Voltar</a>
+                        <a href="{{ route('chamado.index') }}" class="btn float-right btn-primary ml-3">VOLTAR</a>
                         <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>
                     </form>
                 </div>

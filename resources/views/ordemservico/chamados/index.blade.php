@@ -82,7 +82,7 @@
 
 
     <!-- OS Programadas -->
-    <div class="col-md-7 mt-4">
+    <div class="col-md-8 mt-4">
         <div class="card o-hidden mb-4">
             <div class="card-header d-flex align-items-center">
                 <h3 class="w-50 float-left card-title m-0">Chamados Em Aberto</h3>

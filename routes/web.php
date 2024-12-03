@@ -65,7 +65,7 @@ Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.u
 // ATIVOS
 Route::get('painel-ativos',[AtivoController::class, 'painel'])->name('painel-ativos');
 Route::get('ativos',[AtivoController::class, 'index'])->name('ativos');
-Route::get('ativos/destroy/{id}',[AtivoController::class, 'destroy'])->name('ativos_destroy');
+Route::get('ativos/destroy/{id}',[AtivoController::class, 'destroy'])->name('ativos.destroy');
 Route::post('ativos/store',[AtivoController::class, 'store'])->name('ativos_store');
 Route::get('ativos/{id}/edit', [AtivoController::class,'edit'])->name('ativos.edit');
 Route::put('ativos/{ativos}', [AtivoController::class ,'update'])->name('ativos.update');

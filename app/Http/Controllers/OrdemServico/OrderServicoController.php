@@ -115,8 +115,8 @@ class OrderServicoController extends Controller
             'mantenedor_id' => $request->get('mantenedor'),
             'auxiliar_id' => $request->get('auxiliar'),
             'status_id' => $request->get('os_status'),
-            'diagnostico' => $request->get('editor'),
-            'solucao' => $request->get('desc_executado'),
+            'diagnostico' => $request->get('diagnostico'),
+            'solucao' => $request->get('solucao'),
         ]);
         return redirect()->route('gestao')
             ->with(['message' => 'OS N. '.$request->get('numero_os').' foi Atualizado no Sistema.',
@@ -213,8 +213,8 @@ class OrderServicoController extends Controller
             'mantenedor_id' => $request->get('mantenedor'),
             'auxiliar_id' => $request->get('auxiliar'),
             'status_id' => $request->get('os_status'),
-            'diagnostico' => $request->get('editor'),
-            'solucao' => $request->get('desc_executado'),
+            'diagnostico' => $request->get('diagnostico'),
+            'solucao' => $request->get('solucao'),
         ]);
         return redirect()->route('chamado.index')
             ->with(['message' => 'OS N. '.$request->get('numero_os').' foi Atualizado no Sistema.',

@@ -13,8 +13,7 @@
 @endsection
 
 @section('scripts')
-    {{--    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
-
+{{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 
 
     <!-- Quill Editor -->
@@ -28,6 +27,18 @@
         const quill2 = new Quill('#desc_executado', {
             theme: 'snow'
         });
+
+        // setting to hidden input the quill innerHTML
+        $("#edtfrm").on("submit",function() {
+            $("#diagnostico").val(quill.root.innerHTML);
+            $("#solucao").val(quill2.root.innerHTML);
+        })
+
+        // set database values to quill
+        quill.root.innerHTML = '{!! $os->diagnostico !!}';
+        quill2.root.innerHTML = '{!! $os->solucao !!}';
+
+
     </script>
 
     <!-- Date Picker-->
@@ -48,7 +59,7 @@
                     <h3 class="w-50 float-left card-title m-0">Editar OS</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('gestao.update',$os->os_id) }}" method="POST">
+                    <form id="edtfrm" action="{{ route('gestao.update',$os->os_id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -70,7 +81,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">Dt. Programada</p>
                             <input id="dtprogramada" name="dtprogramada" type="text"
@@ -85,7 +95,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="mb-2 col-md-4">
                             <p class="font-weight-400 mb-2">Naturea do Serviço</p>
                             <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
@@ -130,7 +139,7 @@
                                 @endforeach
                             </select>
                         </div>
-                            <div class="mb-2 col-md-3">
+                        <div class="mb-2 col-md-3">
                                 <p class="font-weight-400 mb-2">Auxiliar</p>
                                 <select id="auxiliar" name="auxiliar" class="form-control" required="true">
                                     <option value="" selected>---Nenhum---</option>
@@ -142,22 +151,20 @@
                     </div>
 
                         <p class="font-weight-400 mb-2">Diagnostico</p>
-                        <div id="editor" name="editor">{{ $os->descritivo }}</div>
+                        <div id="editor" name="editor"></div>
+                        <textarea name="diagnostico" style="display:none" id="diagnostico"></textarea>
                         <br>
-
                         <p class="font-weight-400 mb-2">Solução</p>
-{{--                        <textarea id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</textarea>--}}
-                        <div id="desc_executado" name="desc_executado">{{ $os->descritivo_executado }}</div>
-
+                        <div id="desc_executado" name="desc_executado"></div>
+                        <textarea name="solucao" style="display:none" id="solucao"></textarea>
                         <br>
-                        <a href="{{ route('gestao') }}" class="btn float-right btn-primary ml-3">Voltar</a>
+                        <a href="{{ route('gestao') }}" class="btn float-right btn-primary ml-3">VOLTAR</a>
                         <button type="submit" class="btn float-right btn-primary ml-3">EDITAR</button>
                     </form>
                 </div>
             </div>
         </div>
         <!-- End Editar OS -->
-
 @endsection
 <!-- end of row-->
 

@@ -62,7 +62,7 @@
                             </select>
                         </div>
                     </div>
-                    <a href="{{ route('usuarios') }}" class="btn float-right btn-primary ml-3">Voltar</a>
+                    <a href="{{ route('usuarios') }}" class="btn float-right btn-primary ml-3">VOLTAR</a>
                     <button type="submit" class="btn float-right btn-primary ml-3">Editar</button>
                 </form>
             </div>
