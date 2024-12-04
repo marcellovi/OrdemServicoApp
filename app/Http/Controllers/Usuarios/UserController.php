@@ -134,7 +134,6 @@ dd($exception);
                 'type' => 'success']);
     }
 
-
     public function destroy($id){
 
         $usuario = User::find($id);
@@ -152,5 +151,32 @@ dd($exception);
             ->with(['message' => 'O Usuário matricula '.$matricula .' foi Excluido do Sistema.',
                 'status' => 'Deletado',
                 'type' => 'info']);
+    }
+
+    /** PERFIL **/
+
+    public function indexPerfil($id)
+    {
+        $usuario = DB::table('users')
+            ->select('users.id as id','users.name','email','status.nome as status_nome','equipes.nome as equipe_nome',
+                'cargos.nome as cargo_nome','roles.name as role_nome')
+            ->leftJoin('cargos', 'users.cargo_id', '=', 'cargos.id')
+            ->leftJoin('equipes', 'users.equipe_id', '=', 'equipes.id')
+            ->leftJoin('status','users.status_id','=','status.id')
+            ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('users.id', $id)->first();
+        return view('perfil.index', compact('usuario'));
+    }
+
+    public function updatePerfil(Request $request, $id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->update($request->all());
+
+        return redirect()->route('perfil.index',$id)
+            ->with(['message' => 'Informações Atualizadas no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
     }
 }

@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::view('tela-usuario','users.index')->middleware('permission:Add User');
-    Route::view('tela-produto','products.index')->middleware('permission:Add Product');
+    Route::view('tela-usuario','users.index')->middleware('permission:dashboard');
+    Route::view('tela-produto','products.index')->middleware('permission:dashboard');
     Route::view('tela-notificacoes','notifications.index'); // ->middleware('permission:Add Product');
 });
 
@@ -48,19 +48,17 @@ require __DIR__.'/auth.php';
 Route::view('relatorios','relatorios.index')->middleware('permission:reports')->name('relatorios');
 //Route::view('ativos','assets.index')->middleware('permission:assets');
 
-// ARTEFATOS - supply the ativos
-Route::get('artefatos',[ArtefatoController::class, 'index'])->name('artefatos');
-Route::get('artefatos/destroy/{id}',[ArtefatoController::class, 'destroy'])->name('artefatos_destroy');
-Route::post('artefatos/store',[ArtefatoController::class, 'store'])->name('artefatos_store');
-Route::get('artefatos/{id}/edit', [ArtefatoController::class,'edit'])->name('artefatos.edit');
-Route::put('artefatos/{artefato}', [ArtefatoController::class ,'update'])->name('artefatos.update');
-
 // USUARIOS & EQUIPE & PERMISSAO
 Route::get('usuarios',[UserController::class, 'index'])->name('usuarios');
 Route::get('usuarios/destroy/{id}',[UserController::class, 'destroy'])->name('usuarios.destroy');
 Route::post('usuarios/store',[UserController::class, 'store'])->name('usuarios.store');
 Route::get('usuarios/{id}/edit', [UserController::class,'edit'])->name('usuarios.edit');
 Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.update');
+
+// PERFIL
+Route::get('perfil/{id}', [UserController::class ,'indexPerfil'])->name('perfil.index');
+Route::put('perfil/update/{id}', [UserController::class ,'updatePerfil'])->name('perfil.update');
+
 
 // ATIVOS
 Route::get('painel-ativos',[AtivoController::class, 'painel'])->name('painel-ativos');

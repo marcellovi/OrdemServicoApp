@@ -106,7 +106,7 @@
                     <div class="dropdown-item">
                         <i class="i-Lock-User mr-1"></i>{{ Str::ucfirst(Str::limit(Auth::user()->name,11)) }}
                     </div>
-                    <a class="dropdown-item">Dados da Conta</a>
+                    <a href="{{ route('perfil.index',Auth::user()->id) }}" class="dropdown-item">Dados da Conta</a>
                     <a class="dropdown-item">Permissões/Acesso</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
