@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -159,7 +160,7 @@ dd($exception);
     {
         $usuario = DB::table('users')
             ->select('users.id as id','users.name','email','status.nome as status_nome','equipes.nome as equipe_nome',
-                'cargos.nome as cargo_nome','roles.name as role_nome')
+                'cargos.nome as cargo_nome','roles.name as role_nome','avatar')
             ->leftJoin('cargos', 'users.cargo_id', '=', 'cargos.id')
             ->leftJoin('equipes', 'users.equipe_id', '=', 'equipes.id')
             ->leftJoin('status','users.status_id','=','status.id')
@@ -176,6 +177,32 @@ dd($exception);
 
         return redirect()->route('perfil.index',$id)
             ->with(['message' => 'Informações Atualizadas no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $avatar = null;
+        if($request->hasFile('avatar') && $request->file('avatar')->isValid()){
+
+            // Two ways to upload a file
+            //$avatar = $request->file('avatar')->store(options:'public');
+            // $avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+
+            if(!empty($user->avatar)){
+                if(Storage::disk('public')->exists($user->avatar)  ){
+                    Storage::disk('public')->delete($user->avatar);
+                }
+            }
+            $avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+        }
+        $user->avatar = $avatar;
+        $user->save();
+
+        return redirect()->route('perfil.index', $request->id)
+            ->with(['message' => 'Avatar Atualizado no Sistema.',
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }

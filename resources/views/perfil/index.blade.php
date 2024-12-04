@@ -7,7 +7,8 @@
             <div class="card-body">
                 <div class="user-profile mb-4">
                     <div class="ul-widget-card__user-info">
-                        <img class="profile-picture avatar-lg mb-2" src="{{ asset('assets/images/faces/1.jpg') }}" alt="">
+                        <img class="profile-picture avatar-lg mb-2" src="{{ (Auth::user()->avatar) ? Storage::url(Auth::user()->avatar) : asset('assets/images/no_user.png') }}" alt="">
+{{--                        <img class="profile-picture avatar-lg mb-2" src="{{ asset(Storage::url(Auth::user()->avatar))  }}" alt="">--}}
                         <p class="m-0 text-24">{{ $usuario->name }}</p>
                         <p class="text-muted m-0">{{ $usuario->equipe_nome }}</p>
                     </div>
@@ -78,7 +79,28 @@
         </form>
     </div>
 
+    <div class="col-lg-4 col-xl-12 mt-3">
+        <form id="send-verification" method="post" action="{{ route('avatar.update') }}" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="id" value="{{ $usuario->id }}">
+            <div class="card-body">
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                       Atualizar Avatar / Imagem
+                    </h2>
+                </header>
+                <div class="d-flex flex-column">
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="avatar" placeholder="" value="" >
+                    </div>
+                    <button class="btn btn-primary pd-x-20">Atualizar Avatar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-   
+
+
 @endsection
 

@@ -3,7 +3,7 @@
 use App\Http\Controllers\ArtefatoController;
 use App\Http\Controllers\Ativos\AtivoController;
 use App\Http\Controllers\Ativos\ItemController;
-use App\Http\Controllers\OrdemServico\OrderServicoController;
+use App\Http\Controllers\OrdemServico\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\Usuarios\CargoController;
@@ -58,6 +58,7 @@ Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.u
 // PERFIL
 Route::get('perfil/{id}', [UserController::class ,'indexPerfil'])->name('perfil.index');
 Route::put('perfil/update/{id}', [UserController::class ,'updatePerfil'])->name('perfil.update');
+Route::put('perfil/avatar/update', [UserController::class ,'updateAvatar'])->name('avatar.update');
 
 
 // ATIVOS
@@ -75,19 +76,19 @@ Route::post('ativos-itens/items-store',[AtivoController::class, 'storeItem'])->n
 Route::post('link-ativos-itens/store',[AtivoController::class, 'linkStoreAtivoItems'])->name('link.ativos.itens.store');
 Route::get('link-ativos-itens',[AtivoController::class, 'linkAtivosItens'])->name('link-ativos-itens');
 
-// ORDER SERVICO
-Route::get('gestao',[OrderServicoController::class, 'index'])->name('gestao');
-Route::get('gestao/destroy/{id}',[OrderServicoController::class, 'destroy'])->name('gestao.destroy');
-Route::post('gestao/store',[OrderServicoController::class, 'store'])->name('gestao_store');
-Route::get('gestao/{id}/edit', [OrderServicoController::class,'edit'])->name('gestao.edit');
-Route::put('gestao/{id}', [OrderServicoController::class ,'update'])->name('gestao.update');
+// ORDEM SERVICO
+Route::get('gestao',[OrdemServicoController::class, 'index'])->name('gestao');
+Route::get('gestao/destroy/{id}',[OrdemServicoController::class, 'destroy'])->name('gestao.destroy');
+Route::post('gestao/store',[OrdemServicoController::class, 'store'])->name('gestao_store');
+Route::get('gestao/{id}/edit', [OrdemServicoController::class,'edit'])->name('gestao.edit');
+Route::put('gestao/{id}', [OrdemServicoController::class ,'update'])->name('gestao.update');
 
 // CHAMADOS
-Route::get('gestao/chamado',[OrderServicoController::class, 'chamado'])->name('chamado.index');
-Route::post('gestao/chamado/store',[OrderServicoController::class, 'chamadoStore'])->name('chamado.store');
-Route::get('gestao/chamado/{id}/edit', [OrderServicoController::class,'chamadoEdit'])->name('chamado.edit');
-Route::get('gestao/chamado/destroy/{id}',[OrderServicoController::class, 'chamadoDestroy'])->name('chamado.destroy');
-Route::put('gestao/chamado/{id}', [OrderServicoController::class ,'chamadoUpdate'])->name('chamado.update');
+Route::get('gestao/chamado',[OrdemServicoController::class, 'chamado'])->name('chamado.index');
+Route::post('gestao/chamado/store',[OrdemServicoController::class, 'chamadoStore'])->name('chamado.store');
+Route::get('gestao/chamado/{id}/edit', [OrdemServicoController::class,'chamadoEdit'])->name('chamado.edit');
+Route::get('gestao/chamado/destroy/{id}',[OrdemServicoController::class, 'chamadoDestroy'])->name('chamado.destroy');
+Route::put('gestao/chamado/{id}', [OrdemServicoController::class ,'chamadoUpdate'])->name('chamado.update');
 
 
 // CARGO

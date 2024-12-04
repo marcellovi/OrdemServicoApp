@@ -1,4 +1,3 @@
-
 <div class="main-header">
     <div class="logo">
         <img src="{{ asset('assets/images/er_profile.png') }}" alt="">
@@ -100,7 +99,7 @@
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div class="user colalign-self-end">
-                <img src="{{ asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ (Auth::user()->avatar) ? Storage::url(Auth::user()->avatar) : asset('assets/images/no_user.png') }}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-item">

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('status_id')->nullable();
             $table->integer('cargo_id')->nullable();
             $table->integer('equipe_id')->nullable();
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

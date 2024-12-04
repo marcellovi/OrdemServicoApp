@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_servicos', function (Blueprint $table) {
+        Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->id();
             $table->string('numero_os')->nullable(true);
             //$table->string('tags');  // remove
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_servicos');
+        Schema::dropIfExists('ordem_servicos');
     }
 };
