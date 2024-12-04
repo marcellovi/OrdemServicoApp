@@ -118,12 +118,12 @@ $url = str_replace(['/','.php'], '', $url);
                     <span class="item-name">Cadastrar Itens/Ativos</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('link-ativos-itens') }}">
-                    <i class="nav-icon i-Clock-4"></i>
-                    <span class="item-name">Linkar Itens/Ativos</span>
-                </a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a href="{{ route('link-ativos-itens') }}">--}}
+{{--                    <i class="nav-icon i-Clock-4"></i>--}}
+{{--                    <span class="item-name">Linkar Itens/Ativos</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
         <!-- relatorios -->
         <ul class="childNav" data-parent="gestao">

@@ -24,7 +24,7 @@ class OrderServicoController extends Controller
             'numero_os' => $nr_os
         ];
 
-        $list_os = OrderServico::selectraw("order_servicos.id as os_id,numero_os,ativos.tags,prioridade_id,".
+        $list_os = OrderServico::selectraw("order_servicos.id as os_id,numero_os,ativos.tags,prioridade_id,order_servicos.created_at,".
                 "prioridades.nome as prioridade,data_abertura,status.nome as status,DATE_FORMAT(DATE_ADD(order_servicos.created_at, INTERVAL tempo_limite DAY),'%d/%m/%Y') as tempo_limite")
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')
@@ -154,7 +154,7 @@ class OrderServicoController extends Controller
         // OrderServico::select('order_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
         //            'prioridades.nome as prioridade','data_abertura','status.nome as status','tempo_limite')
 
-        $list_os = OrderServico::selectraw("order_servicos.id as os_id,numero_os,ativos.tags,prioridade_id,".
+        $list_os = OrderServico::selectraw("order_servicos.id as os_id,numero_os,ativos.tags,prioridade_id,order_servicos.created_at,".
             "prioridades.nome as prioridade,data_abertura,status.nome as status,DATE_FORMAT(DATE_ADD(order_servicos.created_at, INTERVAL tempo_limite DAY),'%d/%m/%Y') as tempo_limite")
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')

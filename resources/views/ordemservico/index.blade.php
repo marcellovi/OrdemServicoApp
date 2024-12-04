@@ -18,76 +18,16 @@
 
 <!-- row -->
 @section('main')
-
-    <!-- Cadastro de OS -->
-    <div class="col-lg-12 col-md-4 mb-4">
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                <h3 class="w-50 float-left card-title m-0">Cadastro de OS</h3>
-            </div>
-            <div class="card-body">
-                <form action="gestao/store" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="mb-2 col-md-2">
-                            <p class="font-weight-400 mb-2">OS</p><input type="text" id="numero_os" name="numero_os" placeholder=""
-                                                                            class="form-control" value="{{ $order_servicos['numero_os'] }}">
-                        </div>
-                        <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Tag.</p>
-                            <select id="tags" name="tags" class="form-control" required="true">
-                                <option value="" selected>---Selecione---</option>
-                                @foreach($order_servicos['ativos'] as $ativo)
-                                    <option value="{{ $ativo->id }}">{{ $ativo->tags }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Prioridade</p>
-                            <select id="prioridade" name="prioridade" class="form-control" required="true">
-                                <option value="" selected>---Selecione---</option>
-                                @foreach($order_servicos['prioridades'] as $prioridade)
-                                    <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{--                            <div class="mb-3  col-md-4">--}}
-                        {{--                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura" name="dtabertura" type="text"--}}
-                        {{--                                                                                       placeholder="__/__/__"--}}
-                        {{--                                                                                       class="form-control" required="true">--}}
-                        {{--                            </div>--}}
-                        <div class="mb-2 col-md-2">
-                            <p class="font-weight-400 mb-2">Dt. Programada</p>
-                            <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__" class="form-control" >
-                        </div>
-                        <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Manutenção</p>
-                            <select id="tipo_manutencao" name="tipo_manutencao" class="form-control" required="true">
-                                <option value="" selected>---Selecione---</option>
-                                @foreach($order_servicos['tipo_manutencao'] as $manutencao)
-                                    <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-2 col-md-5">
-                            <p class="font-weight-400 mb-2">Naturea do Serviço</p>
-                            <select id="natureza_servico" name="natureza_servico" class="form-control" required="true">
-                                <option value="" selected>---Selecione---</option>
-                                @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
-                                    <option value="{{ $natureza_servico->id }}">{{ $natureza_servico->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn float-right btn-primary ml-3">CADASTRAR</button>
-                </form>
-            </div>
-        </div>
+    <div class="mb-4 col-md-12 mt-3" align="right">
+        <button type="button" class="btn btn-info m-1" data-toggle="modal" data-target="#verifyModalContentOS"
+                data-whatever="@mdo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+            </svg>
+            <span class="ul-btn__text">&nbsp; Cadastrar OS</span>
+        </button>
     </div>
-    <!-- End Cadastro Profissionais -->
-
 
     <!-- OS Programadas -->
     <div class="col-md-12 col-md-4 mb-4">
@@ -137,14 +77,14 @@
                                         @endif
                                 </td>
                                 <td style="width: 10%">
-                                    {{ date_format($ativo->created_at,"d/m/Y") }}
+                                    {{ date_format($os->created_at,"d/m/Y") }}
                                 </td>
                                 <td style="width: 10%">
                                     {{ $os->tempo_limite }}
                                 </td>
                                 <td style="width: 10%">
                                     <a href="{{ route('gestao.edit',$os->os_id) }}" title="Editar OS"
-                                       class="btn btn-success m-1">
+                                       class="btn btn-outline-success m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path
@@ -154,7 +94,7 @@
                                         </svg>
                                     </a>
                                     <a href="{{  route('gestao.destroy',$os->os_id) }}" title="Deletar OS"
-                                       class="btn btn-danger m-1">
+                                       class="btn btn-outline-danger m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path
@@ -193,5 +133,101 @@
         </div>
     </div>
     <!-- end of col-->
+
+    <!-- modal cadastro usuario -->
+    <div class="modal fade" id="verifyModalContentOS" tabindex="-1" role="dialog"
+         aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verifyModalContent_title">Cadastrar OS N. <span class="text-success">{{ $order_servicos['numero_os'] }}</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+
+                <form action="gestao/store" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Cadastro de OS -->
+
+{{--                            <div class="mb-2 col-md-2">--}}
+{{--                                <p class="font-weight-400 mb-2">OS</p>--}}
+                                <input type="hidden" id="numero_os"
+                                       name="numero_os" placeholder=""
+                                       class="form-control"
+                                       value="{{ $order_servicos['numero_os'] }}">
+{{--                            </div>--}}
+                            <div class="mb-2 col-md-12">
+                                <p class="font-weight-400 mb-2">Tag.</p>
+                                <select id="tags" name="tags" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['ativos'] as $ativo)
+                                        <option value="{{ $ativo->id }}">{{ $ativo->tags }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-6">
+                                <p class="font-weight-400 mb-2">Prioridade</p>
+                                <select id="prioridade" name="prioridade" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['prioridades'] as $prioridade)
+                                        <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+{{--                            <div class="mb-3  col-md-6">--}}
+{{--                                <p class="font-weight-400 mb-2">Dt. Abertura</p><input id="dtabertura"--}}
+{{--                                                                                       name="dtabertura"--}}
+{{--                                                                                       type="text"--}}
+{{--                                                                                       placeholder="__/__/__"--}}
+{{--                                                                                       class="form-control"--}}
+{{--                                                                                       required="true">--}}
+{{--                            </div>--}}
+                            <div class="mb-2 col-md-6">
+                                <p class="font-weight-400 mb-2">Dt. Programada</p>
+                                <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__"
+                                       class="form-control">
+                            </div>
+                            <div class="mb-2 col-md-6">
+                                <p class="font-weight-400 mb-2">Manutenção</p>
+                                <select id="tipo_manutencao" name="tipo_manutencao" class="form-control"
+                                        required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['tipo_manutencao'] as $manutencao)
+                                        <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-2 col-md-6">
+                                <p class="font-weight-400 mb-2">Naturea do Serviço</p>
+                                <select id="natureza_servico" name="natureza_servico" class="form-control"
+                                        required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
+                                        <option
+                                            value="{{ $natureza_servico->id }}">{{ $natureza_servico->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            {{--                                            <br>--}}
+                            {{--                                            <button type="submit" class="btn float-right btn-primary ml-3">CADASTRAR</button>--}}
+
+                            <!-- End Cadastro Profissionais -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
