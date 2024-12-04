@@ -7,9 +7,9 @@
             <div class="card-body">
                 <div class="user-profile mb-4">
                     <div class="ul-widget-card__user-info">
-                        <img class="profile-picture avatar-lg mb-2" src="{{ (Auth::user()->avatar) ? Storage::url(Auth::user()->avatar) : asset('assets/images/no_user.png') }}" alt="">
+                        <img class="profile-picture avatar-lg mb-2" src="{{ (Auth::user()->avatar) ? asset('assets/avatars/'.Auth::user()->avatar)  : asset('assets/images/no_user.png') }}" alt="">
 {{--                        <img class="profile-picture avatar-lg mb-2" src="{{ asset(Storage::url(Auth::user()->avatar))  }}" alt="">--}}
-                        <p class="m-0 text-24">{{ $usuario->name }}</p>
+                        <p class="m-0 text-24">{{ $usuario->name }}</p> <!-- asset(Storage::url(Auth::user()->avatar)) -->
                         <p class="text-muted m-0">{{ $usuario->equipe_nome }}</p>
                     </div>
                 </div>

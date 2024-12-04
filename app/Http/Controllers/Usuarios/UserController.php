@@ -191,12 +191,26 @@ dd($exception);
             //$avatar = $request->file('avatar')->store(options:'public');
             // $avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
 
-            if(!empty($user->avatar)){
-                if(Storage::disk('public')->exists($user->avatar)  ){
-                    Storage::disk('public')->delete($user->avatar);
-                }
+//            if(!empty($user->avatar)){
+//                if(file_exists(public_path('assets/avatars/'.$user->avatar))){
+//                    unlink(public_path('assets/avatars/'.$user->avatar));
+//                }
+//                if(Storage::disk('public')->exists($user->avatar)  ){
+//                    Storage::disk('public')->delete($user->avatar);
+//                }
+//            }
+            //$avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+            $avatar = $request->file('avatar')->store(options:'avatar');
+        }
+
+
+        if(!empty($user->avatar)){
+            if(file_exists(public_path('assets/avatars/'.$user->avatar))){
+                unlink(public_path('assets/avatars/'.$user->avatar));
             }
-            $avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+//                if(Storage::disk('public')->exists($user->avatar)  ){
+//                    Storage::disk('public')->delete($user->avatar);
+//                }
         }
         $user->avatar = $avatar;
         $user->save();
