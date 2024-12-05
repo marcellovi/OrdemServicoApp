@@ -1,3 +1,7 @@
+{{
+    (!Auth::check()) ? route('/') :''
+}}
+
 <!DOCTYPE html>
 <html lang="en" dir="">
 
@@ -10,7 +14,7 @@
     <title>Sistema de O.S</title>
 
     <!--  ============ Favicon  =============  -->
-    <link href="{{ asset('assets/images/checkmark.svg') }}" rel="icon"/>
+    <link href="{{ asset('assets/images/safety2.png') }}" rel="icon"/>
 
     <!--  ============ Styles  =============  -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">

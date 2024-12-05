@@ -27,6 +27,50 @@ class ItemController extends Controller
 
         return view('ativos.ativos_item.index', compact('items','categorias'));
     }
+
+    public function edit($id){
+        $categorias = Categoria::all()->where('deleted_at', '=', null);
+        $item = Item::where('id', '=', $id)->first();
+
+        return view('ativos.ativos_item.item_edit', compact('item','categorias'));
+    }
+
+    public function destroy($id){
+
+        $is_found = DB::table('ativos_itens')->where('item_id', '=', $id)->count();
+        if($is_found){
+            return redirect()->route('ativos-itens')
+                ->with(['message' => 'Não é possivel excluir este Item no Sistema.',
+                    'status' => 'Erro',
+                    'type' => 'danger',
+                    'errors' => ['Exite(m) '.$is_found.' Ativo(s) vinculados a este Item!']]);
+        }
+        $item = Item::where('id', '=', $id)->first();
+        $item->delete();
+
+        return redirect()->route('ativos-itens')
+            ->with(['message' => 'Os Itens '.$item->nome.' foi Excluido do Sistema',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+    public function update(Request $request,$id){
+
+        $item = Item::where('id', '=', $id)->first();
+        $item->update([
+            'nome' => $request->get('nome'),
+            'categoria_id' => $request->get('categoria'),
+            'modelo' => $request->get('modelo'),
+            'serie' => $request->get('serie'),
+            'descritivo' => $request->get('descritivo'),
+        ]);
+
+        return redirect()->route('ativos-itens')
+            ->with(['message' => 'O Item '.$item->nome.' foi Atualizado no Sistema',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+
+
     public function importarItensCSV(Request $request) // dont use
     {
         try{
@@ -147,5 +191,6 @@ class ItemController extends Controller
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }
+
 
 }

@@ -14,7 +14,8 @@
     <div class="header-part-right">
         <!-- Full screen toggle -->
         <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i>
-        <!-- Grid menu Dropdown -->
+
+        <!-- Grid menu Dropdown
         <div class="dropdown">
             <i class="i-Safe-Box text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -28,12 +29,13 @@
                 </div>
             </div>
         </div>
-        <!-- Notificaiton -->
+        Notificaiton -->
         <div class="dropdown">
             <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="badge badge-primary">3</span>
                 <i class="i-Bell text-muted header-icon"></i>
             </div>
+
             <!-- Notification dropdown -->
             <div class="dropdown-menu dropdown-menu-right rtl-ps-none notification-dropdown" aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
                 <div class="dropdown-item d-flex">
@@ -95,7 +97,7 @@
             </div>
         </div>
         <!-- Notificaiton End -->
-
+        &nbsp;&nbsp;&nbsp;
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div class="user colalign-self-end">

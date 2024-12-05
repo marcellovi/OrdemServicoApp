@@ -140,7 +140,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="verifyModalContent_title">Cadastrar OS N. <span class="text-success">{{ $order_servicos['numero_os'] }}</span></h5>
+                    <h5 class="modal-title" id="verifyModalContent_title">Cadastrar OS N. <span class="text-success">{{ $ordem_servicos['numero_os'] }}</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -159,13 +159,13 @@
                                 <input type="hidden" id="numero_os"
                                        name="numero_os" placeholder=""
                                        class="form-control"
-                                       value="{{ $order_servicos['numero_os'] }}">
+                                       value="{{ $ordem_servicos['numero_os'] }}">
 {{--                            </div>--}}
                             <div class="mb-2 col-md-12">
                                 <p class="font-weight-400 mb-2">Tag.</p>
                                 <select id="tags" name="tags" class="form-control" required="true">
                                     <option value="" selected>---Selecione---</option>
-                                    @foreach($order_servicos['ativos'] as $ativo)
+                                    @foreach($ordem_servicos['ativos'] as $ativo)
                                         <option value="{{ $ativo->id }}">{{ $ativo->tags }}</option>
                                     @endforeach
                                 </select>
@@ -174,7 +174,7 @@
                                 <p class="font-weight-400 mb-2">Prioridade</p>
                                 <select id="prioridade" name="prioridade" class="form-control" required="true">
                                     <option value="" selected>---Selecione---</option>
-                                    @foreach($order_servicos['prioridades'] as $prioridade)
+                                    @foreach($ordem_servicos['prioridades'] as $prioridade)
                                         <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
                                     @endforeach
                                 </select>
@@ -198,7 +198,7 @@
                                 <select id="tipo_manutencao" name="tipo_manutencao" class="form-control"
                                         required="true">
                                     <option value="" selected>---Selecione---</option>
-                                    @foreach($order_servicos['tipo_manutencao'] as $manutencao)
+                                    @foreach($ordem_servicos['tipo_manutencao'] as $manutencao)
                                         <option value="{{ $manutencao->id }}">{{ $manutencao->nome }}</option>
                                     @endforeach
                                 </select>
@@ -208,7 +208,7 @@
                                 <select id="natureza_servico" name="natureza_servico" class="form-control"
                                         required="true">
                                     <option value="" selected>---Selecione---</option>
-                                    @foreach($order_servicos['natureza_servicos'] as $natureza_servico)
+                                    @foreach($ordem_servicos['natureza_servicos'] as $natureza_servico)
                                         <option
                                             value="{{ $natureza_servico->id }}">{{ $natureza_servico->nome }}</option>
                                     @endforeach

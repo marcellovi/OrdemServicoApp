@@ -347,6 +347,60 @@ class AtivoController extends Controller
     }
 
 
+    /*********  ATIVOS MODELO  *********/
 
+    public function editAtivoModelo($id)
+    {
 
+        $categorias = Categoria::all()->where('deleted_at', '=', null);
+
+        $ativo = DB::table('ativo_modelo')
+            ->where('deleted_at', '=', null)
+            ->where('id', '=', $id)
+            ->first();
+
+        return view('ativos.ativos_item.ativo_edit', compact('ativo','categorias'));
+    }
+
+    public function destroyAtivoModelo($id){
+
+        DB::table('ativo_modelo')->where('id', '=', $id)->delete();
+        DB::table('ativos_itens')->where('ativo_id', '=', $id)->delete();
+
+        return redirect()->route('ativos-itens')
+            ->with(['message' => 'O Ativo foi Excluido do Sistema.',
+                'status' => 'Deletado',
+                'type' => 'info']);
+    }
+
+    public function updateAtivoModelo(Request $request, $id)
+    {
+
+        $is_found = DB::table('ativo_modelo')
+            ->where('sigla', '=', $request->get('sigla'))
+            ->where('id', '!=', $id)
+            ->first();
+
+        if($is_found){
+            return redirect()->route('ativos-itens')
+                ->with(['message' => 'A Sigla '.$request->get('sigla').' já existe no Sistema.',
+                    'status' => 'Erro',
+                    'type' => 'info']);
+        }
+
+        $ativo_modelo = AtivoModelo::find($id);
+        $ativo_modelo->update([
+            'sigla' => $request->get('sigla'),
+            'nome' => $request->get('nome'),
+            'categoria_id' => $request->get('categoria'),
+            'modelo' => $request->get('modelo'),
+            'serie' => $request->get('serie'),
+            'descritivo' => $request->get('descritivo'),
+        ]);
+
+        return redirect()->route('ativos-itens')
+            ->with(['message' => 'O Ativo foi Atualizado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
 }
