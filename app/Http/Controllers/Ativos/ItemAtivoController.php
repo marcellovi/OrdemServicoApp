@@ -56,12 +56,12 @@ class ItemAtivoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $item_ativo = ItemAtivo::find($id);
-        $item_ativos = ItemAtivo::all()->whereNull('deleted_at');
-        return view('item_ativos.edit', compact('artefato','item_ativos'));
-    }
+//    public function edit($id)
+//    {
+//        $item_ativo = ItemAtivo::find($id);
+//        $item_ativos = ItemAtivo::all()->whereNull('deleted_at');
+//        return view('item_ativos.edit', compact('artefato','item_ativos'));
+//    }
 
     public function destroy($id){
 

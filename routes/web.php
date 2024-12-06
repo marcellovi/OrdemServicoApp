@@ -85,7 +85,9 @@ Route::get('ativos/item/{id}/edit', [ItemController::class,'edit'])->name('ativo
 Route::put('ativos/item/{id}/update', [ItemController::class ,'update'])->name('ativo.item.update');
 Route::get('ativos/item/destroy/{id}',[ItemController::class, 'destroy'])->name('ativo.item.destroy');
 
+// DOCUMENTOS
 Route::get('ativos/documento/destroy/{id}',[AtivoController::class, 'destroyDocumentoAtivo'])->name('ativo.documento.destroy');
+Route::get('gestao/documento/destroy/{id}',[OrdemServicoController::class, 'destroyDocumentoOS'])->name('ordem_servico.documento.destroy');
 
 // ORDEM SERVICO
 Route::get('gestao',[OrdemServicoController::class, 'index'])->name('gestao');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\OrdemServico;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ativo;
+use App\Models\Documento;
 use App\Models\OrdemServico;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -83,6 +84,11 @@ class OrdemServicoController extends Controller
             'funcionarios' => User::all()->select('matricula','name','email','id'),
         ];
 
+        $documentos = DB::table('documentos')
+                ->join('os_documentos','documentos.id','=','os_documentos.documento_id')
+                ->where('os_documentos.os_id', '=', $id)
+                ->get();
+
         $os = OrdemServico::select('ordem_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
             'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id','status_id',
             'prioridades.nome as prioridade','data_abertura','data_programada','diagnostico','solucao',
@@ -95,7 +101,7 @@ class OrdemServicoController extends Controller
             ->orderby('ordem_servicos.prioridade_id','asc')
             ->orderby('ordem_servicos.created_at','desc')->first();// dd($os->numero_os);
 
-        return view('ordemservico.edit',compact('ordem_servicos','os'));
+        return view('ordemservico.edit',compact('ordem_servicos','os','documentos'));
     }
     public function update(Request $request, $id)
     {
@@ -119,7 +125,17 @@ class OrdemServicoController extends Controller
             'diagnostico' => $request->get('diagnostico'),
             'solucao' => $request->get('solucao'),
         ]);
-        return redirect()->route('gestao')
+
+        if($request->hasFile('os_files')){
+            $files_info = Documento::uploadDocumentos($request->file('os_files'),'doc_os');
+
+            foreach($files_info as $path => $file){
+                $doc_id = DB::table('documentos')->insertGetId(['nome' => $file,'path' => $path]);
+                DB::table('os_documentos')->insert(['os_id' => $id,'documento_id' => $doc_id]);
+            }
+        }
+
+        return redirect()->route('gestao.edit',$id)
             ->with(['message' => 'OS N. '.$request->get('numero_os').' foi Atualizado no Sistema.',
                 'status' => 'Sucesso',
                 'type' => 'success']);
@@ -135,6 +151,25 @@ class OrdemServicoController extends Controller
                 'status' => 'Deletado',
                 'type' => 'info']);
     }
+    public function destroyDocumentoOS($id){
+
+        $os = DB::table('os_documentos')
+            ->join('documentos','documentos.id','=','os_documentos.documento_id')
+            ->where('documento_id',$id)
+            ->first();
+
+        Documento::removeOSDocumentos([$os]);
+        DB::table('os_documentos')->where('documento_id',$id)->delete();
+        DB::table('documentos')->where('id',$id)->delete();
+
+        return redirect()->route('gestao.edit',$os->os_id)
+            ->with(['message' => 'Documento foi Excluido da OS.',
+                'status' => 'Deletado',
+                'type' => 'info']);
+    }
+
+
+
 
 
     /*********************** CHAMADOS **********************/
@@ -260,5 +295,14 @@ class OrdemServicoController extends Controller
             ->with(['message' => 'Chamado N. '.$n_os .' foi Excluido do Sistema.',
                 'status' => 'Deletado',
                 'type' => 'info']);
+    }
+
+    public function uploadDocumentos(Array $arquivos){
+
+        $file_names = [];
+        foreach($arquivos as $arquivo){
+            $file_names[] = $arquivo->store(options:'doc_ativos');
+        }
+        return $file_names;
     }
 }
