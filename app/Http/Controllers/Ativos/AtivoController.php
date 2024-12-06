@@ -76,7 +76,7 @@ class AtivoController extends Controller
             if($request->hasFile('files_ativo')){
                 $file_names = AtivoModelo::uploadDocumentos($request->files_ativo);
                 foreach ($file_names as $file_name) {
-                    DB::table('ativo_documentos')->insert(["id_ativo" => $ativo_modelo->id, "nome" => $file_name]);
+                    DB::table('ativo_documentos')->insert(["ativo_id" => $ativo_modelo->id, "nome" => $file_name]);
                 }
             }
 
@@ -375,13 +375,13 @@ class AtivoController extends Controller
         DB::table('ativo_modelo')->where('id', '=', $id)->delete();
         DB::table('ativos_itens')->where('ativo_id', '=', $id)->delete();
 
-        $del_files = DB::table('ativo_documentos')->where('id_ativo', '=', $id)->get();
+        $del_files = DB::table('ativo_documentos')->where('ativo_id', '=', $id)->get();
         foreach($del_files as $files){
             if(file_exists(public_path('assets/documentos/ativos/'.$files->nome))){
                 unlink(public_path('assets/documentos/ativos/'.$files->nome));
             }
         }
-        DB::table('ativo_documentos')->where('id_ativo', '=', $id)->delete();
+        DB::table('ativo_documentos')->where('ativo_id', '=', $id)->delete();
 
         return redirect()->route('ativos-itens')
             ->with(['message' => 'O Ativo foi Excluido do Sistema.',
