@@ -64,7 +64,7 @@ class AtivoController extends Controller
                         'type' => 'danger']);
             }
 
-            AtivoModelo::create([
+            $ativo_modelo = AtivoModelo::create([
                 'sigla' => strtoupper($request->get('sigla')),
                 'nome' => ucfirst($request->get('nome')),
                 'categoria_id' => $request->get('categoria'),
@@ -72,6 +72,14 @@ class AtivoController extends Controller
                 'serie' => $request->get('serie'),
                 'descritivo' => $request->get('descritivo'),
             ]);
+
+            if($request->hasFile('files_ativo')){
+                $file_names = AtivoModelo::uploadDocumentos($request->files_ativo);
+                foreach ($file_names as $file_name) {
+                    DB::table('ativo_documentos')->insert(["id_ativo" => $ativo_modelo->id, "nome" => $file_name]);
+                }
+            }
+
 
             return redirect()->route('ativos-itens')
                 ->with(['message' => 'O Ativo '.$request->get('sigla').' foi Cadastrado no Sistema.',
@@ -367,6 +375,14 @@ class AtivoController extends Controller
         DB::table('ativo_modelo')->where('id', '=', $id)->delete();
         DB::table('ativos_itens')->where('ativo_id', '=', $id)->delete();
 
+        $del_files = DB::table('ativo_documentos')->where('id_ativo', '=', $id)->get();
+        foreach($del_files as $files){
+            if(file_exists(public_path('assets/documentos/ativos/'.$files->nome))){
+                unlink(public_path('assets/documentos/ativos/'.$files->nome));
+            }
+        }
+        DB::table('ativo_documentos')->where('id_ativo', '=', $id)->delete();
+
         return redirect()->route('ativos-itens')
             ->with(['message' => 'O Ativo foi Excluido do Sistema.',
                 'status' => 'Deletado',
@@ -403,4 +419,37 @@ class AtivoController extends Controller
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }
+
+    public function detailsAtivoModelo($id){
+
+        $ativo_nome = DB::table('ativo_modelo')->select('nome')->where('id', '=', $id)->first()->nome;
+        $itens = DB::table('ativos_itens')
+            ->select('item_id','itens.nome as nome_item','modelo','categorias.nome as nome_categoria','ativo_id')
+            ->join('itens', 'ativos_itens.item_id', '=', 'itens.id')
+            ->join('categorias', 'itens.categoria_id', '=', 'categorias.id')
+            ->where('ativo_id', '=', $id)->get();
+        $documentos = DB::table('ativo_documentos')->where('ativo_id', '=', $id)->get();
+
+
+        return view ('ativos.ativos_item.ativo_details',compact('itens','ativo_nome','documentos'));
+    }
+
+    /*********  ATIVOS DOCUMENTOS  *********/
+
+    public function destroyDocumentoAtivo($id){
+
+        $documento = DB::table('ativo_documentos')->where('id', '=', $id)->first();
+
+        DB::table('ativo_documentos')->where('id', '=', $id)->delete();
+
+        if(file_exists(public_path('assets/documentos/ativos/'.$documento->nome))){
+            unlink(public_path('assets/documentos/ativos/'.$documento->nome));
+        }
+
+        return redirect()->route('ativo.modelo.details',$documento->ativo_id)
+            ->with(['message' => 'O Documento foi Excluido do Sistema.',
+                'status' => 'Deletado',
+                'type' => 'info']);
+    }
+
 }

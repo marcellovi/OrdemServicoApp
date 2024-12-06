@@ -1,6 +1,11 @@
-{{
-    (!Auth::check()) ? route('/') :''
-}}
+@php
+//dd($_SERVER);
+    if(!Auth::check()){
+        //header("Location: ".$_SERVER['SERVER_NAME']);
+        header("Location: /");
+        exit;
+    }
+@endphp
 
 <!DOCTYPE html>
 <html lang="en" dir="">

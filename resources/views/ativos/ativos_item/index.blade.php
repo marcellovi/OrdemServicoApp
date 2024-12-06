@@ -57,7 +57,7 @@
                         <div class="tab-pane fade active show" id="homeIcon" role="tabpanel"
                              aria-labelledby="home-icon-tab">
                             <!-- Cadastro de Ativos -->
-                            <form action="{{ route('ativos_store') }}" method="POST" >
+                            <form action="{{ route('ativos_store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                             <div class="row">
@@ -93,7 +93,7 @@
                                             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="files_ativo" name="files_ativo"
+                                            <input type="file" class="custom-file-input" id="files_ativo" name="files_ativo[]"
                                                    aria-describedby="inputGroupFileAddon01" multiple>
                                             <label class="custom-file-label" for="inputGroupFile01">Manuais,Imagens,Schemas...</label>
                                         </div>
@@ -168,10 +168,11 @@
                                                         <thead>
                                                         <tr>
                                                             <th scope="col" style="width: 10%">ID</th>
-                                                            <th scope="col" style="width: 35%">NOME</th>
-                                                            <th scope="col" style="width: 25%">MODELO</th>
+                                                            <th scope="col" style="width: 10%">SIGLA</th>
+                                                            <th scope="col" style="width: 25%">NOME</th>
+                                                            <th scope="col" style="width: 20%">MODELO</th>
                                                             <th scope="col" style="width: 20%">SERIE</th>
-                                                            <th scope="col" style="width: 10%">AÇÕES</th>
+                                                            <th scope="col" style="width: 15%">AÇÕES</th>
 {{--                                                            <th scope="col" style="width: 40%">ITENS</th>--}}
                                                         </tr>
                                                         </thead>
@@ -179,10 +180,11 @@
                                                         @foreach($ativos_modelos as $ativo_modelo)
                                                             <tr >
                                                                 <td style="width: 10%"><b>{{ $ativo_modelo->id }}</b></td>
-                                                                <td style="width: 35%"><b>{{ $ativo_modelo->nome }}</b></td>
-                                                                <td style="width: 25%"><b>{{ $ativo_modelo->modelo }}</b></td>
+                                                                <td style="width: 10%"><b>{{ $ativo_modelo->sigla }}</b></td>
+                                                                <td style="width: 25%"><b>{{ $ativo_modelo->nome }}</b></td>
+                                                                <td style="width: 20%"><b>{{ $ativo_modelo->modelo }}</b></td>
                                                                 <td style="width: 20%"><b>{{ $ativo_modelo->serie }}</b></td>
-                                                                <td style="width: 10%">
+                                                                <td style="width: 15%">
                                                                     <a href="{{ route('ativo.modelo.edit',$ativo_modelo->id) }}"
                                                                        class="btn btn-outline-success m-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -202,6 +204,13 @@
                                                                                 d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                                                         </svg>
                                                                     </a>
+
+                                                                    <a href="{{ route('ativo.modelo.details',$ativo_modelo->id) }}" class="btn btn-outline-info btn-icon m-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                                                            <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+                                                                        </svg>
+                                                                    </a>
+
                                                                 </td>
 {{--                                                                <td>--}}
 {{--                                                                    N/A--}}

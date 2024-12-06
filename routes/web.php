@@ -69,19 +69,23 @@ Route::post('ativos/store',[AtivoController::class, 'store'])->name('ativo.store
 Route::get('ativos/{id}/edit', [AtivoController::class,'edit'])->name('ativos.edit');
 Route::put('ativos/{ativos}', [AtivoController::class ,'update'])->name('ativos.update');
 
-// ATIVOS & ITENS
+// ATIVOS & ITENS & DOCUMENTOS
 Route::get('ativos-itens',[AtivoController::class, 'ativosItens'])->name('ativos-itens');
 Route::post('ativos-itens/store',[AtivoController::class, 'store'])->name('ativos_store');
+Route::get('ativos-itens/{ativo_id}/remover/item/{item_id}',[ItemController::class, 'removerItem'])->name('items.remover');
 Route::post('ativos-itens/items-store',[AtivoController::class, 'storeItem'])->name('items.store');
 Route::post('link-ativos-itens/store',[AtivoController::class, 'linkStoreAtivoItems'])->name('link.ativos.itens.store');
 Route::get('link-ativos-itens',[AtivoController::class, 'linkAtivosItens'])->name('link-ativos-itens');
 
 Route::get('ativos/modelo/{id}/edit', [AtivoController::class,'editAtivoModelo'])->name('ativo.modelo.edit');
+Route::get('ativos/modelo/{id}/details', [AtivoController::class,'detailsAtivoModelo'])->name('ativo.modelo.details');
 Route::put('ativos/modelo/{id}/update', [AtivoController::class ,'updateAtivoModelo'])->name('ativo.modelo.update');
 Route::get('ativos/modelo/destroy/{id}',[AtivoController::class, 'destroyAtivoModelo'])->name('ativo.modelo.destroy');
 Route::get('ativos/item/{id}/edit', [ItemController::class,'edit'])->name('ativo.item.edit');
 Route::put('ativos/item/{id}/update', [ItemController::class ,'update'])->name('ativo.item.update');
 Route::get('ativos/item/destroy/{id}',[ItemController::class, 'destroy'])->name('ativo.item.destroy');
+
+Route::get('ativos/documento/destroy/{id}',[AtivoController::class, 'destroyDocumentoAtivo'])->name('ativo.documento.destroy');
 
 // ORDEM SERVICO
 Route::get('gestao',[OrdemServicoController::class, 'index'])->name('gestao');

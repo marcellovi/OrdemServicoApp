@@ -53,6 +53,19 @@ class ItemController extends Controller
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }
+
+    public function removerItem($idAtivo,$idItem){
+
+        DB::table('ativos_itens')
+            ->where('item_id', '=', $idItem)
+            ->where('ativo_id', '=', $idAtivo)
+            ->delete();
+
+        return redirect()->route('ativo.modelo.details',[$idAtivo])
+            ->with(['message' => 'O Item foi Removido do Ativo',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
     public function update(Request $request,$id){
 
         $item = Item::where('id', '=', $id)->first();
