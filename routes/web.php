@@ -6,6 +6,7 @@ use App\Http\Controllers\Ativos\ItemController;
 use App\Http\Controllers\OrdemServico\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\Suprimentos\ProdutoController;
 use App\Http\Controllers\Usuarios\CargoController;
 use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
@@ -103,6 +104,12 @@ Route::get('gestao/chamado/{id}/edit', [OrdemServicoController::class,'chamadoEd
 Route::get('gestao/chamado/destroy/{id}',[OrdemServicoController::class, 'chamadoDestroy'])->name('chamado.destroy');
 Route::put('gestao/chamado/{id}', [OrdemServicoController::class ,'chamadoUpdate'])->name('chamado.update');
 
+// PRODUTOS
+Route::get('produto',[ProdutoController::class, 'index'])->name('produto.index');
+Route::get('produto/destroy/{id}',[ProdutoController::class, 'destroy'])->name('produto.destroy');
+Route::post('produto/store',[ProdutoController::class, 'store'])->name('produto.store');
+Route::get('produto/{id}/edit', [ProdutoController::class,'edit'])->name('produto.edit');
+Route::put('produto/{id}', [ProdutoController::class ,'update'])->name('produto.update');
 
 // CARGO
 Route::post('cargo/store',[CargoController::class, 'store'])->name('cargo.store');

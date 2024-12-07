@@ -185,7 +185,7 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('relatorios') }}">
+                <a href="{{ route('produto.index') }}">
                     <i class="nav-icon i-Bag-Items"></i>
                     <span class="item-name">Produtos</span>
                 </a>
