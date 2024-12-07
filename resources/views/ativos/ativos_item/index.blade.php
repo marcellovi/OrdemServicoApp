@@ -315,7 +315,7 @@
                                                 <label for="message-text-1" class="col-form-label">Como Importar em Massa:</label><br>
                                                 <span class="">
                                                         Arquivo .CSV para Importação de Ativos
-                                                    <a href="{{ asset('assets/downloads/importar_modelo_ativo.csv') }}">
+                                                    <a href="{{ asset('assets/downloads/importar_modelo_ativo.csv') }}" download>
                                                          Baixe Aqui  <i class="i-Download"></i></a> </span>
                                             </div>
                                     </div>
@@ -351,7 +351,7 @@
                                                 <label for="message-text-1" class="col-form-label">Como Importar em Massa:</label><br>
                                                 <span class="">
                                                         Arquivo .CSV para Importação de Itens do Ativo
-                                                    <a href="{{ asset('assets/downloads/importar_modelo_item.csv') }}">
+                                                    <a href="{{ asset('assets/downloads/importar_modelo_item.csv') }}" download>
                                                          Baixe Aqui  <i class="i-Download"></i></a> </span>
                                             </div>
                                         </div>
