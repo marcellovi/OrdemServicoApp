@@ -35,37 +35,34 @@
                                 <label for="recipient-name-2" class="col-form-label">Categoria</label>
                                 <select name="categoria_id" id="categoria_id" class="form-control" required>--}}
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="1" >Cat1</option>
-                                    {{--                                    @foreach($data['equipes'] as $equipe)--}}
-                                    {{--                                        <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>--}}
-                                    {{--                                    @endforeach--}}
+                                        @foreach($assets['categorias'] as $categoria)
+                                            <option value="{{ $categoria->id }}" {{ ($categoria->id == $produto->categoria_id) ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Fabricante</label>
                                 <select name="fabricante_id" id="fabricante_id" class="form-control" required>
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="1" >Fab1</option>
-                                    {{--                                    @foreach($data['status'] as $status)--}}
-                                    {{--                                        <option--}}
-                                    {{--                                            value="{{ $status->id }}" {{ ($status->nome == 'ativo') ? 'selected' : '' }}>{{ $status->nome }}</option>--}}
-                                    {{--                                    @endforeach--}}
+                                        @foreach($assets['fabricantes'] as $fabricante)
+                                            <option
+                                                value="{{ $fabricante->id }}" {{ ($fabricante->id == $produto->fabricante_id) ? 'selected' : '' }}>{{ $fabricante->nome }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Unid. Medida</label>
                                 <select name="unid_medida_id" id="unid_medida_id" class="form-control">
                                     <option value="" selected>---Nenhum---</option>
-                                    <option value="1" >Metro</option>
-                                    {{--                                    @foreach($data['cargos'] as $cargo)--}}
-                                    {{--                                        <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>--}}
-                                    {{--                                    @endforeach--}}
+                                            @foreach($assets['unidade_medida'] as $unid_medida)
+                                                <option value="{{ $unid_medida->id }}" {{ ($unid_medida->id == $produto->unid_medida_id) ? 'selected' : '' }}>{{ $unid_medida->nome }}</option>
+                                            @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="recipient-name-2" class="col-form-label">Descrição</label>
-                            <textarea class="form-control" id="descricao" name="descricao">value="{{ $produto->descricao }}"</textarea>
+                            <textarea class="form-control" id="descricao" name="descricao"> {{ $produto->descricao }}</textarea>
                         </div>
                     </div>
                     <a href="{{ route('produto.index') }}" class="btn float-right btn-primary ml-3">
@@ -75,11 +72,11 @@
                         Voltar
                     </a>
                     <button type="submit" class="btn float-right btn-primary ml-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                            <path d="M11 2H9v3h2z"/>
+                            <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
                         </svg>&nbsp;
-                        Editar</button>
+                        Salvar</button>
                 </form>
             </div>
         </div>

@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Suprimentos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Fabricante;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
     public function index()
     {
         $assets = [
-//            'categorias' => Categoria::all()->where('deleted_at', '=', null),
-//            'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
-//            'ativos_modelo' => DB::table('ativo_modelo')->select('ativo_modelo.id','sigla','ativo_modelo.nome')->distinct()->where('ativo_modelo.deleted_at', '=', null)->join('ativos_itens','ativo_id','ativo_modelo.id')->get(),
-//            'ativos_location' => AtivoLocation::all()->where('deleted_at', '=', null),
+            'categorias' => Categoria::all()->where('deleted_at', '=', null),
+            'fabricantes' => Fabricante::all()->where('deleted_at', '=', null),
+            'unidade_medida' => DB::table('unidade_medida')->where('deleted_at', '=', null)->get(),
         ];
 
         $produtos = Produto::all()->where('deleted_at', '=', null);
@@ -37,12 +38,13 @@ class ProdutoController extends Controller
 //                ->where('sigla', '=', $request->get('sigla'))
 //                ->first();
 //
-//            if($is_found){
-//                return redirect()->route('ativos-itens')
-//                    ->with(['message' => 'O Ativo '.$request->get('sigla').' já existe no Sistema.',
-//                        'status' => 'Erro',
-//                        'type' => 'danger']);
-//            }
+                $is_found = Produto::where('codprod', '=', $request->get('codprod'))->first();
+                if($is_found){
+                    return redirect()->route('produto.index')
+                        ->with(['message' => 'O Código do Produto já Existe no Sistema.',
+                            'status' => 'Erro',
+                            'type' => 'danger']);
+                }
 
              $a = Produto::create([
                 'codprod' => strtoupper($request->get('codprod')),
@@ -76,76 +78,30 @@ class ProdutoController extends Controller
 //            'body' => 'required',
 //        ]);
 
-        $ativo = Ativo::find($id);
-        // If there are no changes in the location
-        if( ($ativo->bloco_id == $request->get('bloco')) &&
-            ($ativo->andar_id == $request->get('andar')) &&
-            ($ativo->sala_area_id == $request->get('sala_area')) &&
-            ($ativo->fase_id == $request->get('fase'))
-        ) {
-            $ativo_modelo = AtivoModelo::find($request->get('ativo_modelo_id'));
-            $ativo_modelo->update([
-                'categoria_id' => $request->get('categoria'),
-                'modelo' => $request->get('modelo'),
-                'serie' => $request->get('serie'),
-                'descritivo' => $request->get('descritivo'),
-            ]);
-
-            return redirect()->route('ativos')
-                ->with(['message' => 'O Ativo '.$request->get('sigla_ativo').' foi Atualizado no Sistema.',
-                    'status' => 'Sucesso',
-                    'type' => 'success']);
-        }else{
-            $is_found = DB::table('ativos')
-                ->where('bloco_id', '=', $request->get('bloco'))
-                ->where('andar_id', '=', $request->get('andar'))
-                ->where('sala_area_id', '=', $request->get('sala_area'))
-                ->where('fase_id', '=', $request->get('fase'))
-                ->where('ativo_modelo_id', '=', $request->get('ativo_modelo_id'))
-                ->where('deleted_at', '=', null)
-                ->exists();
-
-            if($is_found){
-                return redirect()->route('ativos')
-                    ->with(['message' => 'O Ativo já Existe no Sistema.',
-                        'status' => 'Erro',
-                        'type' => 'danger']);
-            }
-
-            $tags = AtivoLocation::find($request->get('fase'))->nome.'-'.
-                AtivoLocation::find($request->get('bloco'))->nome.'-'.
-                AtivoLocation::find($request->get('andar'))->nome.'-'.
-                AtivoLocation::find($request->get('sala_area'))->nome.'-'.
-                $request->get('sigla_ativo');
-
-            //$ativo = DB::table('ativos')->where('id',$id)->whereNull('deleted_at')->get();
-            $ativo = Ativo::find($id);
-            $ativo->update([
-                'tags' => $tags,
-                'bloco_id' => $request->get('bloco'),
-                'andar_id' => $request->get('andar'),
-                'sala_area_id' => $request->get('sala_area'),
-                'fase_id' => $request->get('fase'),
-            ]);
-
-            $ativo_modelo = AtivoModelo::find($request->get('ativo_modelo_id'));
-            $ativo_modelo->update([
-                'categoria_id' => $request->get('categoria'),
-                'modelo' => $request->get('modelo'),
-                'serie' => $request->get('serie'),
-                'descritivo' => $request->get('descritivo'),
-            ]);
-
-            return redirect()->route('ativos')
-                ->with(['message' => 'O Ativo '.$tags.' foi Atualizado no Sistema.',
-                    'status' => 'Sucesso',
-                    'type' => 'success']);
+        $is_found = Produto::where('codprod', '=', $request->get('codprod'))->where('id', '!=', $id)->first();
+        if($is_found){
+            return redirect()->route('produto.edit',$id)
+                ->with(['message' => 'O Código do Produto já Existe no Sistema.',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
         }
 
-        return redirect()->route('ativos')
-            ->with(['message' => 'Erro ao atualizar no Sistema.',
-                'status' => 'Erro',
-                'type' => 'danger']);
+        $produto = Produto::find($id);
+        $produto->update([
+            'codprod' => strtoupper($request->get('codprod')),
+            'nome' => ucfirst($request->get('nome')),
+            'categoria_id' => $request->get('categoria_id'),
+            'qt_minima' => $request->get('qt_minima'),
+            'qt_reposicao' => $request->get('qt_reposicao'),
+            'fabricante_id' => $request->get('fabricante_id'),
+            'unid_medida_id' => $request->get('unid_medida_id'),
+            'descricao' => $request->get('descricao'),
+        ]);
+
+            return redirect()->route('produto.index')
+                ->with(['message' => 'O Produto '.$request->get('nome').' foi Atualizado no Sistema.',
+                    'status' => 'Sucesso',
+                    'type' => 'success']);
     }
 
     /**
@@ -158,6 +114,8 @@ class ProdutoController extends Controller
     {
         $assets = [
             'categorias' => Categoria::all()->where('deleted_at', '=', null),
+            'fabricantes' => Fabricante::all()->where('deleted_at', '=', null),
+            'unidade_medida' => DB::table('unidade_medida')->where('deleted_at', '=', null)->get(),
         ];
 
         $produto = Produto::where('id', '=', $id)->first();

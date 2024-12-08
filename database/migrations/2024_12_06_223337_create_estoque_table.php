@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantidade_total')->default(0);
             $table->integer('estoque_local_id')->nullable();
+            $table->integer('produto_id')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('estoques');
+        Schema::dropIfExists('estoque');
     }
 };

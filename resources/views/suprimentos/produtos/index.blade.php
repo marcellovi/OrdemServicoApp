@@ -27,7 +27,9 @@
                         <thead>
                         <tr>
                             <th scope="col" style="width: 10%">CODIGO</th>
-                            <th scope="col" style="width: 60%">NOME</th>
+                            <th scope="col" style="width: 30%">NOME</th>
+                            <th scope="col" style="width: 15%">FABRICANTE</th>
+                            <th scope="col" style="width: 15%">CATEGORIA</th>
                             <th scope="col" style="width: 10%">QT. MIN</th>
                             <th scope="col" style="width: 10%">QT. REPOSIÇÃO</th>
                             <th scope="col" style="width: 10%">AÇÕES</th>
@@ -38,29 +40,26 @@
                             @foreach($produtos as $produto)
                                 <td style="width: 10%">
                                     <b>{{ $produto->codprod }}</b></td>
-                                <td style="width: 60%"><b>{{ $produto->nome }}</b></td>
-                                <td style="width: 10%">
-                                    {{ (empty($produto->qt_minima)) ? $produto->qt_minima : 'Não Informado' }}
+                                <td style="width: 30%"><b>{{ $produto->nome }}</b></td>
+                                <td style="width: 15%">
+                                    {{ (isset($assets['fabricantes']->where('id',$produto->fabricante_id)->first()->nome)) ?
+                                        $assets['fabricantes']->where('id',$produto->fabricante_id)->first()->nome
+                                        : 'Nenhum'
+                                    }}
+                                </td>
+                                <td style="width: 15%">
+                                    {{ (isset($assets['categorias']->where('id',$produto->categoria_id)->first()->nome)) ?
+                                        $assets['categorias']->where('id',$produto->categoria_id)->first()->nome
+                                        : 'Nenhum'
+                                    }}
                                 </td>
                                 <td style="width: 10%">
-                                    {{ (empty($produto->qt_reposicao)) ? $produto->qt_reposicao: 'Não Informado' }}
+                                    {{ (!empty($produto->qt_minima)) ? $produto->qt_minima : 'Não Informado' }}
                                 </td>
-{{--                                <td>--}}
-{{--                                    {{ (isset($data['status']->where('id',$usuario->status_id)->first()->nome)) ?--}}
-{{--                                        $data['status']->where('id',$usuario->status_id)->first()->nome--}}
-{{--                                        : 'Nenhum'--}}
-{{--                                    }}--}}
-{{--                                </td>--}}
-{{--                                <td>--}}
-{{--                                    @isset($data['roles']->where('id',$usuario->role_id)->first()->name)--}}
-{{--                                        <h5><span--}}
-{{--                                                class="badge badge-pill badge-outline-dark">{{ $data['roles']->where('id',$usuario->role_id)->first()->name }}</span></h5>--}}
-{{--                                    @else--}}
-{{--                                        <span class="badge badge-pill badge-dark">{{ 'Nenhum' }}</span>--}}
-{{--                                    @endisset--}}
-{{--                                    --}}{{-- (isset() ? '<span class="badge badge-success">'.$data['roles']->where('id',$usuario->role_id)->first()->name.'</span>' : 'Nenhum' --}}
-{{--                                </td>--}}
-                                <td class="btn-group" role="group" style="width: 10%">
+                                <td style="width: 10%">
+                                    {{ (!empty($produto->qt_reposicao)) ? $produto->qt_reposicao: 'Não Informado' }}
+                                </td>
+                                <td style="width: 10%">
                                     <a href="{{ route('produto.edit',$produto->id) }}"
                                        class="btn btn-outline-success m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -109,49 +108,44 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="recipient-name-2" class="col-form-label">Cod. Produto</label>
-                                <input type="text" id="codprod" name="codprod" class="form-control">
+                                <input type="text" id="codprod" name="codprod" class="form-control" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="recipient-name-2" class="col-form-label">Qt. Minimo</label>
-                                <input type="text" class="form-control" id="qt_minima" name="qt_minima">
+                                <label for="recipient-name-2" class="col-form-label">Qt. Mínima</label>
+                                <input type="number" class="form-control" inputmode="numeric"  id="qt_minima" name="qt_minima" min="1" max="99999" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="recipient-name-2" class="col-form-label">Qt. Reposição</label>
-                                <input type="text" class="form-control" id="qt_reposicao" name="qt_reposicao">
+                                <input type="number" class="form-control" id="qt_reposicao" name="qt_reposicao" min="1" max="99999">
                             </div>
                             <div class="col-md-12">
                                 <label for="recipient-name-2" class="col-form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome">
+                                <input type="text" class="form-control" id="nome" name="nome" required>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Categoria</label>
                                 <select name="categoria_id" id="categoria_id" class="form-control" required>--}}
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="1" >Cat1</option>
-                                    {{--                                    @foreach($data['equipes'] as $equipe)--}}
-                                    {{--                                        <option value="{{ $equipe->id }}">{{ $equipe->nome }}</option>--}}
-                                    {{--                                    @endforeach--}}
+                                        @foreach($assets['categorias'] as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Fabricante</label>
                                 <select name="fabricante_id" id="fabricante_id" class="form-control" required>
                                     <option value="" selected>---Selecione---</option>
-                                    <option value="1" >Fab1</option>
-{{--                                    @foreach($data['status'] as $status)--}}
-{{--                                        <option--}}
-{{--                                            value="{{ $status->id }}" {{ ($status->nome == 'ativo') ? 'selected' : '' }}>{{ $status->nome }}</option>--}}
-{{--                                    @endforeach--}}
+                                    @foreach($assets['fabricantes'] as $fabricante)
+                                        <option value="{{ $fabricante->id }}" >{{ $fabricante->nome }}</option>                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Unid. Medida</label>
                                 <select name="unid_medida_id" id="unid_medida_id" class="form-control">
                                     <option value="" selected>---Nenhum---</option>
-                                    <option value="1" >Metro</option>
-                                    {{--                                    @foreach($data['cargos'] as $cargo)--}}
-                                    {{--                                        <option value="{{ $cargo->id }}">{{ $cargo->nome }}</option>--}}
-                                    {{--                                    @endforeach--}}
+                                        @foreach($assets['unidade_medida'] as $unid_medida)
+                                            <option value="{{ $unid_medida->id }}">{{ $unid_medida->nome }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>

@@ -173,7 +173,7 @@ $url = str_replace(['/','.php'], '', $url);
         <!-- Suprimentos -->
         <ul class="childNav" data-parent="suprimentos">
             <li class="nav-item">
-                <a href="{{ route('relatorios') }}">
+                <a href="{{ route('almoxarifado.index') }}">
                     <i class="nav-icon i-Scale"></i>
                     <span class="item-name">Almoxarifado</span>
                 </a>

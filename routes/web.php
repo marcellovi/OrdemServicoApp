@@ -6,6 +6,7 @@ use App\Http\Controllers\Ativos\ItemController;
 use App\Http\Controllers\OrdemServico\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\Suprimentos\EstoqueController;
 use App\Http\Controllers\Suprimentos\ProdutoController;
 use App\Http\Controllers\Usuarios\CargoController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -110,6 +111,13 @@ Route::get('produto/destroy/{id}',[ProdutoController::class, 'destroy'])->name('
 Route::post('produto/store',[ProdutoController::class, 'store'])->name('produto.store');
 Route::get('produto/{id}/edit', [ProdutoController::class,'edit'])->name('produto.edit');
 Route::put('produto/{id}', [ProdutoController::class ,'update'])->name('produto.update');
+
+// ESTOQUE / ALMOXARIFADO
+Route::get('almoxarifado',[EstoqueController::class, 'index'])->name('almoxarifado.index');
+Route::get('almoxarifado/destroy/{id}',[EstoqueController::class, 'destroy'])->name('almoxarifado.destroy');
+Route::post('almoxarifado/store',[EstoqueController::class, 'store'])->name('almoxarifado.store');
+Route::get('almoxarifado/{produto_id}/edit/{localizacao_id}', [EstoqueController::class,'edit'])->name('almoxarifado.edit');
+Route::put('almoxarifado/{localizacao_id}', [EstoqueController::class ,'update'])->name('almoxarifado.update');
 
 // CARGO
 Route::post('cargo/store',[CargoController::class, 'store'])->name('cargo.store');
