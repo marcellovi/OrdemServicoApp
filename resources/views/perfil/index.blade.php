@@ -100,6 +100,37 @@
         </form>
     </div>
 
+    <div class="col-lg-4 col-xl-12 mt-3">
+        <div class="card-body">
+        <form id="send-verification" method="post" action="{{ route('assinatura.update') }}" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="id" value="{{ $usuario->id }}">
+
+            <div class="row mb-3 text-center">
+                <div class="col-md-10 themed-grid-col">
+                    <div class="pb-3">
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 text-left">
+                            Atualizar Assinatura
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 themed-grid-col"> <input type="file" class="form-control" name="assinatura" placeholder="" value="" ></div>
+{{--                        <div class="col-md-6 themed-grid-col">.col-md-6</div>--}}
+                    </div>
+                </div>
+                <div class="col-md-2 themed-grid-col">
+                    <div class="ul-widget-card__user-info">
+                        <img class="profile-picture avatar-lg" src="{{ (Auth::user()->assinatura) ? asset('assets/assinaturas/'.Auth::user()->assinatura)  : asset('assets/images/noimage.jpg') }}" title="Assinatura Digital">
+                        {{--                        <img class="profile-picture avatar-lg mb-2" src="{{ asset(Storage::url(Auth::user()->avatar))  }}" alt="">--}}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-2"><button class="btn btn-primary pd-x-20">Atualizar Assinatura Digital</button></div>
+        </form>
+        </div>
+    </div>
+
 
 
 @endsection

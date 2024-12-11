@@ -61,7 +61,7 @@ Route::put('usuarios/{id}', [UserController::class ,'update'])->name('usuarios.u
 Route::get('perfil/{id}', [UserController::class ,'indexPerfil'])->name('perfil.index');
 Route::put('perfil/update/{id}', [UserController::class ,'updatePerfil'])->name('perfil.update');
 Route::put('perfil/avatar/update', [UserController::class ,'updateAvatar'])->name('avatar.update');
-
+Route::put('perfil/assinatura/update', [UserController::class ,'updateAssinatura'])->name('assinatura.update');
 
 // ATIVOS
 Route::get('painel-ativos',[AtivoController::class, 'painel'])->name('painel-ativos');

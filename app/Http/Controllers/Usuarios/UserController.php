@@ -220,4 +220,44 @@ dd($exception);
                 'status' => 'Sucesso',
                 'type' => 'success']);
     }
+
+    public function updateAssinatura(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $avatar = null;
+        if($request->hasFile('assinatura') && $request->file('assinatura')->isValid()){
+
+            // Two ways to upload a file
+            //$avatar = $request->file('avatar')->store(options:'public');
+            // $avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+
+//            if(!empty($user->avatar)){
+//                if(file_exists(public_path('assets/avatars/'.$user->avatar))){
+//                    unlink(public_path('assets/avatars/'.$user->avatar));
+//                }
+//                if(Storage::disk('public')->exists($user->avatar)  ){
+//                    Storage::disk('public')->delete($user->avatar);
+//                }
+//            }
+            //$avatar = Storage::disk('public')->put('avatars', $request->file('avatar'));
+            $avatar = $request->file('assinatura')->store(options:'assinatura');
+        }
+
+
+        if(!empty($user->assinatura)){
+            if(file_exists(public_path('assets/assinaturas/'.$user->assinatura))){
+                unlink(public_path('assets/assinaturas/'.$user->assinatura));
+            }
+//                if(Storage::disk('public')->exists($user->avatar)  ){
+//                    Storage::disk('public')->delete($user->avatar);
+//                }
+        }
+        $user->assinatura = $avatar;
+        $user->save();
+
+        return redirect()->route('perfil.index', $request->id)
+            ->with(['message' => 'Assinatura Atualizada no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
 }

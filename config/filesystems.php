@@ -53,6 +53,14 @@ return [
             'throw' => false,
         ],
 
+        'assinatura' => [
+            'driver' => 'local',
+            'root' => public_path('/assets/assinaturas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'doc_ativos' => [
             'driver' => 'local',
             'root' => public_path('/assets/documentos/ativos'),
