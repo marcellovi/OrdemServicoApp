@@ -179,6 +179,12 @@ $url = str_replace(['/','.php'], '', $url);
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('almoxarifado.solicitacao.show') }}">
+                    <i class="nav-icon i-Record1"></i>
+                    <span class="item-name">Solicitações</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('relatorios') }}">
                     <i class="nav-icon i-Car-Items"></i>
                     <span class="item-name">Compras</span>

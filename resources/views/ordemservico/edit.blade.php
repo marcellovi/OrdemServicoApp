@@ -56,14 +56,14 @@
 {{--        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#verifyModalContentSolicitarCompra"--}}
 {{--                data-whatever="@mdo">Solicitar Compra--}}
 {{--        </button>--}}
-        <a href="#" class="btn btn-info btn-icon m-1" data-toggle="modal" data-target="#verifyModalContentSolicitarCompra" data-whatever="@mdo">
+        <a href="#" class="btn btn-info btn-icon m-1" data-toggle="modal" data-target="#verifyModalContentSolicitarProduto" data-whatever="@mdo">
             <span class="ul-btn__icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-vibrate" viewBox="0 0 16 16">
                   <path d="M10 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM6 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
                   <path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2M1.599 4.058a.5.5 0 0 1 .208.676A7 7 0 0 0 1 8c0 1.18.292 2.292.807 3.266a.5.5 0 0 1-.884.468A8 8 0 0 1 0 8c0-1.347.334-2.619.923-3.734a.5.5 0 0 1 .676-.208m12.802 0a.5.5 0 0 1 .676.208A8 8 0 0 1 16 8a8 8 0 0 1-.923 3.734.5.5 0 0 1-.884-.468A7 7 0 0 0 15 8c0-1.18-.292-2.292-.807-3.266a.5.5 0 0 1 .208-.676M3.057 5.534a.5.5 0 0 1 .284.648A5 5 0 0 0 3 8c0 .642.12 1.255.34 1.818a.5.5 0 1 1-.93.364A6 6 0 0 1 2 8c0-.769.145-1.505.41-2.182a.5.5 0 0 1 .647-.284m9.886 0a.5.5 0 0 1 .648.284C13.855 6.495 14 7.231 14 8s-.145 1.505-.41 2.182a.5.5 0 0 1-.93-.364C12.88 9.255 13 8.642 13 8s-.12-1.255-.34-1.818a.5.5 0 0 1 .283-.648"/>
                 </svg>
             </span>
-            <span class="ul-btn__text">&nbsp; Solicitar Compra</span>
+            <span class="ul-btn__text">&nbsp;Solicitar Produto(s)</span>
         </a>
     </div>
 
@@ -244,6 +244,59 @@
             </div>
         </div>
         <!-- End Editar OS -->
+
+        <!-- modal Solicitar Produto  -->
+    <div class="modal fade" id="verifyModalContentSolicitarProduto" tabindex="-1" role="dialog"
+         aria-labelledby="verifyModalContent" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verifyModalContent_title">Solicitar Produto(s)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{ route('almoxarifado.solicitacao.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="os_id" value="{{ $os->os_id }}">
+                    <input type="hidden" name="codospedido" value="{{ $os->numero_os }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="font-weight-400 mb-2">Prioridade</p>
+                                <select id="prioridade" name="prioridade" class="form-control" required="true">
+                                    <option value="" selected>---Selecione---</option>
+                                    @foreach($ordem_servicos['prioridades'] as $prioridade)
+                                        <option value="{{ $prioridade->id }}" >{{ $prioridade->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="recipient-name-2" class="col-form-label">Selecionar Itens</label>
+                                <select name="itens[]" id="modal_itens" class="form-control" multiple rows="5">
+                                    @foreach($itens as $item)
+                                        <option value="{{ $item->nome.' '.$item->modelo}}">{{ $item->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="recipient-name-2" class="col-form-label">Mais Informações</label>
+                            <textarea type="text" class="form-control" id="modal_descritivo" name="descritivo" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 <!-- end of row-->
 

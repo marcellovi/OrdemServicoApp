@@ -5,6 +5,7 @@ namespace App\Http\Controllers\OrdemServico;
 use App\Http\Controllers\Controller;
 use App\Models\Ativo;
 use App\Models\Documento;
+use App\Models\Item;
 use App\Models\OrdemServico;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class OrdemServicoController extends Controller
             'ativos' => Ativo::all()->where('deleted_at', '=', null),
             'status_os' => DB::table('status')->where('deleted_at', '=', null)->where('tipo_status','os')->get(),
             'funcionarios' => User::all()->select('matricula','name','email','id'),
+            //'itens_ativo' => Item::where('')
         ];
 
         $documentos = DB::table('documentos')
@@ -89,7 +91,7 @@ class OrdemServicoController extends Controller
                 ->where('os_documentos.os_id', '=', $id)
                 ->get();
 
-        $os = OrdemServico::select('ordem_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
+        $os = OrdemServico::select('ordem_servicos.id as os_id','numero_os','ativos.tags','prioridade_id','ativo_id',
             'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id','status_id',
             'prioridades.nome as prioridade','data_abertura','data_programada','diagnostico','solucao',
             'mantenedor_id','auxiliar_id')
@@ -101,7 +103,13 @@ class OrdemServicoController extends Controller
             ->orderby('ordem_servicos.prioridade_id','asc')
             ->orderby('ordem_servicos.created_at','desc')->first();// dd($os->numero_os);
 
-        return view('ordemservico.edit',compact('ordem_servicos','os','documentos'));
+        $itens = DB::table('ativos_itens')
+                    ->select('itens.id','itens.nome','ativo_id','modelo')
+                    ->join('itens','itens.id','=','ativos_itens.item_id')
+                    ->where('ativos_itens.ativo_id','=',$os->ativo_id)
+                    ->get();
+
+        return view('ordemservico.edit',compact('ordem_servicos','os','documentos','itens'));
     }
     public function update(Request $request, $id)
     {
