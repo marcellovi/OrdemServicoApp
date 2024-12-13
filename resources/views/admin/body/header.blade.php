@@ -109,6 +109,7 @@
                     </div>
                     <a href="{{ route('perfil.index',Auth::user()->id) }}" class="dropdown-item">Dados da Conta</a>
                     <a class="dropdown-item">Permissões/Acesso</a>
+                    <a href="#" class="dropdown-item"> {{ locale_get_default() }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Log out</a>

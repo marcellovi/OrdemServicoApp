@@ -8,8 +8,10 @@ use App\Models\Documento;
 use App\Models\Item;
 use App\Models\OrdemServico;
 use App\Models\User;
+use DateTimeImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class OrdemServicoController extends Controller
 {
@@ -46,6 +48,13 @@ class OrdemServicoController extends Controller
 //            'categoria' => 'required',
 //        ]);
 
+        $date = null;
+        if(!empty($request->get('dtprogramada'))){
+            $date = Controller::formatIntDate($request->get('dtprogramada'));
+            $date = date_format(date_create($date),"Y/m/d");
+        }
+
+
         OrdemServico::create([
             'numero_os' => $request->get('numero_os'),
             //'tags' => $ativo_id,
@@ -58,7 +67,7 @@ class OrdemServicoController extends Controller
             //'executor_id' => $request->get('executor'),
             'status_id' => 2, // Abertura
             'data_abertura' => date("Y/m/d"),
-            'data_programada' => (!empty($request->get('dtprogramada'))) ? date_format(date_create($request->get('dtprogramada')),"Y/m/d") : null,
+            'data_programada' => $date,
         ]);
 
         return redirect()->route('gestao')
@@ -119,9 +128,11 @@ class OrdemServicoController extends Controller
 //        ]);
 
         $os = OrdemServico::find($id);//dd(date_format(date_create($request->get('dtprogramada')),"Y/m/d"));
-        //dd($request->all());
+        //$datee = new DateTimeImmutable('2000-01-01');
+        $date = Controller::formatIntDate($request->get('dtprogramada'));
+
         $os->update([
-            'data_programada' => date_format(date_create($request->get('dtprogramada')),"Y/m/d"), //$request->get('dtprogramada'),
+            'data_programada' => date_format(date_create($date),"Y/m/d"), //$request->get('dtprogramada'),
             'prioridade_id' => $request->get('prioridade'),
             'tipo_manutencao_id' => $request->get('tipo_manutencao'),
             'natureza_servico_id' => $request->get('natureza_servico'),
