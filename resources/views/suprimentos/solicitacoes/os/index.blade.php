@@ -130,8 +130,8 @@
                                     @foreach($data['estoque'] as $estoque)
                                         <td style="width: 10%"><b>{{ $estoque->nome }}</b></td>
                                         <td style="width: 10%">{{ $estoque->quantidade_total }}</td>
-                                        <td style="width: 25%"><b>{{ $estoque->lugar }}</b></td>
-                                        <td style="width: 25%">{{ $estoque->localizacao }}</td>
+                                        <td style="width: 25%"><b>{{ (isset($estoque->lugar)) ? $estoque->lugar : 'Não Informado' }}</b></td>
+                                        <td style="width: 25%">{{ (isset($estoque->localizacao)) ? $estoque->localizacao : 'Não Informado' }}</td>
 
                                 </tr>
                                 @endforeach

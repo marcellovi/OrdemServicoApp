@@ -21,7 +21,7 @@ class EstoqueController extends Controller
         return view('suprimentos.almoxarifado.index', compact('produtos'));
     }
 
-    public function edit($produto_id, $localizacao_id)
+    public function edit($produto_id)
     {
         $localizacao = DB::table('estoque_localizacao')->whereNull('estoque_localizacao.deleted_at')->get();
 
@@ -55,7 +55,7 @@ class EstoqueController extends Controller
                     'estoque_local_id' => $request->get('estoque_local_id')
                 ]);
         }else{
-            DB::table('estoque')->where('product_id', $id)
+            DB::table('estoque')->where('produto_id', $id)
                 ->update(['quantidade_total' => $request->get('quantidade_total'), 'estoque_local_id' => $request->get('estoque_local_id')]);
         }
 
@@ -103,7 +103,7 @@ class EstoqueController extends Controller
             'estoque' => DB::table('produtos')->whereNull('produtos.deleted_at')
                                     ->select('produtos.nome','quantidade_total','estoque_localizacao.nome as lugar','localizacao')
                                     ->join('estoque','estoque.produto_id','produtos.id')
-                                    ->join('estoque_localizacao','estoque_localizacao.id','estoque_local_id')
+                                    ->leftjoin('estoque_localizacao','estoque_localizacao.id','estoque_local_id')
                                     ->get(),
         ];
         $solicitacoes = DB::table('os_solicita_produto')->whereNull('deleted_at')->get();
@@ -119,28 +119,30 @@ class EstoqueController extends Controller
             'estoque' => DB::table('produtos')->whereNull('produtos.deleted_at')
                 ->select('produtos.nome','quantidade_total','estoque_localizacao.nome as lugar','localizacao')
                 ->join('estoque','estoque.produto_id','produtos.id')
-                ->join('estoque_localizacao','estoque_localizacao.id','estoque_local_id')
+                ->leftjoin('estoque_localizacao','estoque_localizacao.id','estoque_local_id')
                 ->get(),
+
+            'produtos' => DB::table('produtos')
+                ->join('estoque','estoque.produto_id','produtos.id')
+                ->where('quantidade_total','>','0')
+                ->whereNull('produtos.deleted_at')->get(),
+
         ];
         $solicitacao = DB::table('os_solicita_produto')->where('id',$id)->whereNull('deleted_at')->first();
 
         return view('suprimentos.solicitacoes.os.edit', compact('solicitacao','data'));
     }
 
-    public function saidaEstoqueStore($id)
+    public function saidaEstoqueStore(Request $request)
     {
-        $localizacao = DB::table('estoque_localizacao')->whereNull('estoque_localizacao.deleted_at')->get();
+        foreach($request->get('txt1') as $key => $item){
+            DB::table('estoque')->where('produto_id', $item)->decrement('quantidade_total',$request->get('txt2')[$key]);
+        }
 
-        $produto = DB::table('produtos')
-            ->select('codprod','produtos.id','quantidade_total','produtos.nome as produto','qt_minima',
-                'qt_reposicao','estoque_localizacao.nome as nome_localizacao','localizacao','estoque_localizacao.id as localizacao_id')
-            ->where('produtos.deleted_at', '=', null)
-            ->leftjoin('estoque','estoque.produto_id','=','produtos.id')
-            ->leftjoin('estoque_localizacao','estoque.estoque_local_id','=','estoque_localizacao.id')
-            ->where('produtos.id', '=', $produto_id)
-            ->first();
-
-        return view('suprimentos.almoxarifado.edit', compact('produto','localizacao'));
+        return redirect()->route('almoxarifado.solicitacao.show')
+            ->with(['message' => 'Solicitação Finalizada! Notificação enviada para o Almoxarifado.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
     }
 
 

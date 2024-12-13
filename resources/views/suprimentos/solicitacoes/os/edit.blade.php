@@ -48,65 +48,42 @@
                 <h3 class="w-50 float-left card-title m-0">Solicitação Código : {{ $solicitacao->codospedido }}</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('almoxarifado.saida.estoque.store', $solicitacao->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('almoxarifado.saida.estoque.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="solicitacao_id" value="{{ $solicitacao->id }}">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <label for="recipient-name-2" class="col-form-label">Itens</label>
-                                <input type="text" id="itens" name="itens" class="form-control" value="{{ $solicitacao->itens }}" readonly>
-                            </div>
+                            <div class="col-md-6">
+                                <label for="recipient-name-2" class="col-form-label">Itens Solicitados</label>
+{{--                                <input type="text" id="itens" name="itens" class="form-control" value="{{ $solicitacao->itens }}" readonly>--}}
+                                    <select name="categoria_id" id="categoria_id" class="form-control" multiple size="5" readonly>
+                                        @php $itens = explode(';',$solicitacao->itens); @endphp
+                                            @foreach($itens as $item)
+                                                <option value="{{ $item }}" >{{ $item}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="recipient-name-2" class="col-form-label">Informações Adicionais:</label>
+                                    <textarea class="form-control" id="descricao" name="descricao" rows="5" readonly> {{ $solicitacao->descritivo }}</textarea>
+                                </div>
                             <div class="col-md-12 mt-2">
-                                <label for="recipient-name-2" class="col-form-label">Informações :</label>
-                                <textarea class="form-control" id="descricao" name="descricao"> {{ $solicitacao->descritivo }}</textarea>
+                                <label for="recipient-name-2" class="col-form-label">Comentário do Amoxarifado:</label>
+                                <textarea class="form-control" id="comentario_estoque" name="comentario_estoque" rows="5"></textarea>
                             </div>
-{{--                            <div class="col-md-4">--}}
-{{--                                <label for="recipient-name-2" class="col-form-label">Qt. Reposição</label>--}}
-{{--                                <input type="text" class="form-control" id="qt_reposicao" name="qt_reposicao" value="{{ $solicitacao->descritivo }}">--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <label for="recipient-name-2" class="col-form-label">Nome</label>--}}
-{{--                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $solicitacao->id }}">--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-4 mt-1">--}}
-{{--                                <label for="recipient-name-2" class="col-form-label">Categoria</label>--}}
-{{--                                <select name="categoria_id" id="categoria_id" class="form-control" required>--}}
-{{--                                    <option value="" selected>---Selecione---</option>--}}
-{{--                                        @foreach($assets['categorias'] as $categoria)--}}
-{{--                                            <option value="{{ $categoria->id }}" {{ ($categoria->id == $produto->categoria_id) ? 'selected' : '' }}>{{ $categoria->nome }}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-4 mt-1">--}}
-{{--                                <label for="recipient-name-2" class="col-form-label">Fabricante</label>--}}
-{{--                                <select name="fabricante_id" id="fabricante_id" class="form-control" required>--}}
-{{--                                    <option value="" selected>---Selecione---</option>--}}
-{{--                                        @foreach($assets['fabricantes'] as $fabricante)--}}
-{{--                                            <option--}}
-{{--                                                value="{{ $fabricante->id }}" {{ ($fabricante->id == $produto->fabricante_id) ? 'selected' : '' }}>{{ $fabricante->nome }}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-4 mt-1">--}}
-{{--                                <label for="recipient-name-2" class="col-form-label">Unid. Medida</label>--}}
-{{--                                <select name="unid_medida_id" id="unid_medida_id" class="form-control">--}}
-{{--                                    <option value="" selected>---Nenhum---</option>--}}
-{{--                                            @foreach($assets['unidade_medida'] as $unid_medida)--}}
-{{--                                                <option value="{{ $unid_medida->id }}" {{ ($unid_medida->id == $produto->unid_medida_id) ? 'selected' : '' }}>{{ $unid_medida->nome }}</option>--}}
-{{--                                            @endforeach--}}
-{{--                               </select>--}}
-{{--                            </div>--}}
                         </div>
+
+
                         <div class="row" x-data="handler()">
                             <div class="col-md-12 mt-4">
-
+                                <label for="recipient-name-2" class="col-form-label">Saida de Produtos do Estoque</label>
                             <table class="table table-bordered align-items-center table-sm">
                             <thead class="thead-light">
                             <tr>
                                 <th>#</th>
                                 <th>Produto / Item</th>
-                                <th>Produto / Item</th>
+                                <th>Quantidade</th>
                                 <th>Remover</th>
                             </tr>
                             </thead>
@@ -114,15 +91,23 @@
                             <template x-for="(field, index) in fields" :key="index">
                                 <tr>
                                     <td x-text="index + 1"></td>
-                                    <td><input x-model="field.txt1" type="text" name="txt1[]" class="form-control"></td>
-                                    <td><input x-model="field.txt2" type="text" name="txt2[]" class="form-control"></td>
+                                    <td>
+{{--                                        <input x-model="field.txt1" type="text" name="txt1[]" class="form-control">--}}
+                                        <select  x-model="field.txt1" class="form-control"  name="txt1[]" required>
+                                            <option value="" selected>---Selecione---</option>
+                                            @foreach($data['produtos'] as $prod)
+                                                <option value="{{ $prod->produto_id }}">{{ $prod->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td><input x-model="field.txt2" type="number" name="txt2[]" class="form-control" min="1" max="9999" required></td>
                                     <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
                                 </tr>
                             </template>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Adicionar Linha</button></td>
+                                <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Adicionar Produto</button></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -142,9 +127,7 @@
                             <path d="M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>
                         </svg>
                         &nbsp;
-                        Saida Produto</button>
-
-
+                        Finalizar Solicitação</button>
 
                 </form>
             </div>
@@ -183,8 +166,8 @@
                                 @foreach($data['estoque'] as $estoque)
                                     <td style="width: 10%"><b>{{ $estoque->nome }}</b></td>
                                     <td style="width: 10%">{{ $estoque->quantidade_total }}</td>
-                                    <td style="width: 25%"><b>{{ $estoque->lugar }}</b></td>
-                                    <td style="width: 25%">{{ $estoque->localizacao }}</td>
+                                    <td style="width: 25%"><b>{{ (isset($estoque->lugar)) ? $estoque->lugar : 'Não Informado' }}</b></td>
+                                    <td style="width: 25%">{{ (isset($estoque->localizacao)) ? $estoque->localizacao : 'Não Informado' }}</td>
 
                             </tr>
                             @endforeach

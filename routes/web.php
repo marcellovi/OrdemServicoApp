@@ -116,15 +116,15 @@ Route::put('produto/{id}', [ProdutoController::class ,'update'])->name('produto.
 Route::get('almoxarifado',[EstoqueController::class, 'index'])->name('almoxarifado.index');
 Route::get('almoxarifado/destroy/{id}',[EstoqueController::class, 'destroy'])->name('almoxarifado.destroy');
 Route::post('almoxarifado/store',[EstoqueController::class, 'store'])->name('almoxarifado.store');
-Route::get('almoxarifado/{produto_id}/edit/{localizacao_id}', [EstoqueController::class,'edit'])->name('almoxarifado.edit');
+Route::get('almoxarifado/{produto_id}/edit', [EstoqueController::class,'edit'])->name('almoxarifado.edit');
 Route::put('almoxarifado/{localizacao_id}', [EstoqueController::class ,'update'])->name('almoxarifado.update');
 
 // SOLICITAR PRODUTO PARA ALMOXARIFADO
 Route::post('almoxarifado/solicitacao',[EstoqueController::class, 'produtoSolicitacaoStore'])->name('almoxarifado.solicitacao.store');
 Route::get('almoxarifado/solicitacao/index',[EstoqueController::class, 'showSolicitacoes'])->name('almoxarifado.solicitacao.show');
 Route::get('almoxarifado/solicitacao/{id}/edit',[EstoqueController::class, 'editSolicitacoes'])->name('almoxarifado.solicitacao.edit');
-Route::get('almoxarifado/saida/{id}',[EstoqueController::class, 'saidaEstoqueStore'])->name('almoxarifado.saida.estoque.store');
-Route::get('almoxarifado/entrada/{id}',[EstoqueController::class, 'entradaEstoqueStore'])->name('almoxarifado.entrada.estoque.store');
+Route::put('almoxarifado/solicitacao/saida',[EstoqueController::class, 'saidaEstoqueStore'])->name('almoxarifado.saida.estoque.store');
+Route::get('almoxarifado/solicitacao/entrada',[EstoqueController::class, 'entradaEstoqueStore'])->name('almoxarifado.entrada.estoque.store');
 
 
 // CARGO

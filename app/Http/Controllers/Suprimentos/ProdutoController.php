@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Suprimentos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Estoque;
 use App\Models\Fabricante;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class ProdutoController extends Controller
                             'type' => 'danger']);
                 }
 
-             $a = Produto::create([
+             $prod = Produto::create([
                 'codprod' => strtoupper($request->get('codprod')),
                 'nome' => ucfirst($request->get('nome')),
                 'categoria_id' => $request->get('categoria_id'),
@@ -56,6 +57,10 @@ class ProdutoController extends Controller
                 'unid_medida_id' => $request->get('unid_medida_id'),
                 'descricao' => $request->get('descricao'),
             ]);
+
+                Estoque::create([
+                   'produto_id' => $prod->id,
+                ]);
 
             return redirect()->route('produto.index')
                 ->with(['message' => 'O Produto '.$request->get('nome').' foi Cadastrado no Sistema.',

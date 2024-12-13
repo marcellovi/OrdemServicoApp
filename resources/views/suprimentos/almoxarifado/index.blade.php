@@ -47,7 +47,7 @@
                                 <td style="width: 20%">{{ (!empty($produto->localizacao)) ? $produto->localizacao : 'Não Informado' }}</td>
                                 <td style="width: 10%">
                                     @php $local_estoque = (!empty($produto->estoque_localizacao_id)) ? $produto->estoque_localizacao_id : 0; @endphp
-                                    <a href="{{ route('almoxarifado.edit',[$produto->id,$local_estoque]) }}"
+                                    <a href="{{ route('almoxarifado.edit',[$produto->id]) }}"
                                        class="btn btn-outline-success m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
