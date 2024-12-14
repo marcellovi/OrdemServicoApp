@@ -13,6 +13,13 @@
 @endsection
 
 @section('scripts')
+
+    <script defer src="https://unpkg.com/alpinejs@latest/dist/cdn.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
 {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 
 
@@ -98,8 +105,20 @@
                         </div>
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">Dt. Programada</p>
-                            <input id="dtprogramada" name="dtprogramada" type="text"
-                                   placeholder="__/__/__" class="form-control" required="true" value="{{ date_format(date_create($os->data_programada),'m/d/Y') }}">
+                            <div
+                                x-data
+                                x-init="
+                                        flatpickr($refs.dateInput, {
+                                          altInput: true,
+                                          altFormat: 'd-m-Y',
+                                          dateFormat: 'Y-m-d'
+                                        })
+                                      "
+                            >
+                                <input x-ref="dateInput" type="text"  name="dtprogramada" placeholder="DD-MM-AAAA" class="w-full" value="{{$os->data_programada }}" />
+                            </div>
+{{--                            <input id="dtprogramada" name="dtprogramada" type="text"--}}
+{{--                                   placeholder="__/__/__" class="form-control" required="true" value="{{ date_format(date_create($os->data_programada),'m/d/Y') }}">--}}
                         </div>
                         <div class="mb-2 col-md-4">
                             <p class="font-weight-400 mb-2">Manutenção</p>

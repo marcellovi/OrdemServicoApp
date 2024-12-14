@@ -47,12 +47,12 @@ class OrdemServicoController extends Controller
 //        $request->validate([
 //            'categoria' => 'required',
 //        ]);
-
-        $date = null;
-        if(!empty($request->get('dtprogramada'))){
-            $date = Controller::formatIntDate($request->get('dtprogramada'));
-            $date = date_format(date_create($date),"Y/m/d");
-        }
+//dd($request->all());
+//        $date = null;
+//        if(!empty($request->get('dtprogramada'))){
+//            $date = Controller::formatIntDate($request->get('dtprogramada'));
+//            $date =
+//        }
 
 
         OrdemServico::create([
@@ -67,7 +67,7 @@ class OrdemServicoController extends Controller
             //'executor_id' => $request->get('executor'),
             'status_id' => 2, // Abertura
             'data_abertura' => date("Y/m/d"),
-            'data_programada' => $date,
+            'data_programada' => date_create($request->get('dtprogramada')),
         ]);
 
         return redirect()->route('gestao')
@@ -129,10 +129,10 @@ class OrdemServicoController extends Controller
 
         $os = OrdemServico::find($id);//dd(date_format(date_create($request->get('dtprogramada')),"Y/m/d"));
         //$datee = new DateTimeImmutable('2000-01-01');
-        $date = Controller::formatIntDate($request->get('dtprogramada'));
+        //$date = Controller::formatIntDate($request->get('dtprogramada'));
 
         $os->update([
-            'data_programada' => date_format(date_create($date),"Y/m/d"), //$request->get('dtprogramada'),
+            'data_programada' => date_create($request->get('dtprogramada')), //date_format(date_create($date),"Y/m/d"), //$request->get('dtprogramada'),
             'prioridade_id' => $request->get('prioridade'),
             'tipo_manutencao_id' => $request->get('tipo_manutencao'),
             'natureza_servico_id' => $request->get('natureza_servico'),

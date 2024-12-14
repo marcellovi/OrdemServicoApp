@@ -14,6 +14,12 @@
        // var dtabertura = new Datepicker('#dtabertura');
         var dtprogramada = new Datepicker('#dtprogramada');
     </script>
+
+<script defer src="https://unpkg.com/alpinejs@latest/dist/cdn.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 @endsection
 
 <!-- row -->
@@ -190,8 +196,21 @@
 {{--                            </div>--}}
                             <div class="mb-2 col-md-6">
                                 <p class="font-weight-400 mb-2">Dt. Programada</p>
-                                <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__"
-                                       class="form-control">
+{{--                                <input id="dtprogramada" name="dtprogramada" type="text" placeholder="__/__/__"--}}
+{{--                                       class="form-control">--}}
+
+                                <div
+                                    x-data
+                                    x-init="
+                                        flatpickr($refs.dateInput, {
+                                          altInput: true,
+                                          altFormat: 'd-m-Y',
+                                          dateFormat: 'Y-m-d'
+                                        })
+                                      "
+                                >
+                                    <input x-ref="dateInput" type="text"  name="dtprogramada" placeholder="DD-MM-AAAA" class="w-full"/>
+                                </div>
                             </div>
                             <div class="mb-2 col-md-6">
                                 <p class="font-weight-400 mb-2">Manutenção</p>
