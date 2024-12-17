@@ -65,7 +65,7 @@ class EntradaController extends Controller
             ->where('id', '=', $request->get('solicitacao_id'))
             ->update(['status_id' => 5]); // Closing the Sale ( Compra )
 
-        return redirect()->route('almoxarifado.compras.entrada.edit',$request->get('solicitacao_id'))
+        return redirect()->route('almoxarifado.solicitacao.compras.show')
             ->with(['message' => 'A Solicitação de Compra foi registrada no Sistema.',
                 'status' => 'Sucesso',
                 'type' => 'success']);
