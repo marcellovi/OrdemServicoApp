@@ -305,7 +305,7 @@
 
                         <div class="form-group">
                             <label for="recipient-name-2" class="col-form-label">Mais Informações</label>
-                            <textarea type="text" class="form-control" id="modal_descritivo" name="descritivo" rows="5"></textarea>
+                            <textarea type="text" class="form-control" id="modal_descritivo" name="descritivo" rows="5" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

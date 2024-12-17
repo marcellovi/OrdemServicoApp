@@ -52,11 +52,12 @@ class EstoqueController extends Controller
                 ->insert([
                     'produto_id' => $id,
                     'quantidade_total' => $request->get('quantidade_total'),
-                    'estoque_local_id' => $request->get('estoque_local_id')
+                    'estoque_local_id' => $request->get('estoque_local_id'),
+                    'created_at' => date('Y-m-d H:i:s'),
                 ]);
         }else{
             DB::table('estoque')->where('produto_id', $id)
-                ->update(['quantidade_total' => $request->get('quantidade_total'), 'estoque_local_id' => $request->get('estoque_local_id')]);
+                ->update(['quantidade_total' => $request->get('quantidade_total'), 'estoque_local_id' => $request->get('estoque_local_id'),'updated_at' => date('Y-m-d H:i:s')]);
         }
 
         return redirect()->route('almoxarifado.index')
@@ -76,7 +77,10 @@ class EstoqueController extends Controller
                     'type' => 'info']);
         }
 
-        $itens = implode(' ; ',$request->get('itens'));
+        $itens = 'Nenhum Item do Ativo foi Selecionado';
+        if(!empty($request->get('itens'))){
+            $itens = implode(' ; ',$request->get('itens'));
+        }
         DB::table('os_solicita_produto')->insert([
                 'codospedido' => $request->get('codospedido'),
                 'itens' => $itens,
@@ -135,9 +139,47 @@ class EstoqueController extends Controller
 
     public function saidaEstoqueStore(Request $request)
     {
-        foreach($request->get('txt1') as $key => $item){
-            DB::table('estoque')->where('produto_id', $item)->decrement('quantidade_total',$request->get('txt2')[$key]);
+        if(!empty($request->get('txt1'))){
+
+            foreach($request->get('txt1') as $key => $item){
+                DB::table('estoque')->where('produto_id', $item)->decrement('quantidade_total',$request->get('txt2')[$key]);
+
+                DB::table('item_saida')->insert(['solicita_id' => $request->get('solicitacao_id'),
+                    'produto_id' => $item,
+                    'quantidade' => $request->get('txt2')[$key],
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            }
         }
+
+        DB::table('os_solicita_produto')->where('id',$request->get('solicitacao_id'))->update(['status_id' => 5,'comentario_estoque' => $request->get('comentario_estoque')]); // Codigo de Fechamento
+
+        // TODO SEND NOTIFICACAO AO USUARIO RESPONSAVEL PELO SOLICITACAO DA OS
+
+        return redirect()->route('almoxarifado.solicitacao.show')
+            ->with(['message' => 'Solicitação Finalizada! Notificação enviada para o Almoxarifado.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
+    }
+
+    public function entradaEstoqueStore(Request $request)
+    {
+        if(!empty($request->get('txt1'))){
+
+            foreach($request->get('txt1') as $key => $item){
+                DB::table('estoque')->where('produto_id', $item)->decrement('quantidade_total',$request->get('txt2')[$key]);
+
+                DB::table('item_saida')->insert(['solicita_id' => $request->get('solicitacao_id'),
+                    'produto_id' => $item,
+                    'quantidade' => $request->get('txt2')[$key],
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+
+        DB::table('os_solicita_produto')->where('id',$request->get('solicitacao_id'))->update(['status_id' => 5,'comentario_estoque' => $request->get('comentario_estoque')]); // Codigo de Fechamento
+
+        // TODO SEND NOTIFICACAO AO USUARIO RESPONSAVEL PELO SOLICITACAO DA OS
 
         return redirect()->route('almoxarifado.solicitacao.show')
             ->with(['message' => 'Solicitação Finalizada! Notificação enviada para o Almoxarifado.',

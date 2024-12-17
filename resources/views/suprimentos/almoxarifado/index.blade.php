@@ -3,14 +3,13 @@
 @section('main')
 
     <div class="mb-4 col-md-12 mt-3" align="right">
-        <button type="button" class="btn btn-info m-1" data-toggle="modal" data-target="#verifyModalContentSolicitarCompra"
-                data-whatever="@mdo">
+        <a href="{{ route('almoxarifado.solicitacao.compras.index') }}" class="btn btn-info m-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
             </svg>
-            <span class="ul-btn__text">&nbsp; Solicitar Compra</span>
-        </button>
+            <span class="ul-btn__text">&nbsp; Solicitar Compras</span>
+        </a>
     </div>
 
     <!-- Gestao Amoxarifado -->
@@ -41,9 +40,35 @@
                                 <td style="width: 10%">
                                     <b>{{ $produto->codprod }}</b></td>
                                 <td style="width: 30%"><b>{{ $produto->produto }}</b></td>
-                                <td style="width: 10%">{{ (!empty($produto->quantidade_total)) ? $produto->quantidade_total : 'Não Informado' }}</td>
-                                <td style="width: 10%">{{ (!empty($produto->qt_minima)) ? $produto->qt_minima : 'Não Informado' }}</td>
-                                <td style="width: 10%">{{ (!empty($produto->qt_reposicao)) ? $produto->qt_reposicao : 'Não Informado' }}</td>
+                                <td style="width: 10%">
+                                    @if( (!empty($produto->quantidade_total)))
+                                      {{ $produto->quantidade_total }}
+                                    @else
+                                        <h5><span class="badge badge-pill badge-dark">{{ 'Não Informado' }}</span></h5>
+                                    @endif
+                                </td>
+                                <td style="width: 10%">
+                                    @if( (!empty($produto->qt_minima)))
+                                        @if( $produto->qt_minima > $produto->quantidade_total )
+                                            <h5><span class="badge badge-pill badge-outline-danger">{{ $produto->qt_minima }}</span></h5>
+                                        @else
+                                            {{ $produto->qt_minima }}
+                                        @endif
+                                    @else
+                                       <h5><span class="badge badge-pill badge-dark">{{ 'Não Informado' }}</span></h5>
+                                    @endif
+                                </td>
+                                <td style="width: 10%">
+                                    @if( (!empty($produto->qt_reposicao)))
+                                        @if( $produto->qt_reposicao > $produto->quantidade_total )
+                                            <h5><span class="badge badge-pill badge-outline-warning">{{ $produto->qt_reposicao }}</span></h5>
+                                        @else
+                                            {{ $produto->qt_reposicao }}
+                                        @endif
+                                    @else
+                                        <h5><span class="badge badge-pill badge-dark">{{ 'Não Informado' }}</span></h5>
+                                    @endif
+                                </td>
                                 <td style="width: 20%">{{ (!empty($produto->localizacao)) ? $produto->localizacao : 'Não Informado' }}</td>
                                 <td style="width: 10%">
                                     @php $local_estoque = (!empty($produto->estoque_localizacao_id)) ? $produto->estoque_localizacao_id : 0; @endphp

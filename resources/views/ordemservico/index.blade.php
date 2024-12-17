@@ -51,10 +51,10 @@
                             <th scope="col" style="width: 20%">N.OS</th>
                             <th scope="col" style="width: 10%">STATUS</th>
                             <th scope="col" style="width: 20%">TAGS</th>
-                            <th scope="col" style="width: 20%">PRIORIDADE</th>
+                            <th scope="col" style="width: 15%">PRIORIDADE</th>
                             <th scope="col" style="width: 10%">DT. CRIAÇÃO</th>
                             <th scope="col" style="width: 10%">DT. LIMITE</th>
-                            <th scope="col" style="width: 10%">AÇÕES</th>
+                            <th scope="col" style="width: 15%">AÇÕES</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,7 +71,7 @@
                                     @endif
                                 </td>
                                 <td style="width: 20%">{{ $os->tags }}</td>
-                                <td style="width: 20%">
+                                <td style="width: 15%">
                                         @if($os->prioridade == 'Emergencial')
                                             <span class="badge badge-danger">EMERGENCIAL</span>
                                         @elseif($os->prioridade == 'Alta')
@@ -88,7 +88,7 @@
                                 <td style="width: 10%">
                                     {{ $os->tempo_limite }}
                                 </td>
-                                <td style="width: 10%">
+                                <td style="width: 15%">
                                     <a href="{{ route('gestao.edit',$os->os_id) }}" title="Editar OS"
                                        class="btn btn-outline-success m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -109,6 +109,15 @@
                                                 d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                         </svg>
                                     </a>
+                                    @isset($os->solicita_produto_id)
+                                    <a href="{{  route('almoxarifado.solicitacao.edit',$os->solicita_produto_id) }}" title="Visualizar Solicitação da OS"
+                                       class="btn btn-outline-info m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                                        </svg>
+                                    </a>
+                                    @endisset
+
 
                                     {{--                                    <a href="{{  route('gestao.edit',$os->os_id) }}"--}}
                                     {{--                                       class="btn btn-outline-success m-1">--}}

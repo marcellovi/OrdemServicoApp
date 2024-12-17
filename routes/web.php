@@ -6,10 +6,13 @@ use App\Http\Controllers\Ativos\ItemController;
 use App\Http\Controllers\OrdemServico\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\Suprimentos\EntradaController;
 use App\Http\Controllers\Suprimentos\EstoqueController;
 use App\Http\Controllers\Suprimentos\ProdutoController;
+use App\Http\Controllers\Suprimentos\SolicitacaoCompraController;
 use App\Http\Controllers\Usuarios\CargoController;
 use App\Http\Controllers\Usuarios\UserController;
+use App\Models\SolicitacaoCompraProduto;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -98,6 +101,12 @@ Route::post('gestao/store',[OrdemServicoController::class, 'store'])->name('gest
 Route::get('gestao/{id}/edit', [OrdemServicoController::class,'edit'])->name('gestao.edit');
 Route::put('gestao/{id}', [OrdemServicoController::class ,'update'])->name('gestao.update');
 
+// OS & SOLICITACAO
+//Route::get('gestao/solicitacao/{id}',[OrdemServicoController::class, 'gestaoSolicitacaoShow'])->name('gestao.solicitacao.show');
+
+
+
+
 // CHAMADOS
 Route::get('gestao/chamado',[OrdemServicoController::class, 'chamado'])->name('chamado.index');
 Route::post('gestao/chamado/store',[OrdemServicoController::class, 'chamadoStore'])->name('chamado.store');
@@ -125,6 +134,19 @@ Route::get('almoxarifado/solicitacao/index',[EstoqueController::class, 'showSoli
 Route::get('almoxarifado/solicitacao/{id}/edit',[EstoqueController::class, 'editSolicitacoes'])->name('almoxarifado.solicitacao.edit');
 Route::put('almoxarifado/solicitacao/saida',[EstoqueController::class, 'saidaEstoqueStore'])->name('almoxarifado.saida.estoque.store');
 Route::get('almoxarifado/solicitacao/entrada',[EstoqueController::class, 'entradaEstoqueStore'])->name('almoxarifado.entrada.estoque.store');
+
+// COMPRAS & SOLICITACAO
+Route::get('almoxarifado/solicitacao/compras/index',[SolicitacaoCompraController::class, 'index'])->name('almoxarifado.solicitacao.compras.index');
+Route::get('almoxarifado/solicitacao/compras/show',[SolicitacaoCompraController::class, 'show'])->name('almoxarifado.solicitacao.compras.show');
+Route::post('almoxarifado/solicitacao/compras/store',[SolicitacaoCompraController::class, 'store'])->name('almoxarifado.solicitacao.compras.store');
+Route::get('almoxarifado/solicitacao/compras/{id}/edit',[SolicitacaoCompraController::class, 'edit'])->name('almoxarifado.solicitacao.compras.edit');
+Route::put('almoxarifado/solicitacao/compras/{id}',[SolicitacaoCompraController::class, 'update'])->name('almoxarifado.solicitacao.compras.update');
+Route::get('almoxarifado/solicitacao/compras/destroy/{id}',[SolicitacaoCompraController::class, 'destroy'])->name('almoxarifado.solicitacao.compras.destroy');
+
+// ENTRADA DE COMPRAS
+Route::get('almoxarifado/solicitacao/compras/entrada/{id}',[EntradaController::class, 'index'])->name('almoxarifado.compras.entrada.index');
+Route::get('almoxarifado/solicitacao/compras/entrada/{id}/edit',[EntradaController::class, 'edit'])->name('almoxarifado.compras.entrada.edit');
+Route::post('almoxarifado/solicitacao/compras/entrada/store',[EntradaController::class, 'store'])->name('almoxarifado.compras.entrada.store');
 
 
 // CARGO

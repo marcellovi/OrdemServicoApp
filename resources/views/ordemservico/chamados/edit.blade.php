@@ -93,13 +93,13 @@
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">Dt. Analise</p>
                             <input id="dtanalise" name="dtanalise" type="text"
-                                   placeholder="__/__/__" class="form-control" readonly value="{{ date_format(date_create($os->created_at),'m/d/Y') }}">
+                                   placeholder="__/__/__" class="form-control" readonly value="{{ date_format(date_create($os->data_analise),'m/d/Y') }}">
                         </div>
 
                         <div class="mb-2 col-md-2">
                             <p class="font-weight-400 mb-2">Dt. Programada</p>
                             <input id="dtprogramada" name="dtprogramada" type="text"
-                                   placeholder="__/__/__" class="form-control" required="true" value="{{ date_format(date_create($os->data_programada),'m/d/Y') }}">
+                                   placeholder="__/__/__" class="form-control" required="true" value="{{ (!empty($os->data_programada)) ? date_format(date_create($os->data_programada),'m/d/Y') : null }}">
                         </div>
                         <div class="mb-2 col-md-4">
                             <p class="font-weight-400 mb-2">Manutenção</p>

@@ -12,6 +12,13 @@
 {{--            </svg>--}}
 {{--            <span class="ul-btn__text">&nbsp; Consultar Estoque</span>--}}
 {{--        </button>--}}
+{{--        <a href="{{ route('almoxarifado.solicitacao.compras.index') }}" class="btn btn-info m-1">--}}
+{{--            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">--}}
+{{--                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>--}}
+{{--                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>--}}
+{{--            </svg>--}}
+{{--            <span class="ul-btn__text">&nbsp; Solicitar Compras</span>--}}
+{{--        </a>--}}
         <button type="button" class="btn btn-info m-1" data-toggle="modal" data-target="#verifyModalContentConsultaEstoque"
                 data-whatever="@mdo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -19,13 +26,14 @@
             </svg>
             <span class="ul-btn__text">&nbsp;Consultar Estoque</span>
         </button>
+
     </div>
 
-    <!-- Gestao solicitacoes -->
+    <!-- Gestao solicitacoes Compra -->
     <div class="col-md">
         <div class="card o-hidden mb-4">
             <div class="card-header d-flex align-items-center">
-                <h3 class="w-50 float-left card-title m-0">Gestão de Solicitações de OS</h3>
+                <h3 class="w-50 float-left card-title m-0">Gestão de Solicitações de Compra</h3>
             </div>
             <div class="card-body">
 
@@ -34,31 +42,24 @@
                     <table id="user_table" class="table dataTable-collapse text-center">
                         <thead>
                         <tr>
-                            <th scope="col" style="width: 10%">CODIGO OS</th>
-                            <th scope="col" style="width: 10%">PRIORIDADE</th>
-                            <th scope="col" style="width: 25%">ITENS</th>
-                            <th scope="col" style="width: 25%">INFORMAÇÕES</th>
-                            <th scope="col" style="width: 10%">STATUS</th>
-                            <th scope="col" style="width: 10%">DT.CRIAÇÃO</th>
-                            <th scope="col" style="width: 10%">AÇÕES</th>
+                            <th scope="col" style="width: 10%">CÓDIGO</th>
+                            <th scope="col" style="width: 12%">PRIORIDADE</th>
+                            <th scope="col" style="width: 13%">STATUS</th>
+                            <th scope="col" style="width: 40%">SOLICITAÇÃO</th>
+                            <th scope="col" style="width: 13%">DT.CRIAÇÃO</th>
+                            <th scope="col" style="width: 12%">AÇÕES</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            @foreach($solicitacoes as $solicitacao)
-                                <td style="width: 10%"><b>{{ $solicitacao->codospedido }}</b></td>
-                                <td style="width: 10%">
+                            @foreach($solicitacao_compras as $solicitacao)
+                                <td style="width: 10%"><b>{{ $solicitacao->codigo_solicitacao_compra }}</b></td>
+                                <td style="width: 12%">
                                     {{ (isset($data['prioridades']->where('id',$solicitacao->prioridade_id)->first()->nome)) ?
                                                                             $data['prioridades']->where('id',$solicitacao->prioridade_id)->first()->nome
                                                                             : 'Nenhum'
                                                                         }}                                </td>
-                                <td style="width: 25%"><b>{{ $solicitacao->itens }}</b></td>
-                                <td style="width: 25%">{{ $solicitacao->descritivo }}</td>
-                                <td style="width: 10%">
-{{--                                    {{ (isset($data['status']->where('id',$solicitacao->status_id)->first()->nome)) ?--}}
-{{--                                        $data['status']->where('id',$solicitacao->status_id)->first()->nome--}}
-{{--                                        : 'Nenhum'--}}
-{{--                                    }}--}}
+                                <td style="width: 13%">
                                     @php $solicitacao_status = $data['status']->where('id',$solicitacao->status_id)->first(); @endphp
                                     @if(isset($solicitacao_status->nome))
                                         @if(ucfirst($solicitacao_status->nome)  == 'Em Analise')
@@ -71,20 +72,13 @@
                                     @else
                                         <span class="badge badge-dark">{{ 'Nenhum' }}</span>
                                      @endif
-
                                 </td>
-{{--                                <td>--}}
-{{--                                    @isset($data['roles']->where('id',$usuario->role_id)->first()->name)--}}
-{{--                                        <h5><span--}}
-{{--                                            class="badge badge-pill badge-outline-dark">{{ $data['roles']->where('id',$usuario->role_id)->first()->name }}</span></h5>--}}
-{{--                                    @else--}}
-{{--                                        <span class="badge badge-pill badge-dark">{{ 'Nenhum' }}</span>--}}
-{{--                                    @endisset--}}
-{{--                                    --}}{{-- (isset() ? '<span class="badge badge-success">'.$data['roles']->where('id',$usuario->role_id)->first()->name.'</span>' : 'Nenhum' --}}
-{{--                                </td>--}}
-                                <td style="width: 10%"><b>{{ $solicitacao->created_at }}</b></td>
-                                <td style="width: 10%">
-                                    <a href="{{ route('almoxarifado.solicitacao.edit',$solicitacao->id) }}"
+                                <td style="width: 40%">
+                                    {{ $solicitacao->solicitacao }}
+                                </td>
+                                <td style="width: 13%"><b>{{ date_format($solicitacao->created_at,'d/m/Y') }}</b></td>
+                                <td style="width: 12%">
+                                    <a href="{{ route('almoxarifado.solicitacao.compras.edit',$solicitacao->id) }}"
                                        class="btn btn-outline-success m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -94,12 +88,14 @@
                                                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                         </svg>
                                     </a>
-{{--                                    <a href="{{ route('almoxarifado.saida.estoque.store',$solicitacao->id) }}" class="btn btn-outline-danger btn-icon m-1" title="SAIDA">--}}
-{{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-minus" viewBox="0 0 16 16">--}}
-{{--                                            <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>--}}
-{{--                                            <path d="M11 11.5a.5.5 0 0 1 .5-.5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1-.5-.5"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </a>--}}
+                                    @if($solicitacao->status_id != 5)
+                                    <a href="{{ route('almoxarifado.compras.entrada.edit',$solicitacao->id) }}" class="btn btn-outline-info btn-icon m-1" title="Dar Entrada">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
+                                            <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/>
+                                            <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5"/>
+                                        </svg>
+                                    </a>
+                                    @endif
                                 </td>
 
                         </tr>
@@ -141,9 +137,9 @@
                                 <tbody>
                                 <tr>
                                     @foreach($data['estoque'] as $estoque)
-                                        <td style="width: 10%"><b>{{ $estoque->nome }}</b></td>
+                                        <td style="width: 10%"><b>{{ $estoque->produto }}</b></td>
                                         <td style="width: 10%">{{ $estoque->quantidade_total }}</td>
-                                        <td style="width: 25%"><b>{{ (isset($estoque->lugar)) ? $estoque->lugar : 'Não Informado' }}</b></td>
+                                        <td style="width: 25%"><b>{{ (isset($estoque->nome_localizacao)) ? $estoque->nome_localizacao : 'Não Informado' }}</b></td>
                                         <td style="width: 25%">{{ (isset($estoque->localizacao)) ? $estoque->localizacao : 'Não Informado' }}</td>
 
                                 </tr>
@@ -188,15 +184,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                @foreach($data['estoque'] as $estoque)
-                                    <td style="width: 10%"><b>{{ $estoque->nome }}</b></td>
-                                    <td style="width: 10%">{{ $estoque->quantidade_total }}</td>
-                                    <td style="width: 25%"><b>{{ $estoque->lugar }}</b></td>
-                                    <td style="width: 25%">{{ $estoque->localizacao }}</td>
 
-                            </tr>
-                            @endforeach
+{{--                                @foreach($data['estoque'] as $estoque)--}}
+{{--                                    <tr>--}}
+{{--                                    <td style="width: 10%"><b>{{ $estoque->nome }}</b></td>--}}
+{{--                                    <td style="width: 10%">{{ $estoque->quantidade_total }}</td>--}}
+{{--                                    <td style="width: 25%"><b>{{ $estoque->lugar }}</b></td>--}}
+{{--                                    <td style="width: 25%">{{ $estoque->localizacao }}</td>--}}
+
+{{--                                    </tr>--}}
+{{--                            @endforeach--}}
+
                             </tbody>
                         </table>
                     </div>

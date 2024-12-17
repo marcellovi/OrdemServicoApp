@@ -29,14 +29,17 @@ class OrdemServicoController extends Controller
             'numero_os' => $nr_os
         ];
 
-        $list_os = OrdemServico::selectraw("ordem_servicos.id as os_id,numero_os,ativos.tags,prioridade_id,ordem_servicos.created_at,".
-            "prioridades.nome as prioridade,data_abertura,status.nome as status,DATE_FORMAT(DATE_ADD(ordem_servicos.created_at, INTERVAL tempo_limite DAY),'%d/%m/%Y') as tempo_limite")
+        $list_os = OrdemServico::selectraw("ordem_servicos.id as os_id,numero_os,ativos.tags,ordem_servicos.prioridade_id,ordem_servicos.created_at,".
+            "prioridades.nome as prioridade,data_abertura,status.nome as status,".
+            "DATE_FORMAT(DATE_ADD(ordem_servicos.created_at, INTERVAL tempo_limite DAY),'%d/%m/%Y') as tempo_limite,".
+            "os_solicita_produto.id as solicita_produto_id")
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
-            ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')
+            ->join('prioridades', 'prioridades.id', '=', 'ordem_servicos.prioridade_id')
             ->join('ativos', 'ativos.id', '=', 'ativo_id')
             ->join('status', 'status.id', '=', 'ordem_servicos.status_id')
+            ->leftjoin('os_solicita_produto','ordem_servico_id','=','ordem_servicos.id')
             ->where('ordem_servicos.deleted_at', '=', null)
-            ->whereNot('status_id',1) // Em analise
+            ->whereNot('ordem_servicos.status_id',1) // Em analise
             ->orderby('ordem_servicos.prioridade_id','asc')
             ->orderby('ordem_servicos.created_at','desc')->get();
 
@@ -257,8 +260,10 @@ class OrdemServicoController extends Controller
 //        ]);
 
         $os = OrdemServico::find($id);//dd(date_format(date_create($request->get('dtprogramada')),"Y/m/d"));
+
+        $data_abertura = (!empty($os->data_abertura)) ? $os->data_abertura : null;
         $os->update([
-            'data_abertura' => date("Y/m/d"),
+            'data_abertura' => $data_abertura,
             'data_programada' => date_format(date_create($request->get('dtprogramada')),"Y/m/d"), //$request->get('dtprogramada'),
             //'prioridade_id' => $request->get('prioridade'),
             'tipo_manutencao_id' => $request->get('tipo_manutencao'),
@@ -291,7 +296,7 @@ class OrdemServicoController extends Controller
 
         $os = OrdemServico::select('ordem_servicos.id as os_id','numero_os','ativos.tags','prioridade_id',
             'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id','status_id',
-            'prioridades.nome as prioridade','ordem_servicos.created_at as data_abertura','data_programada','diagnostico','solucao',
+            'prioridades.nome as prioridade','ordem_servicos.created_at as data_analise','data_abertura','data_programada','diagnostico','solucao',
             'pecas_trocadas','mantenedor_id','auxiliar_id')
             //->join('equipes', 'equipes.id', '=', 'equipe_responsavel_id')
             ->join('prioridades', 'prioridades.id', '=', 'prioridade_id')
@@ -300,7 +305,7 @@ class OrdemServicoController extends Controller
             ->where('ordem_servicos.deleted_at', '=', null)
             ->orderby('ordem_servicos.prioridade_id','asc')
             ->orderby('ordem_servicos.created_at','desc')->first();// dd($os->numero_os);
-//dd($os);
+
         return view('ordemservico.chamados.edit',compact('ordem_servicos','os'));
     }
 
