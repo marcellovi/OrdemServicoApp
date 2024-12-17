@@ -94,7 +94,7 @@ $url = str_replace(['/','.php'], '', $url);
                 <?php } else { ?>
             <li class="nav-item" data-item="suprimentos">
                 <?php } ?>
-                <a class="nav-item-hold" href="{{ route('compras') }}">
+                <a class="nav-item-hold">
                     <i class="nav-icon i-Receipt"></i>
                     <span class="nav-text">SUPRIMENTOS</span>
                 </a>
