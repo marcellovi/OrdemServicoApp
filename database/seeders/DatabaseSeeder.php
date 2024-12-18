@@ -27,6 +27,10 @@ class DatabaseSeeder extends Seeder
             AddTipoManutencao::class,
             AddRole::class,
             AddUserRolePermission::class,
+            AddUnidadeMedida::class,
+            AddFornecedores::class,
+            AddFabricantes::class,
+            AddEstoqueLocalizacao::class,
             ]);
     }
 }
