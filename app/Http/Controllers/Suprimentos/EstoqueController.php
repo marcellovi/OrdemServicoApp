@@ -131,10 +131,15 @@ class EstoqueController extends Controller
                 ->where('quantidade_total','>','0')
                 ->whereNull('produtos.deleted_at')->get(),
 
+
+
         ];
         $solicitacao = DB::table('os_solicita_produto')->where('id',$id)->whereNull('deleted_at')->first();
+        $saida = DB::table('item_saida')->select('produtos.nome as nome','solicita_id','quantidade')
+            ->join('produtos','item_saida.produto_id','produtos.id')
+            ->where('solicita_id',$id)->get();
 
-        return view('suprimentos.solicitacoes.os.edit', compact('solicitacao','data'));
+        return view('suprimentos.solicitacoes.os.edit', compact('solicitacao','data','saida'));
     }
 
     public function saidaEstoqueStore(Request $request)

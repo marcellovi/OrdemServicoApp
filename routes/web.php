@@ -143,6 +143,10 @@ Route::get('almoxarifado/solicitacao/compras/{id}/edit',[SolicitacaoCompraContro
 Route::put('almoxarifado/solicitacao/compras/{id}',[SolicitacaoCompraController::class, 'update'])->name('almoxarifado.solicitacao.compras.update');
 Route::get('almoxarifado/solicitacao/compras/destroy/{id}',[SolicitacaoCompraController::class, 'destroy'])->name('almoxarifado.solicitacao.compras.destroy');
 
+// OS
+Route::get('almoxarifado/solicitacao/compras/os/create/{id}',[SolicitacaoCompraController::class, 'create'])->name('almoxarifado.solicitacao.compras.os.create');
+
+
 // ENTRADA DE COMPRAS
 Route::get('almoxarifado/solicitacao/compras/entrada/{id}',[EntradaController::class, 'index'])->name('almoxarifado.compras.entrada.index');
 Route::get('almoxarifado/solicitacao/compras/entrada/{id}/edit',[EntradaController::class, 'edit'])->name('almoxarifado.compras.entrada.edit');

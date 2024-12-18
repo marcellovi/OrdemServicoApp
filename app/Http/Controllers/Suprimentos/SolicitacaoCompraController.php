@@ -21,6 +21,16 @@ class SolicitacaoCompraController extends Controller
         return view('suprimentos.solicitacoes.compra.index', compact('produtos','prioridades','codigo_solicitacao_compra'));
     }
 
+    public function create($id)
+    {
+        $produtos = Produto::all()->where('deleted_at', '=', null);
+        $prioridades =  DB::table('prioridades')->where('deleted_at', '=', null)->get();
+        $os_solicita_produto_id = $id;
+        $codigo_solicitacao_compra = 'SO-'.DB::table('os_solicita_produto')->where('id','=',$id)->first()->codospedido;
+
+        return view('suprimentos.solicitacoes.os.create', compact('produtos','prioridades','codigo_solicitacao_compra','os_solicita_produto_id'));
+    }
+
     public function show()
     {
         $data = [
@@ -68,6 +78,12 @@ class SolicitacaoCompraController extends Controller
             'status_id' => 2, // Aberta
             'prioridade_id' => $request->get('prioridade_id'),
         ]);
+
+        if(!empty($request->get('os_solicita_produto_id')) && is_numeric($request->get('os_solicita_produto_id'))){
+            DB::table('os_solicita_produto')
+                ->where('id','=',$request->get('os_solicita_produto_id'))
+                ->update(['solicitacao_compra_id' => $sol_compra->id,'updated_at' => date('Y-m-d')]);
+        }
 
         if(!empty($request->get('txt1'))){
             foreach($request->get('txt1') as $key => $item){
