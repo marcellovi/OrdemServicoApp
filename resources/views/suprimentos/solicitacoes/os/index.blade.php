@@ -82,7 +82,7 @@
 {{--                                    @endisset--}}
 {{--                                    --}}{{-- (isset() ? '<span class="badge badge-success">'.$data['roles']->where('id',$usuario->role_id)->first()->name.'</span>' : 'Nenhum' --}}
 {{--                                </td>--}}
-                                <td style="width: 10%"><b>{{ date_format(date_create($solicitacao->created_at),'m/d/Y') }}</b></td>
+                                <td style="width: 10%"><b>{{ date_format(date_create($solicitacao->created_at),'d/m/Y') }}</b></td>
                                 <td style="width: 10%">
                                     <a href="{{ route('almoxarifado.solicitacao.edit',$solicitacao->id) }}"
                                        class="btn btn-outline-success m-1">
