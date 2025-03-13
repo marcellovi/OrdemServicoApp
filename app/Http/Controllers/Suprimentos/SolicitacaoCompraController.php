@@ -70,19 +70,46 @@ class SolicitacaoCompraController extends Controller
 
     public function store(Request $request)
     {
+        // Nao permitir fazer uma solicitacao sem incluir o Produto necessario para compra
+        if(empty($request->get('txt1'))) {
+            return redirect()->route('almoxarifado.solicitacao.compras.os.create', $request->get('os_solicita_produto_id'))
+                ->with(['message' => 'Favor preencher o campo "Produto(s) Solicitados para Compra".',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
+        }
+
+        // Cria Solicitacao de Compra ( solicitacao_compra )
         $sol_compra = SolicitacaoCompra::create([
             'codigo_solicitacao_compra' => $request->get('codigo_solicitacao_compra'),
             'solicitacao' => $request->get('solicitacao'),
             'responsavel_id' => $request->get('responsavel_id'),
             'data_solicitacao' => date('Y-m-d'),
-            'status_id' => 2, // Aberta
+            'status_id' => 10, // Aguardando Solicitacao
             'prioridade_id' => $request->get('prioridade_id'),
         ]);
 
         if(!empty($request->get('os_solicita_produto_id')) && is_numeric($request->get('os_solicita_produto_id'))){
+
+            // Busca o ID da Ordem de Servico que a solicitacao de compra foi criada
+            $ordem_servico_id = DB::table('os_solicita_produto')
+                ->select('ordem_servico_id')
+                ->where('id','=',$request->get('os_solicita_produto_id'))
+                ->first()->ordem_servico_id;
+
+            // Atualiza o status da solicitacao do produto inicialmente criada pela Ordem de Servico
             DB::table('os_solicita_produto')
                 ->where('id','=',$request->get('os_solicita_produto_id'))
-                ->update(['solicitacao_compra_id' => $sol_compra->id,'updated_at' => date('Y-m-d')]);
+                ->update([
+                    'solicitacao_compra_id' => $sol_compra->id,
+                    'status_id' => 12,  // Aguardando Compra
+                    'updated_at' => date('Y-m-d')]);
+
+            // Atualiza o status da Ordem de Servico para informar que esta aguardando a Compra de Produto(s)
+            DB::table('ordem_servicos')
+                ->where('id','=',$ordem_servico_id)
+                ->update([
+                    'status_id' => 12,  // Aguardando Compra
+                    'updated_at' => date('Y-m-d')]);
         }
 
         if(!empty($request->get('txt1'))){

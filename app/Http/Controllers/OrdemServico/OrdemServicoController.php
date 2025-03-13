@@ -40,8 +40,11 @@ class OrdemServicoController extends Controller
             ->leftjoin('os_solicita_produto','ordem_servico_id','=','ordem_servicos.id')
             ->where('ordem_servicos.deleted_at', '=', null)
             ->whereNot('ordem_servicos.status_id',1) // Em analise
+            ->orderby('ordem_servicos.created_at','desc')
             ->orderby('ordem_servicos.prioridade_id','asc')
-            ->orderby('ordem_servicos.created_at','desc')->get();
+            ->orderby('ordem_servicos.status_id','asc')
+            ->get();
+        //dd($list_os);
 
         return view('ordemservico.index', compact('ordem_servicos','list_os'));
     }
@@ -87,22 +90,6 @@ class OrdemServicoController extends Controller
      */
     public function edit($id)
     {
-        $ordem_servicos = [
-            'prioridades' => DB::table('prioridades')->where('deleted_at', '=', null)->get(),
-            'natureza_servicos' => DB::table('natureza_servicos')->where('deleted_at', '=', null)->get(),
-            'tipo_manutencao' => DB::table('tipo_manutencao')->where('deleted_at', '=', null)->get(),
-            'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
-            'ativos' => Ativo::all()->where('deleted_at', '=', null),
-            'status_os' => DB::table('status')->where('deleted_at', '=', null)->where('tipo_status','os')->get(),
-            'funcionarios' => User::all()->select('matricula','name','email','id'),
-            //'itens_ativo' => Item::where('')
-        ];
-
-        $documentos = DB::table('documentos')
-                ->join('os_documentos','documentos.id','=','os_documentos.documento_id')
-                ->where('os_documentos.os_id', '=', $id)
-                ->get();
-
         $os = OrdemServico::select('ordem_servicos.id as os_id','numero_os','ativos.tags','prioridade_id','ativo_id',
             'tipo_manutencao_id','natureza_servico_id','equipe_responsavel_id','responsavel_id','status_id',
             'prioridades.nome as prioridade','data_abertura','data_programada','diagnostico','solucao',
@@ -114,6 +101,25 @@ class OrdemServicoController extends Controller
             ->where('ordem_servicos.deleted_at', '=', null)
             ->orderby('ordem_servicos.prioridade_id','asc')
             ->orderby('ordem_servicos.created_at','desc')->first();// dd($os->numero_os);
+
+        $ordem_servicos = [
+            'prioridades' => DB::table('prioridades')->where('deleted_at', '=', null)->get(),
+            'natureza_servicos' => DB::table('natureza_servicos')->where('deleted_at', '=', null)->get(),
+            'tipo_manutencao' => DB::table('tipo_manutencao')->where('deleted_at', '=', null)->get(),
+            'equipes' => DB::table('equipes')->where('deleted_at', '=', null)->get(),
+            'ativos' => Ativo::all()->where('deleted_at', '=', null),
+            'status_os' => DB::table('status')
+                ->where('deleted_at', '=', null)
+                ->where('tipo_status','os')
+                ->OrWhere('id',$os->status_id)->get(),
+            'funcionarios' => User::all()->select('matricula','name','email','id'),
+            //'itens_ativo' => Item::where('')
+        ];
+
+        $documentos = DB::table('documentos')
+                ->join('os_documentos','documentos.id','=','os_documentos.documento_id')
+                ->where('os_documentos.os_id', '=', $id)
+                ->get();
 
         $itens = DB::table('ativos_itens')
                     ->select('itens.id','itens.nome','ativo_id','modelo')

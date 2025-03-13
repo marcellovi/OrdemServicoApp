@@ -53,6 +53,8 @@
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="solicitacao_id" value="{{ $solicitacao->id }}">
+                    <input type="hidden" name="os_id" value="{{ $solicitacao->ordem_servico_id }}">
+                    <input type="hidden" name="numero_os" value="{{ (!empty($solicitacao->codospedido)) ? $solicitacao->codospedido : '' }}">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">

@@ -6,6 +6,15 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        // https://datatables.net/manual/tech-notes/3
+        $('#user_table').dataTable( {
+            order: [[4, 'desc'],[0, 'desc'],[2, 'asc'] ]
+        } );
+    </script>
+
+
 {{--    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 
     <!-- Date Picker-->
@@ -66,6 +75,15 @@
                                         <span class="badge badge-waiting">{{ $os->status }}</span>
                                     @elseif(ucfirst($os->status)  == 'Aberta')
                                         <span class="badge badge-success">{{ $os->status }}</span>
+
+                                    @elseif(ucfirst($os->status)  == 'Aguardando Solicitação')
+                                        <span class="badge badge-outline-danger">{{ $os->status }}</span>
+                                    @elseif(ucfirst($os->status)  == 'Solicitação Finalizada')
+                                        <span class="badge badge-outline-success">{{ $os->status }}</span>
+                                    @elseif(ucfirst($os->status)  == "Aguardando Compra")
+                                        <span class="badge badge-outline-primary">{{ $os->status }}</span>
+                                    @elseif(ucfirst($os->status)  == "Compra Finalizada")
+                                        <span class="badge badge-outline-secondary">{{ $os->status }}</span>
                                     @else
                                         <span class="badge badge-info">{{ $os->status }}</span>
                                     @endif
@@ -259,3 +277,6 @@
     </div>
 
 @endsection
+
+
+

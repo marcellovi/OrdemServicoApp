@@ -13,6 +13,7 @@ use App\Http\Controllers\Suprimentos\SolicitacaoCompraController;
 use App\Http\Controllers\Usuarios\CargoController;
 use App\Http\Controllers\Usuarios\UserController;
 use App\Models\SolicitacaoCompraProduto;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,7 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    $notificacoes = \App\Models\Notificacao::where('fromUserId',auth::user()->id)->get();
+    return view('admin.dashboard')->with('notificacoes',$notificacoes);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

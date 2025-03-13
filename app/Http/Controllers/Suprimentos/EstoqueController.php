@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Suprimentos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Estoque;
+use App\Models\Notificacao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use sbamtr\LaravelQueryEnrich\QE;
+use function sbamtr\LaravelQueryEnrich\c;
 
 class EstoqueController extends Controller
 {
@@ -90,8 +94,8 @@ class EstoqueController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
         ]);
 
-        // Current OS status must be updated to 'Em Espera' code 4
-        DB::table('ordem_servicos')->where('id',$request->get('os_id'))->update(['status_id' => 4]);
+        // Current OS status must be updated to 'Em Espera' code 4  ( alterado agora 10 Aguardando Solicitacao )
+        DB::table('ordem_servicos')->where('id',$request->get('os_id'))->update(['status_id' => 10]);
 
         return redirect()->route('gestao.edit', $request->get('os_id'))
             ->with(['message' => 'Solicitação enviada para o Almoxarifado.',
@@ -110,7 +114,10 @@ class EstoqueController extends Controller
                                     ->leftjoin('estoque_localizacao','estoque_localizacao.id','estoque_local_id')
                                     ->get(),
         ];
-        $solicitacoes = DB::table('os_solicita_produto')->whereNull('deleted_at')->get();
+        $solicitacoes = DB::table('os_solicita_produto')
+            ->whereNull('deleted_at')
+            ->whereNot('status_id',5)
+            ->get();
 
         return view('suprimentos.solicitacoes.os.index', compact('solicitacoes','data'));
     }
@@ -142,11 +149,45 @@ class EstoqueController extends Controller
         return view('suprimentos.solicitacoes.os.edit', compact('solicitacao','data','saida'));
     }
 
+    /**
+     * Checa se existe o total solicitado para dar baixa no estoque
+     *
+     * @param id $id do produto
+     * @param quantidade $quantidade disponivel
+     * @return boolean true se existe a quatidade solicitada ou false se nao existe
+     *
+     */
+    public function isProdutoIndisponivelEstoque($id, $quantidade){
+
+        $result = false;
+        foreach($id as $key => $item){
+            $total = DB::table('estoque')
+                ->select(  QE::subtract(c('quantidade_total'), $quantidade[$key])->as('qt_total'))
+                ->where('produto_id',$item)
+                ->first()->qt_total;
+
+            if($total <= 0){
+                $result = true;
+                break;
+            }
+        }
+        return $result;
+    }
+
     public function saidaEstoqueStore(Request $request)
     {
         if(!empty($request->get('txt1'))){
 
             foreach($request->get('txt1') as $key => $item){
+
+                // $key == 0 to only run once
+                if( $this->isProdutoIndisponivelEstoque($request->get('txt1'), $request->get('txt2')) && $key == 0 ){
+                    return redirect()->route('almoxarifado.solicitacao.edit',$request->get('solicitacao_id'))
+                        ->with(['message' => 'Não é possivel dar Baixa. Total de produtos acima do estoque. Consultar Estoque!',
+                            'status' => 'Erro',
+                            'type' => 'danger']);
+                }
+
                 DB::table('estoque')->where('produto_id', $item)->decrement('quantidade_total',$request->get('txt2')[$key]);
 
                 DB::table('item_saida')->insert(['solicita_id' => $request->get('solicitacao_id'),
@@ -157,9 +198,21 @@ class EstoqueController extends Controller
             }
         }
 
+        // Solicitacao Status Changed to - Fechada
         DB::table('os_solicita_produto')->where('id',$request->get('solicitacao_id'))->update(['status_id' => 5,'comentario_estoque' => $request->get('comentario_estoque')]); // Codigo de Fechamento
 
-        // TODO SEND NOTIFICACAO AO USUARIO RESPONSAVEL PELO SOLICITACAO DA OS
+        // Ordem Servico Status Changed to - Solicitacao Finalizada
+        DB::table('ordem_servicos')->where('id',$request->get('os_id'))->update(['status_id' => 11]);
+
+        // CREATE NOTIFICACAO AO USUARIO RESPONSAVEL PELO SOLICITACAO DA OS
+        Notificacao::create([
+            'fromUserId' => Auth::user()->id,
+            'toUserId' =>  Auth::user()->id,
+            'message' => 'Produto(s) pronto para Buscar! OS N. '.$request->get('numero_os'),
+            'status_id' => 2,
+            'prioridade_id' => 2,
+            //'created_at' => $request->get('descritivo'),
+        ]);
 
         return redirect()->route('almoxarifado.solicitacao.show')
             ->with(['message' => 'Solicitação Finalizada! Notificação enviada para o Almoxarifado.',

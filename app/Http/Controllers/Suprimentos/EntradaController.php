@@ -35,7 +35,16 @@ class EntradaController extends Controller
     }
 
     public function store(Request $request)
-    { //dd($request->all());
+    {
+        // Nao permitir fazer uma solicitacao sem incluir o Produto necessario para compra
+        if(empty($request->get('txt1'))) {
+            return redirect()->route('almoxarifado.compras.entrada.edit', $request->get('solicitacao_id'))
+                ->with(['message' => 'Favor preencher o campo "Entrada de Produtos".',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
+        }
+
+        // Registro a Entrada da Nota fiscal
         $entrada = Entrada::create([
             'num_nf' => $request->get('num_nf'),
             'imposto' => $request->get('imposto'),
@@ -45,6 +54,7 @@ class EntradaController extends Controller
             'responsavel_id' => $request->get('responsavel_id'),
         ]);
 
+        // Registro dos Produtos da Nota Fiscal, Valor e QTD
         foreach($request->get('txt1') as $key => $item){
 
             ItemEntrada::create([
@@ -61,14 +71,24 @@ class EntradaController extends Controller
                 ->update(['quantidade_total' => $request->get('txt2')[$key]]);
         }
 
+        // Atualizando status da Solicitacao de Compra
         DB::table('solicitacao_compra')
             ->where('id', '=', $request->get('solicitacao_id'))
-            ->update(['status_id' => 5]); // Closing the Sale ( Compra )
+            ->update(['status_id' => 13]); // Compra Finalizada
 
-//        // ???
-//        DB::table('os_solicita_produto')
-//            ->where('solicitacao_compra_id', '=', $request->get('solicitacao_id'))
-//            ->update(['status_id' => 10]); // Liberado
+        // Atualizando status da Solicitacao do Produto ( que gerou a compra )
+        DB::table('os_solicita_produto')
+            ->where('solicitacao_compra_id', '=', $request->get('solicitacao_id'))
+            ->update(['status_id' => 13]); //  Compra Finalizada
+
+        $ordem_servico_id = DB::table('os_solicita_produto')
+            ->where('solicitacao_compra_id', '=', $request->get('solicitacao_id'))
+            ->first()->ordem_servico_id;
+
+        // Atualizando status da Ordem de Servico
+        DB::table('ordem_servicos')
+            ->where('id', '=', $ordem_servico_id)
+            ->update(['status_id' => 13]); //  Compra Finalizada
 
         return redirect()->route('almoxarifado.solicitacao.compras.show')
             ->with(['message' => 'A Solicitação de Compra foi registrada no Sistema.',

@@ -78,7 +78,7 @@
 
                         <div class="row" x-data="handler()">
                             <div class="col-md-12 mt-4">
-                                <label for="recipient-name-2" class="col-form-label">Saida de Produtos do Estoque</label>
+                                <label for="recipient-name-2" class="col-form-label">Produto(s) Solicitados para Compra</label>
                                 <table class="table table-bordered align-items-center table-sm">
                                     <thead class="thead-light">
                                     <tr>

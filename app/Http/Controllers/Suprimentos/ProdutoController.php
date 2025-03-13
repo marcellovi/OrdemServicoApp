@@ -9,6 +9,7 @@ use App\Models\Fabricante;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function Pest\Laravel\get;
 
 class ProdutoController extends Controller
 {
@@ -20,53 +21,50 @@ class ProdutoController extends Controller
             'unidade_medida' => DB::table('unidade_medida')->where('deleted_at', '=', null)->get(),
         ];
 
-        $produtos = Produto::all()->where('deleted_at', '=', null);
+        $produtos = db::table('produtos')
+            ->select('produtos.id','codprod','nome','descricao','qt_minima','quantidade_total','fabricante_id','categoria_id','qt_reposicao')
+            ->join('estoque','produtos.id','produto_id')
+            ->where('produtos.deleted_at', '=', null)
+            ->get();
         return view('suprimentos.produtos.index', compact('assets','produtos'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
+        /*$validated = $request->validate([
+            'nome' => 'required|max:2',
+            'qt_minima' => 'numeric',
+        ]);*/
 
-        $erro = [];
-        // Check if codprod is the same
-        // ( should I check if there is the same name ? //
-
-//        if(!empty($request->get('sigla'))){
-
-            // T0DO VALIDATION //
-
-//            $is_found = DB::table('ativo_modelo')
-//                ->where('sigla', '=', $request->get('sigla'))
-//                ->first();
-//
-                $is_found = Produto::where('codprod', '=', $request->get('codprod'))->first();
-                if($is_found){
-                    return redirect()->route('produto.index')
-                        ->with(['message' => 'O Código do Produto já Existe no Sistema.',
-                            'status' => 'Erro',
-                            'type' => 'danger']);
-                }
-
-             $prod = Produto::create([
-                'codprod' => strtoupper($request->get('codprod')),
-                'nome' => ucfirst($request->get('nome')),
-                'categoria_id' => $request->get('categoria_id'),
-                'qt_minima' => $request->get('qt_minima'),
-                'qt_reposicao' => $request->get('qt_reposicao'),
-                'fabricante_id' => $request->get('fabricante_id'),
-                'unid_medida_id' => $request->get('unid_medida_id'),
-                'descricao' => $request->get('descricao'),
-            ]);
-
-                Estoque::create([
-                   'produto_id' => $prod->id,
-                ]);
-
+        $is_found = Produto::where('codprod', '=', $request->get('codprod'))->first();
+        if ($is_found) {
             return redirect()->route('produto.index')
-                ->with(['message' => 'O Produto '.$request->get('nome').' foi Cadastrado no Sistema.',
-                    'status' => 'Sucesso',
-                    'type' => 'success']);
+                ->with(['message' => 'O Código do Produto já Existe no Sistema.',
+                    'status' => 'Erro',
+                    'type' => 'danger']);
+        }
 
+        $prod = Produto::create([
+            'codprod' => strtoupper($request->get('codprod')),
+            'nome' => ucfirst($request->get('nome')),
+            'categoria_id' => $request->get('categoria_id'),
+            'qt_minima' => $request->get('qt_minima'),
+            'qt_reposicao' => $request->get('qt_reposicao'),
+            'fabricante_id' => $request->get('fabricante_id'),
+            'unid_medida_id' => $request->get('unid_medida_id'),
+            'descricao' => $request->get('descricao'),
+        ]);
+
+        Estoque::create([
+            'produto_id' => $prod->id,
+            'quantidade_total' => $request->get('qt_total'),
+        ]);
+
+        return redirect()->route('produto.index')
+            ->with(['message' => 'O Produto ' . $request->get('nome') . ' foi Cadastrado no Sistema.',
+                'status' => 'Sucesso',
+                'type' => 'success']);
 
 
 //            return redirect()->route('ativos')
@@ -123,7 +121,12 @@ class ProdutoController extends Controller
             'unidade_medida' => DB::table('unidade_medida')->where('deleted_at', '=', null)->get(),
         ];
 
-        $produto = Produto::where('id', '=', $id)->first();
+        $produto = DB::table('produtos')
+            ->select('produtos.id','codprod','nome','descricao','qt_minima','quantidade_total',
+                'fabricante_id','categoria_id','qt_reposicao','unid_medida_id')
+            ->join('estoque','produtos.id','produto_id')
+            ->where('produtos.id', '=', $id)
+            ->first();
 
         return view('suprimentos.produtos.edit', compact('produto','assets'));
     }

@@ -2,6 +2,7 @@
 
 @section('main')
 
+
     <div class="mb-4 col-md-12 mt-3" align="right">
         <button type="button" class="btn btn-info m-1" data-toggle="modal" data-target="#verifyModalContentProduto"
                 data-whatever="@mdo">
@@ -32,6 +33,7 @@
                             <th scope="col" style="width: 15%">CATEGORIA</th>
                             <th scope="col" style="width: 10%">QT. MIN</th>
                             <th scope="col" style="width: 10%">QT. REPOSIÇÃO</th>
+                            <th scope="col" style="width: 10%">QT. TOTAL</th>
                             <th scope="col" style="width: 10%">AÇÕES</th>
                         </tr>
                         </thead>
@@ -58,6 +60,9 @@
                                 </td>
                                 <td style="width: 10%">
                                     {{ (!empty($produto->qt_reposicao)) ? $produto->qt_reposicao: 'Não Informado' }}
+                                </td>
+                                <td style="width: 10%">
+                                    {{ (!empty($produto->quantidade_total)) ? $produto->quantidade_total: 'Não Informado' }}
                                 </td>
                                 <td style="width: 10%">
                                     <a href="{{ route('produto.edit',$produto->id) }}"
@@ -96,32 +101,52 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="verifyModalContent_title">Cadastrar Produto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
+
+            {{--    <div class="modal-header">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>--}}
 
                 <form action="{{ route('produto.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="recipient-name-2" class="col-form-label">Cod. Produto</label>
                                 <input type="text" id="codprod" name="codprod" class="form-control" required>
                             </div>
-                            <div class="col-md-4">
-                                <label for="recipient-name-2" class="col-form-label">Qt. Mínima</label>
-                                <input type="number" class="form-control" inputmode="numeric"  id="qt_minima" name="qt_minima" min="1" max="99999" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="recipient-name-2" class="col-form-label">Qt. Reposição</label>
-                                <input type="number" class="form-control" id="qt_reposicao" name="qt_reposicao" min="1" max="99999">
-                            </div>
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <label for="recipient-name-2" class="col-form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" name="nome" required>
                             </div>
+
+                            <div class="col-md-4">
+                                <label for="recipient-name-2" class="col-form-label">Qt. Mínima</label>
+                                <input type="number" class="form-control" inputmode="numeric"  id="qt_minima" name="qt_minima" min="0" max="99999" value="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="recipient-name-2" class="col-form-label">Qt. Reposição</label>
+                                <input type="number" class="form-control" id="qt_reposicao" name="qt_reposicao" min="0" max="99999" value="0">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="recipient-name-2" class="col-form-label">Qt. Total</label>
+                                <input type="number" class="form-control" id="qt_total" name="qt_total" min="0" max="99999" value="0">
+                            </div>
+
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Categoria</label>
                                 <select name="categoria_id" id="categoria_id" class="form-control" required>--}}
@@ -136,15 +161,15 @@
                                 <select name="fabricante_id" id="fabricante_id" class="form-control" required>
                                     <option value="" selected>---Selecione---</option>
                                     @foreach($assets['fabricantes'] as $fabricante)
-                                        <option value="{{ $fabricante->id }}" >{{ $fabricante->nome }}</option>                                    @endforeach
+                                        <option value="{{ $fabricante->id }}" >{{ $fabricante->nome }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4 mt-1">
                                 <label for="recipient-name-2" class="col-form-label">Unid. Medida</label>
                                 <select name="unid_medida_id" id="unid_medida_id" class="form-control">
-                                    <option value="" selected>---Nenhum---</option>
                                         @foreach($assets['unidade_medida'] as $unid_medida)
-                                            <option value="{{ $unid_medida->id }}">{{ $unid_medida->nome }}</option>
+                                           <option value="{{ $unid_medida->id }}" @if($unid_medida->id == 1) selected @endif>{{ $unid_medida->nome }}</option>
                                         @endforeach
                                 </select>
                             </div>

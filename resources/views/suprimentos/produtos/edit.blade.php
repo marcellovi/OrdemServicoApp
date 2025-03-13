@@ -15,17 +15,22 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <label for="recipient-name-2" class="col-form-label">Cod. Produto</label>
-                                <input type="text" id="codprod" name="codprod" class="form-control" value="{{ $produto->codprod }}">
+                            <div class="col-md-3">
+                                <label for="recipient-name-3" class="col-form-label">Cod. Produto</label>
+                                <input type="text" id="codprod" name="codprod" class="form-control" value="{{ $produto->codprod }}" readonly>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="recipient-name-2" class="col-form-label">Qt. Minimo</label>
                                 <input type="text" class="form-control" id="qt_minima" name="qt_minima" value="{{ $produto->qt_minima }}">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="recipient-name-2" class="col-form-label">Qt. Reposição</label>
                                 <input type="text" class="form-control" id="qt_reposicao" name="qt_reposicao" value="{{ $produto->qt_reposicao }}">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="recipient-name-2" class="col-form-label">Qt. Total</label>
+                                <input type="text" class="form-control" id="qt_total" name="qt_total" value="{{ $produto->quantidade_total }}" readonly>
                             </div>
                             <div class="col-md-12">
                                 <label for="recipient-name-2" class="col-form-label">Nome</label>
