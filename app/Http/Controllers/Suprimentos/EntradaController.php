@@ -66,9 +66,8 @@ class EntradaController extends Controller
             ]);
 
             // Atualizando o Estoque
-            DB::table('estoque')
-                ->where('produto_id', $item)
-                ->update(['quantidade_total' => $request->get('txt2')[$key]]);
+            DB::table('estoque')->where('produto_id', $item)->increment('quantidade_total',$request->get('txt2')[$key]);
+
         }
 
         // Atualizando status da Solicitacao de Compra
